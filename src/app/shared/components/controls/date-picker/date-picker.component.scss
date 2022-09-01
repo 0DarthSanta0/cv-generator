@@ -1,0 +1,10 @@
+:host {
+  ::ng-deep .p-inputtext {
+    border-radius: 0;
+    padding: 0.313rem 0.75rem;
+  }
+
+  ::ng-deep .p-calendar {
+    width: 100%;
+  }
+}
