@@ -1,15 +1,18 @@
-<label [ngClass]="{'required': isRequired}"> {{label}}</label>
-<p-autoComplete
-        [suggestions]="output"
-        [formControl]="control"
-        [required]="isRequired"
-        [placeholder]="placeholder"
-        [ngClass]="{'ng-invalid ng-dirty':control.errors}"
-        (completeMethod)="search($event)"
-        [multiple]="isMultiple">
-</p-autoComplete>
-<ng-container *ngIf="control.errors && control.touched">
-    <small class="p-error">
-        {{error}}
-    </small>
-</ng-container>
+<div class="wrapper">
+    <label [ngClass]="{'required': isRequired}"> {{label}}</label>
+    <p-autoComplete
+            [suggestions]="output"
+            [formControl]="control"
+            [required]="isRequired"
+            [placeholder]="placeholder"
+            [ngClass]="{'ng-invalid ng-dirty':control.errors}"
+            (completeMethod)="search($event)"
+            [multiple]="isMultiple">
+    </p-autoComplete>
+    <ng-container *ngIf="control.errors && control.touched">
+        <small class="p-error">
+            {{error}}
+        </small>
+    </ng-container>
+</div>
+
