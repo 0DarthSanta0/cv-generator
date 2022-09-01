@@ -1,3 +1,8 @@
+.required:after {
+  content:" *";
+  color: red;
+}
+
 :host {
   ::ng-deep .p-autocomplete {
     width: 100%;
