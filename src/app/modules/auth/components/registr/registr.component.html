@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <header class="header">
+        <img src="./assets/icons/internet.svg" class="icon" alt="internet">
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="container__logo">
+                <img src="./assets/icons/logo.svg" alt="logo">
+                <label>Ant Design</label>
+            </div>
+            <div class="container__form">
+                <form [formGroup]="form">
+                    <div class="container__form_inputs">
+                        <app-input
+                                class="form_item"
+                                label="Username"
+                                placeholder="Username"
+                                [errorsMap]="{required: 'Fill in the field'}"
+                                formControlName="username"
+                        ></app-input>
+                        <app-input
+                                class="form_item"
+                                label="Email"
+                                placeholder="Email"
+                                [errorsMap]="{required: 'Fill in the field', email:'Enter the correct email'}"
+                                formControlName="email"
+                        ></app-input>
+                        <app-password-input
+                                class="form_item"
+                                label="Password"
+                                placeholder="Password"
+                                [errorsMap]="{required: 'Fill in the field'}"
+                                formControlName="password"
+                        ></app-password-input>
+                    </div>
+                    <div class="container__form_link">
+                        <a href="#">Already has an account?</a>
+                    </div>
+                    <div class="container__form_button">
+                        <button pButton pRipple type="button" label="Registration" class="p-button-raised"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <img src="./assets/icons/question.svg" alt="question">
+    </footer>
+</div>
