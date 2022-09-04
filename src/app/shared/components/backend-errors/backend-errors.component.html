@@ -1,0 +1,6 @@
+<ul class="p-error">
+    <li *ngFor="let q of backendError?.details!.errors">
+        {{q.message}}
+    </li>
+    <li *ngIf="!backendError?.details!.errors">{{backendError?.message}}</li>
+</ul>

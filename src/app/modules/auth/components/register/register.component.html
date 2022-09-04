@@ -9,8 +9,14 @@
                 <img src="./assets/icons/logo.svg" alt="logo">
                 <label>Ant Design</label>
             </div>
+
+            <app-backend-errors
+                    *ngIf="backendErrors$ | async"
+                    [backendError]="backendErrors$ | async"
+            ></app-backend-errors>
+
             <div class="container__form">
-                <form [formGroup]="form">
+                <form [formGroup]="registerForm">
                     <div class="container__form_inputs">
                         <app-input
                                 class="form_item"
@@ -38,7 +44,15 @@
                         <a href="#">Already has an account?</a>
                     </div>
                     <div class="container__form_button">
-                        <button pButton pRipple type="button" label="Registration" class="p-button-raised"></button>
+                        <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Registration"
+                                class="p-button-raised"
+                                (click)="onSubmit()"
+                                [disabled]="registerForm.invalid || registerForm.pending || (isSubmitting$|async)"
+                        ></button>
                     </div>
                 </form>
             </div>
