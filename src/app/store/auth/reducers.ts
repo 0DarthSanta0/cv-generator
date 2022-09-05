@@ -7,10 +7,10 @@ const initialState: AuthStateInterface = {
   isSubmitting: false,
   currentUser: null,
   isLoggedIn: null,
-  validationErrors:null
+  validationErrors: null,
 }
 
-const authReducer = createReducer(
+export const authReducer = createReducer(
     initialState,
     on(
         registerAction, (state): AuthStateInterface => ({
@@ -23,7 +23,7 @@ const authReducer = createReducer(
         registerSuccessAction, (state, action): AuthStateInterface => ({
           ...state,
           isSubmitting: false,
-          isLoggedIn:true,
+          isLoggedIn: true,
           currentUser: action.currentUser,
         })
     ),
@@ -45,7 +45,7 @@ const authReducer = createReducer(
         loginSuccessAction, (state, action): AuthStateInterface => ({
           ...state,
           isSubmitting: false,
-          isLoggedIn:true,
+          isLoggedIn: true,
           currentUser: action.currentUser,
         })
     ),
@@ -56,8 +56,4 @@ const authReducer = createReducer(
           validationErrors: action.errors
         })
     ),
-)
-
-export function reducers(state: AuthStateInterface, action: Action) {
-  return authReducer(state, action);
-}
+);

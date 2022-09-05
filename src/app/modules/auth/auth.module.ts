@@ -8,7 +8,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {StoreModule} from "@ngrx/store";
-import {reducers} from "../../store/auth/reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {RegisterEffect} from "../../store/auth/effects/register.effect";
 import {BackendErrorsComponent} from "../../shared/components/backend-errors/backend-errors.component";
@@ -17,6 +16,7 @@ import {LocalStorageService} from "../../shared/services/local-storage.service";
 import { LoginComponent } from './components/login/login.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {LoginEffect} from "../../store/auth/effects/login.effect";
+import {authReducer} from "../../store/auth/reducers";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {LoginEffect} from "../../store/auth/effects/login.effect";
     ReactiveFormsModule,
     ButtonModule,
     RippleModule,
-    StoreModule.forFeature('auth', reducers),
+    StoreModule.forFeature('auth', authReducer),
     EffectsModule.forFeature([RegisterEffect, LoginEffect]),
     CheckboxModule,
     FormsModule,
