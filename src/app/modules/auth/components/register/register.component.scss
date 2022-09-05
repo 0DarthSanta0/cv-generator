@@ -48,12 +48,20 @@
           }
         }
 
-        .container__form_link a {
-          text-decoration: none;
-          font-size: 1.2rem;
-          float: right;
-          color: #1890FF;
-          margin: 0.4rem 0 0.8rem 0;
+        .container__form_link_right {
+          display: flex;
+          justify-content: end;
+          margin: 0.5rem 0;
+
+          a {
+            text-decoration: none;
+            color: #1890FF;
+            font-family: 'Roboto', serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+          }
         }
 
         .container__form_button {
