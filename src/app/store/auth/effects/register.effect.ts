@@ -6,7 +6,6 @@ import {AuthService} from "../../../shared/services/http/auth.service";
 import {CurrentUserInterface} from "../../../shared/models/current-user.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LocalStorageService} from "../../../shared/services/local-storage.service";
-import {Router} from "@angular/router";
 
 @Injectable()
 export class RegisterEffect {
