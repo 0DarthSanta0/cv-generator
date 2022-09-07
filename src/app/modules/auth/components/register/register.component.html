@@ -1,19 +1,20 @@
 <div class="wrapper">
     <header class="header">
-        <img src="./assets/icons/internet.svg" class="icon" alt="internet">
+        <img src="./assets/icons/internet.svg" class="header__icon" alt="internet">
     </header>
 
     <main class="main">
         <div class="container">
             <div class="container__logo">
                 <img src="./assets/icons/logo.svg" alt="logo">
-                <label>Ant Design</label>
+                <label class="logo_text">Ant Design</label>
             </div>
 
-            <app-backend-errors
-                    *ngIf="backendErrors$ | async"
-                    [backendError]="backendErrors$ | async"
-            ></app-backend-errors>
+            <div *ngIf="backendErrors$ | async as backendErrors">
+                <app-backend-errors
+                        [backendError]="backendErrors"
+                ></app-backend-errors>
+            </div>
 
             <div class="container__form">
                 <form [formGroup]="registerForm">
@@ -41,18 +42,18 @@
                         ></app-password-input>
                     </div>
                     <div class="container__form_link_right">
-                        <a [routerLink]="['/login']">Already has an account?</a>
+                        <a
+                                class="login_link"
+                                [routerLink]="routingMap"
+                        >Already has an account?
+                        </a>
                     </div>
                     <div class="container__form_button">
-                        <button
-                                pButton
-                                pRipple
-                                type="button"
+                        <app-custom-button
                                 label="Registration"
-                                class="p-button-raised"
                                 (click)="onSubmit()"
-                                [disabled]="registerForm.invalid || registerForm.pending || (isSubmitting$|async)"
-                        ></button>
+                                [disabled]="(registerForm.invalid || registerForm.pending || (isSubmitting$ | async)) ? true : false"
+                        ></app-custom-button>
                     </div>
                 </form>
             </div>
@@ -60,6 +61,9 @@
     </main>
 
     <footer class="footer">
-        <img src="./assets/icons/question.svg" alt="question">
+        <img
+                class="footer__img"
+                src="./assets/icons/question.svg"
+                alt="question">
     </footer>
 </div>

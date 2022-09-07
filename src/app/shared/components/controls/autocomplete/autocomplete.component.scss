@@ -1,5 +1,5 @@
 .required:after {
-  content:" *";
+  content: " *";
   color: red;
 }
 
@@ -7,6 +7,7 @@
   ::ng-deep .p-autocomplete {
     width: 100%;
   }
+
   ::ng-deep .p-autocomplete-input {
     width: 100%;
     border-radius: 0;
@@ -16,9 +17,10 @@
   ::ng-deep .p-autocomplete-multiple-container {
     width: 100%;
     border-radius: 0;
-    padding: 0!important;
+    padding: 0 !important;
   }
-   ::ng-deep .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token {
-      padding: 0.313rem 0.75rem;
-    }
+
+  ::ng-deep .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token {
+    padding: 0.313rem 0.75rem;
+  }
 }

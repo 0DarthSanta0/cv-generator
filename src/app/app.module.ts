@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -12,8 +11,13 @@ import {AuthModule} from "./modules/auth/auth.module";
 import {StoreModule} from "@ngrx/store";
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
+import {LocalStorageService} from "./shared/services/local-storage.service";
+import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
+import {CustomButtonModule} from "./shared/components/custom-button/custom-button.module";
+import {AuthEffect} from "./store/auth/auth.effect";
+import {appReducers} from "./store";
 
 @NgModule({
   declarations: [
@@ -27,17 +31,32 @@ import {EffectsModule} from "@ngrx/effects";
     AppInputModule,
     AutocompleteModule,
     PasswordModule,
+    CustomButtonModule,
     DatePickerModule,
     AuthModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(appReducers, {
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictStateImmutability: true,
+        strictStateSerializability: true,
+      },
+    }),
+    EffectsModule.forRoot([AuthEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
       autoPause: true,
     }),
   ],
-  providers: [],
+  providers: [
+    LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

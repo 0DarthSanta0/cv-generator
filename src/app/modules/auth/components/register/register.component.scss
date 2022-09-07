@@ -10,7 +10,7 @@
     height: 7rem;
     position: relative;
 
-    .icon {
+    &__icon {
       position: absolute;
       top: 1rem;
       right: 2rem;
@@ -32,7 +32,7 @@
         align-items: center;
         margin-bottom: 1rem;
 
-        label {
+        .logo_text {
           margin-left: 1rem;
           font-family: 'Nunito', sans-serif;
           font-weight: 600;
@@ -53,7 +53,7 @@
           justify-content: end;
           margin: 0.5rem 0;
 
-          a {
+          .login_link {
             text-decoration: none;
             color: #1890FF;
             font-family: 'Roboto', serif;
@@ -61,12 +61,6 @@
             font-weight: 400;
             font-size: 1rem;
             line-height: 1.5rem;
-          }
-        }
-
-        .container__form_button {
-          .p-button-raised {
-            width: 100%;
           }
         }
       }
@@ -78,7 +72,7 @@
     height: 9rem;
     position: relative;
 
-    img {
+    &__img {
       position: absolute;
       right: 6rem;
       bottom: 2rem;
