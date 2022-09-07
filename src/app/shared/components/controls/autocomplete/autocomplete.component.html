@@ -2,7 +2,8 @@
     <label [ngClass]="{'required': isRequired}"> {{label}}</label>
     <p-autoComplete
             #autoComplete
-            [suggestions]="output"
+            [suggestions]="(output$ | async)!"
+            [minLength]="1"
             [formControl]="control"
             [required]="isRequired"
             [placeholder]="placeholder"
