@@ -1,0 +1,12 @@
+.required:after {
+  content:" *";
+  color: red;
+}
+
+:host {
+  ::ng-deep .p-inputtextarea {
+    width: 100%;
+    border-radius: 0;
+    padding: 0.313rem 0.75rem;
+  }
+}

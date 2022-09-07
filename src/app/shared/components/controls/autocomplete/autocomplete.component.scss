@@ -1,0 +1,26 @@
+.required:after {
+  content: " *";
+  color: red;
+}
+
+:host {
+
+  ::ng-deep {
+
+    .p-autocomplete {
+      width: 100%;
+    }
+
+    .p-autocomplete-input {
+      width: 100%;
+      border-radius: 0;
+      padding: 0.313rem 0.75rem;
+    }
+
+    .p-autocomplete-multiple-container {
+      width: 100%;
+      border-radius: 0;
+      padding: 0 !important;
+    }
+  }
+}

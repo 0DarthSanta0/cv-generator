@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <label [ngClass]="{'required': isRequired}"> {{label}}</label>
+    <p-autoComplete
+            #autoComplete
+            [suggestions]="(output$ | async)!"
+            [minLength]="1"
+            [formControl]="control"
+            [required]="isRequired"
+            [placeholder]="placeholder"
+            [multiple]="isMultiple"
+            [ngClass]="{'ng-invalid ng-dirty':control.errors}"
+            (input)="search(autoComplete.inputValue)"
+    >
+
+    </p-autoComplete>
+    <ng-container *ngIf="control.errors && control.touched">
+        <small class="p-error">
+            {{error}}
+        </small>
+    </ng-container>
+</div>
+

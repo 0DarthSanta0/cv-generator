@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <label [ngClass]="{'required': isRequired}"> {{label}}</label>
+    <input
+            [formControl]="control"
+            [required]="isRequired"
+            [placeholder]="placeholder"
+            [ngClass]="{'ng-invalid ng-dirty':control.errors}"
+            pInputText
+    >
+    <ng-container *ngIf="control.errors && control.touched">
+        <small class="p-error">
+            {{error}}
+        </small>
+    </ng-container>
+</div>
+
