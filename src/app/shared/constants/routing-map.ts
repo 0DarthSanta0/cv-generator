@@ -1,3 +1,4 @@
 export enum RoutingMap {
-  LOGIN = '/login'
+  LOGIN = '/login',
+  REGISTER = '/register'
 }

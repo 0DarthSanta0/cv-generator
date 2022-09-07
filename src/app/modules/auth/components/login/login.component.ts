@@ -6,6 +6,7 @@ import {select, Store} from "@ngrx/store";
 import {isSubmittingSelector, validationErrorsSelector} from "../../../../store/auth/auth.selectors";
 import {LoginRequestInterface} from "../../../../store/auth/models/login-request.interface";
 import {loginAction} from "../../../../store/auth/actions/login.actions";
+import {RoutingMap} from "../../../../shared/constants/routing-map";
 
 interface LoginForm {
   identifier: FormControl<string>,
@@ -24,6 +25,9 @@ export class LoginComponent implements OnInit {
 
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
+
+  public routingMap: string = RoutingMap.REGISTER;
+
 
   constructor(
       private fb: FormBuilder,

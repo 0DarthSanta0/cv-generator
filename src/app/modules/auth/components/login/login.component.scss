@@ -6,8 +6,7 @@
 
 .container__form_links {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: end;
   margin: 1.375rem 0;
   font-family: 'Roboto', serif;
   line-height: 1.313rem;
@@ -16,9 +15,5 @@
   .link_forgot_password {
     text-decoration: none;
     color: #1890FF;
-  }
-
-  .remember_me {
-    color: rgba(0, 0, 0, 0.85);
   }
 }
