@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
 
-  public routingMap: string = RoutingMap.REGISTER;
+  public readonly ROUTING_MAP: string = RoutingMap.REGISTER_ROUTE;
 
 
   constructor(
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.initializeValues();
+    this.getDataFromStore();
   }
 
   public onSubmit() {
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(loginAction({request}));
   }
 
-  private initializeValues(): void {
+  private getDataFromStore(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }

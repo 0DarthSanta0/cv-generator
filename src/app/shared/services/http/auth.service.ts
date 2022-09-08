@@ -12,25 +12,19 @@ import {EndpointsUrl} from '../../constants/endpoints';
 })
 export class AuthService extends ApiService {
 
-  register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
+  public register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
     return this.http.post<AuthResponseInterface>(this.api + EndpointsUrl.REGISTER, data.user).pipe(
-        map((response: AuthResponseInterface) => {
-              return this.mapper(response);
-            }
-        )
+        map(this.currentUserMapper)
     );
   }
 
-  login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
+  public login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
     return this.http.post<AuthResponseInterface>(this.api + EndpointsUrl.LOGIN, data.user).pipe(
-        map((response: AuthResponseInterface) => {
-              return this.mapper(response);
-            }
-        )
+        map(this.currentUserMapper)
     );
   }
 
-  private mapper(response: AuthResponseInterface): CurrentUserInterface {
+  private currentUserMapper(response: AuthResponseInterface): CurrentUserInterface {
     const user = response.user;
     user.jwt = response.jwt;
     return user;

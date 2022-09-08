@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
 
-  public routingMap: string = RoutingMap.LOGIN;
+  public ROUTING_MAP: string = RoutingMap.LOGIN_ROUTE;
 
   constructor(
       private fb: FormBuilder,

@@ -1,4 +1,4 @@
 export enum RoutingMap {
-  LOGIN = '/login',
-  REGISTER = '/register'
+  LOGIN_ROUTE = '/login',
+  REGISTER_ROUTE = '/register'
 }
