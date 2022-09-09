@@ -17,3 +17,13 @@ export const isLoggedIn = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.isLoggedIn
 );
+
+export const isLoading = createSelector(
+    authFeatureSelector,
+    (authState: AuthStateInterface) => authState.isLoading
+);
+
+export const getCurrentUser = createSelector(
+    authFeatureSelector,
+    (authState: AuthStateInterface) => authState.currentUser
+);

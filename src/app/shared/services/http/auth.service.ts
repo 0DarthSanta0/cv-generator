@@ -14,17 +14,21 @@ export class AuthService extends ApiService {
 
   public register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
     return this.http.post<AuthResponseInterface>(this.api + EndpointsUrl.REGISTER, data.user).pipe(
-        map(this.currentUserMapper)
+        map(this.getUser)
     );
   }
 
   public login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
     return this.http.post<AuthResponseInterface>(this.api + EndpointsUrl.LOGIN, data.user).pipe(
-        map(this.currentUserMapper)
+        map(this.getUser)
     );
   }
 
-  private currentUserMapper(response: AuthResponseInterface): CurrentUserInterface {
+  public getCurrentUser(): Observable<CurrentUserInterface> {
+    return this.http.get<CurrentUserInterface>(this.api + EndpointsUrl.CURRENT_USER)
+  }
+
+  private getUser(response: AuthResponseInterface): CurrentUserInterface {
     const user = response.user;
     user.jwt = response.jwt;
     return user;
