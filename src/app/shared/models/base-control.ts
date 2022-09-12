@@ -68,7 +68,7 @@ export class BaseControl implements ControlValueAccessor, OnInit {
         : '';
   }
 
-  private initStatusListener(): void {
+  protected initStatusListener(): void {
     this.ngControl.control?.statusChanges
         .pipe(
             startWith(this.ngControl?.control?.status)
