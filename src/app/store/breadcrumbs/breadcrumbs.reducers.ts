@@ -9,10 +9,9 @@ export const breadcrumbsInitialState: BreadcrumbsState = {
 export const breadcrumbsReducer = createReducer(
   breadcrumbsInitialState,
   on(setBreadcrumbs, (state: BreadcrumbsState, {breadcrumbs}) =>
-    {
-      console.log(breadcrumbs)
-      return { ...state,
-      breadcrumbs, }
-    }
+    ({
+      ...state,
+      breadcrumbs,
+    })
   ),
 )
