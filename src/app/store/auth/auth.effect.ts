@@ -17,7 +17,7 @@ import {Router} from "@angular/router";
 @Injectable()
 export class AuthEffect {
 
-  register$ = createEffect(() => this.actions$.pipe(
+  public register$ = createEffect(() => this.actions$.pipe(
       ofType(registerAction),
       switchMap(({request}) => {
         return this.authService.register(request).pipe(
@@ -34,7 +34,7 @@ export class AuthEffect {
       })
   ));
 
-  login$ = createEffect(() => this.actions$.pipe(
+  public login$ = createEffect(() => this.actions$.pipe(
       ofType(loginAction),
       switchMap(({request}) => {
         return this.authService.login(request).pipe(
@@ -49,7 +49,7 @@ export class AuthEffect {
       })
   ));
 
-  getCurrentUser$ = createEffect(() => this.actions$.pipe(
+  public getCurrentUser$ = createEffect(() => this.actions$.pipe(
       ofType(getCurrentUserAction),
       switchMap(() => {
         const token = this.localStorage.getValue('accessToken');
@@ -67,12 +67,12 @@ export class AuthEffect {
       })
   ));
 
-  loginAfterSubmit$ = createEffect(
+  public loginAfterSubmit$ = createEffect(
       () =>
           this.actions$.pipe(
               ofType(loginSuccessAction),
               tap(() => {
-                this.router.navigateByUrl('/test')
+                this.router.navigateByUrl('/')
               })
           ),
       {dispatch: false}

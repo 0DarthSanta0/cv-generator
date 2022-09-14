@@ -13,6 +13,8 @@ import {LocalStorageService} from "../../shared/services/local-storage.service";
 import {LoginComponent} from './components/login/login.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {CustomButtonModule} from "../../shared/components/custom-button/custom-button.module";
+import {TranslateModule} from "@ngx-translate/core";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import {CustomButtonModule} from "../../shared/components/custom-button/custom-b
     CheckboxModule,
     FormsModule,
     CustomButtonModule,
+    TranslateModule,
+    DropdownModule,
   ],
   providers: [AuthService, LocalStorageService]
 })

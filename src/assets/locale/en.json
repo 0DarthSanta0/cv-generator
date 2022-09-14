@@ -1,0 +1,10 @@
+{
+  "validations": {
+    "requiredError": "The field should not be empty",
+    "emailError": "Enter the correct email"
+  },
+  "links": {
+    "registerNavigate": "Don't have an account?",
+    "loginNavigate": "Already has an account?"
+  }
+}

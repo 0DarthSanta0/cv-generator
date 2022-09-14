@@ -12,7 +12,7 @@
     ></textarea>
     <ng-container *ngIf="control.errors && control.touched">
         <small class="p-error">
-            {{error}}
+            {{error | translate}}
         </small>
     </ng-container>
 </div>

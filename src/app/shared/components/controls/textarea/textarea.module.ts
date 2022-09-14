@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TextareaComponent } from './textarea.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 
@@ -13,10 +14,11 @@ import {InputTextareaModule} from "primeng/inputtextarea";
    exports: [
       TextareaComponent
    ],
-   imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      InputTextareaModule
-   ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputTextareaModule,
+    TranslateModule
+  ]
 })
 export class TextareaModule { }

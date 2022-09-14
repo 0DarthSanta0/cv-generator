@@ -1,12 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
+import {Observable, Subject, takeUntil} from "rxjs";
 import {BackendErrorsInterface} from "../../../../shared/models/backend-errors.interface";
 import {select, Store} from "@ngrx/store";
 import {isSubmittingSelector, validationErrorsSelector} from "../../../../store/auth/auth.selectors";
 import {LoginRequestInterface} from "../../../../store/auth/models/login-request.interface";
 import {loginAction} from "../../../../store/auth/actions/login.actions";
-import {RoutingMap} from "../../../../shared/constants/routing-map";
+import {AppRoutes} from "../../../../shared/constants/app-routes";
+import {REQUIRED_EMAIL_FIELD, REQUIRED_FIELD} from "../../../../shared/constants/validation-errors";
+import {TranslateService} from "@ngx-translate/core";
+import {environment} from "../../../../../environments/environment";
 
 interface LoginForm {
   identifier: FormControl<string>,
@@ -19,19 +22,24 @@ interface LoginForm {
   styleUrls: ['./login.component.scss', '../register/register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  public requiredField = REQUIRED_FIELD;
+  public requiredEmailField = REQUIRED_EMAIL_FIELD;
+  public readonly registerRoute: string = '/' + AppRoutes.REGISTER_ROUTE;
+  public readonly languages: string[] = environment.locales;
 
   public loginForm: FormGroup;
+  public languageForm: FormGroup;
 
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
-
-  public readonly ROUTING_MAP: string = RoutingMap.REGISTER_ROUTE;
-
+  private destroy$ = new Subject<void>();
 
   constructor(
-      private fb: FormBuilder,
-      private store: Store
+      private formBuilder: FormBuilder,
+      private store: Store,
+      private translate: TranslateService,
   ) {
   }
 
@@ -47,16 +55,33 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(loginAction({request}));
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private getDataFromStore(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
   private initializeForm(): void {
-    this.loginForm = this.fb.group(<LoginForm>{
+    this.loginForm = this.formBuilder.group(<LoginForm>{
       identifier: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
+    this.languageForm = this.formBuilder.group({
+          language: new FormControl('')
+        }
+    );
+    this.languageForm.get('language')!
+        .valueChanges
+        .pipe(
+            takeUntil(this.destroy$)
+        )
+        .subscribe((v) => {
+          this.translate.use(v);
+        });
   }
 
 }

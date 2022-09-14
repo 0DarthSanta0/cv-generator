@@ -1,6 +1,13 @@
 <div class="wrapper">
     <header class="header">
-        <img src="./assets/icons/internet.svg" class="header__icon" alt="internet">
+        <form [formGroup]="languageForm">
+            <p-dropdown
+                    class="header__languages"
+                    formControlName="language"
+                    [options]="languages"
+            >
+            </p-dropdown>
+        </form>
     </header>
 
     <main class="main">
@@ -23,21 +30,24 @@
                                 class="form_item"
                                 label="Identifier"
                                 placeholder="email or username"
-                                [errorsMap]="{required: 'Fill in the field'}"
+                                [errorsMap]="requiredField"
                                 formControlName="identifier"
                         ></app-input>
                         <app-password-input
                                 class="form_item"
                                 label="Password"
                                 placeholder="Password"
-                                [errorsMap]="{required: 'Fill in the field'}"
+                                [errorsMap]="requiredField"
                                 formControlName="password"
                         ></app-password-input>
                     </div>
 
                     <div class="container__form_links">
                         <div class="container__form_link">
-                            <a [routerLink]="ROUTING_MAP" class="link_forgot_password">Don't have an account</a>
+                            <a [routerLink]="registerRoute" class="back_to_register">
+                                {{'links.registerNavigate' | translate}}
+
+                            </a>
                         </div>
                     </div>
 

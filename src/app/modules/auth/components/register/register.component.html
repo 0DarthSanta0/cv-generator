@@ -1,6 +1,15 @@
 <div class="wrapper">
     <header class="header">
-        <img src="./assets/icons/internet.svg" class="header__icon" alt="internet">
+        <form [formGroup]="languageForm">
+            <p-dropdown
+                    class="header__languages"
+                    formControlName="language"
+                    [options]="languages"
+            >
+            </p-dropdown>
+        </form>
+
+
     </header>
 
     <main class="main">
@@ -23,29 +32,30 @@
                                 class="form_item"
                                 label="Username"
                                 placeholder="Username"
-                                [errorsMap]="{required: 'Fill in the field'}"
+                                [errorsMap]=requiredField
                                 formControlName="username"
                         ></app-input>
                         <app-input
                                 class="form_item"
                                 label="Email"
                                 placeholder="Email"
-                                [errorsMap]="{required: 'Fill in the field', email:'Enter the correct email'}"
+                                [errorsMap]=requiredEmailField
                                 formControlName="email"
                         ></app-input>
                         <app-password-input
                                 class="form_item"
                                 label="Password"
                                 placeholder="Password"
-                                [errorsMap]="{required: 'Fill in the field'}"
+                                [errorsMap]=requiredField
                                 formControlName="password"
                         ></app-password-input>
                     </div>
                     <div class="container__form_link_right">
                         <a
                                 class="login_link"
-                                [routerLink]="ROUTING_MAP"
-                        >Already has an account?
+                                [routerLink]="loginRoute"
+                        >
+                            {{'links.loginNavigate' | translate}}
                         </a>
                     </div>
                     <div class="container__form_button">

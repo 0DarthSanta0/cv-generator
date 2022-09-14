@@ -11,13 +11,16 @@ import {AuthModule} from "./modules/auth/auth.module";
 import {StoreModule} from "@ngrx/store";
 import {environment} from "../environments/environment";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {LocalStorageService} from "./shared/services/local-storage.service";
 import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 import {CustomButtonModule} from "./shared/components/custom-button/custom-button.module";
 import {AuthEffect} from "./store/auth/auth.effect";
 import {appReducers} from "./store";
+import {MissingTranslationHandler, TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MissingTranslationService} from "./shared/utils/missing-translation.service";
 
 @NgModule({
   declarations: [
@@ -48,6 +51,15 @@ import {appReducers} from "./store";
       logOnly: environment.production,
       autoPause: true,
     }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
+      useDefaultLang: false,
+    })
   ],
   providers: [
     LocalStorageService,
@@ -60,4 +72,8 @@ import {appReducers} from "./store";
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
+  return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }
