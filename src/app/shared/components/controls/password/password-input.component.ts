@@ -9,9 +9,9 @@ import {BaseControl} from '../../../models/base-control';
 })
 export class PasswordInputComponent extends BaseControl {
 
-  public showPassword: boolean = false;
+  public isShowPassword: boolean = false;
 
-  public toggleShow(): void {
-    this.showPassword = !this.showPassword;
+  public changeShowPassword(): void {
+    this.isShowPassword = !this.isShowPassword;
   }
 }

@@ -13,19 +13,20 @@ export class AutocompleteComponent extends BaseControl {
   @Input() public isMultiple: boolean = false;
   @Input() public dataList: string[] = [];
 
-  public input$ = new Subject<string>();
-  public output$ = new Observable<string[]>();
+  public searchData$ = new Subject<string>();
+  public suggestedOptionsList$ = new Observable<string[]>();
 
-  override ngOnInit() {
-    this.output$ = this.input$.pipe(
+  override ngOnInit(): void {
+    this.suggestedOptionsList$ = this.searchData$.pipe(
         debounceTime(500),
         map((text: string) =>
             this.dataList.filter(c => c.startsWith(text))
         )
-    )
+    );
+    super.ngOnInit();
   }
 
-  search(text: string) {
-    this.input$.next(text);
+  public search(text: string): void {
+    this.searchData$.next(text);
   }
 }
