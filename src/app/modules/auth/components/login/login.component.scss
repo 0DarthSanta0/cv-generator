@@ -1,0 +1,19 @@
+:host {
+  ::ng-deep .p-checkbox {
+    margin-right: 0.5rem;
+  }
+}
+
+.container__form_links {
+  display: flex;
+  justify-content: end;
+  margin: 1.375rem 0;
+  font-family: 'Roboto', serif;
+  line-height: 1.313rem;
+  font-size: 1rem;
+
+  .back_to_register {
+    text-decoration: none;
+    color: #1890FF;
+  }
+}

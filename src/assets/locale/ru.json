@@ -1,0 +1,10 @@
+{
+  "validations": {
+    "requiredError": "Поле не может быть пустым",
+    "emailError": "Введите корректный email"
+  },
+  "links": {
+    "registerNavigate": "У вас нет аккаунта?",
+    "loginNavigate": "Уже есть аккаунт?"
+  }
+}

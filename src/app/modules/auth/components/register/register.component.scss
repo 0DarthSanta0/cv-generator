@@ -1,0 +1,82 @@
+.wrapper {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #E5E5E5;
+
+  .header {
+    width: 100%;
+    height: 7rem;
+    position: relative;
+
+    &__languages {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+
+    .container {
+      width: 22.5rem;
+      margin: 0 auto;
+
+      &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .logo_text {
+          margin-left: 1rem;
+          font-family: 'Nunito', sans-serif;
+          font-weight: 600;
+          font-size: 2.2rem;
+        }
+      }
+
+      &__form {
+
+        .container__form_inputs * {
+          ::ng-deep .wrapper {
+            margin-top: 0.5rem;
+          }
+        }
+
+        .container__form_link_right {
+          display: flex;
+          justify-content: end;
+          margin: 0.5rem 0;
+
+          .login_link {
+            text-decoration: none;
+            color: #1890FF;
+            font-family: 'Roboto', serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    height: 9rem;
+    position: relative;
+
+    &__img {
+      position: absolute;
+      right: 6rem;
+      bottom: 2rem;
+    }
+  }
+}
+

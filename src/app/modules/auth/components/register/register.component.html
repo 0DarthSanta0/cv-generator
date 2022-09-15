@@ -1,0 +1,79 @@
+<div class="wrapper">
+    <header class="header">
+        <form [formGroup]="languageForm">
+            <p-dropdown
+                    class="header__languages"
+                    formControlName="language"
+                    [options]="languages"
+            >
+            </p-dropdown>
+        </form>
+
+
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="container__logo">
+                <img src="./assets/icons/logo.svg" alt="logo">
+                <label class="logo_text">Ant Design</label>
+            </div>
+
+            <div *ngIf="backendErrors$ | async as backendErrors">
+                <app-backend-errors
+                        [backendError]="backendErrors"
+                ></app-backend-errors>
+            </div>
+
+            <div class="container__form">
+                <form [formGroup]="registerForm">
+                    <div class="container__form_inputs">
+                        <app-input
+                                class="form_item"
+                                label="Username"
+                                placeholder="Username"
+                                [errorsMap]=requiredField
+                                formControlName="username"
+                        ></app-input>
+                        <app-input
+                                class="form_item"
+                                label="Email"
+                                placeholder="Email"
+                                [errorsMap]=requiredEmailField
+                                formControlName="email"
+                        ></app-input>
+                        <app-password-input
+                                class="form_item"
+                                label="Password"
+                                placeholder="Password"
+                                [errorsMap]=requiredField
+                                formControlName="password"
+                        ></app-password-input>
+                    </div>
+                    <div class="container__form_link_right">
+                        <a
+                                class="login_link"
+                                [routerLink]="loginRoute"
+                        >
+                            {{'links.loginNavigate' | translate}}
+                        </a>
+                    </div>
+                    <div class="container__form_button">
+                        <app-custom-button
+                                label="Registration"
+                                (click)="onSubmit()"
+                                [disabled]="(registerForm.invalid || registerForm.pending || (isSubmitting$ | async)) ? true : false"
+                        ></app-custom-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <img
+                class="footer__img"
+                src="./assets/icons/question.svg"
+                alt="question">
+    </footer>
+</div>
