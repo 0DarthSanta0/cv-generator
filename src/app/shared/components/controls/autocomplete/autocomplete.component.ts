@@ -23,8 +23,7 @@ export class AutocompleteComponent extends BaseControl {
             this.dataList.filter(c => c.startsWith(text))
         )
     );
-    super.initValueChangeListener();
-    super.initStatusListener();
+    super.ngOnInit();
   }
 
   public search(text: string): void {
