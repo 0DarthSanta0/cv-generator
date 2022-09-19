@@ -15,12 +15,15 @@ import {CheckboxModule} from "primeng/checkbox";
 import {CustomButtonModule} from "../../shared/components/custom-button/custom-button.module";
 import {TranslateModule} from "@ngx-translate/core";
 import {DropdownModule} from "primeng/dropdown";
+import { AuthHeaderComponent } from './components/auth-header/auth-header.component';
+import {InputSwitchModule} from "primeng/inputswitch";
 
 @NgModule({
   declarations: [
     RegisterComponent,
     BackendErrorsComponent,
-    LoginComponent
+    LoginComponent,
+    AuthHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import {DropdownModule} from "primeng/dropdown";
     CustomButtonModule,
     TranslateModule,
     DropdownModule,
+    InputSwitchModule,
   ],
   providers: [AuthService, LocalStorageService]
 })

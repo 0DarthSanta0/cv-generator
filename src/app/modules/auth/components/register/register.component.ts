@@ -1,13 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {select, Store} from "@ngrx/store";
-import {Observable, Subject, takeUntil} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {isSubmittingSelector, validationErrorsSelector} from "../../../../store/auth/auth.selectors";
 import {BackendErrorsInterface} from "../../../../shared/models/backend-errors.interface";
 import {RegisterRequestInterface} from "../../../../store/auth/models/register-request.interface";
 import {AppRoutes} from "../../../../shared/constants/app-routes";
 import {registerAction} from "../../../../store/auth/actions/register.actions";
-import {TranslateService} from "@ngx-translate/core";
 import {REQUIRED_EMAIL_FIELD, REQUIRED_FIELD} from "../../../../shared/constants/validation-errors";
 import {environment} from "../../../../../environments/environment";
 
@@ -31,7 +30,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public readonly languages: string[] = environment.locales;
 
   public registerForm: FormGroup;
-  public languageForm: FormGroup;
 
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
@@ -40,7 +38,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
       private formBuilder: FormBuilder,
       private store: Store,
-      private translate: TranslateService,
   ) {
   }
 
@@ -73,17 +70,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
 
-    this.languageForm = this.formBuilder.group({
-          language: new FormControl('')
-        }
-    );
-    this.languageForm.get('language')!
-        .valueChanges
-        .pipe(
-            takeUntil(this.destroy$)
-        )
-        .subscribe((v) => {
-          this.translate.use(v);
-        });
   }
 }

@@ -3,19 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #E5E5E5;
-
-  .header {
-    width: 100%;
-    height: 7rem;
-    position: relative;
-
-    &__languages {
-      position: absolute;
-      top: 1rem;
-      right: 2rem;
-    }
-  }
+  background-color: var(--basic-bg-color);
 
   .main {
     width: 100%;
@@ -55,7 +43,7 @@
 
           .login_link {
             text-decoration: none;
-            color: #1890FF;
+            color: var(--color-link);
             font-family: 'Roboto', serif;
             font-style: normal;
             font-weight: 400;

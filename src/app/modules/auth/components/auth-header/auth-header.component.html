@@ -1,0 +1,15 @@
+<header class="header">
+    <form [formGroup]="headerForm">
+        <p-inputSwitch
+                class="header__switch"
+                formControlName="switchTheme"
+        ></p-inputSwitch>
+        <p-dropdown
+                class="header__languages"
+                formControlName="language"
+                [options]="languages"
+        >
+        </p-dropdown>
+    </form>
+</header>
+

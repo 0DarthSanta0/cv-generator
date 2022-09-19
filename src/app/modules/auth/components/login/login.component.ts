@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable, Subject, takeUntil} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {BackendErrorsInterface} from "../../../../shared/models/backend-errors.interface";
 import {select, Store} from "@ngrx/store";
 import {isSubmittingSelector, validationErrorsSelector} from "../../../../store/auth/auth.selectors";
@@ -8,7 +8,6 @@ import {LoginRequestInterface} from "../../../../store/auth/models/login-request
 import {loginAction} from "../../../../store/auth/actions/login.actions";
 import {AppRoutes} from "../../../../shared/constants/app-routes";
 import {REQUIRED_EMAIL_FIELD, REQUIRED_FIELD} from "../../../../shared/constants/validation-errors";
-import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../../environments/environment";
 
 interface LoginForm {
@@ -30,7 +29,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public readonly languages: string[] = environment.locales;
 
   public loginForm: FormGroup;
-  public languageForm: FormGroup;
 
   public isSubmitting$: Observable<boolean>;
   public backendErrors$: Observable<BackendErrorsInterface | null>;
@@ -39,7 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
       private formBuilder: FormBuilder,
       private store: Store,
-      private translate: TranslateService,
   ) {
   }
 
@@ -70,18 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       identifier: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
-    this.languageForm = this.formBuilder.group({
-          language: new FormControl('')
-        }
-    );
-    this.languageForm.get('language')!
-        .valueChanges
-        .pipe(
-            takeUntil(this.destroy$)
-        )
-        .subscribe((v) => {
-          this.translate.use(v);
-        });
   }
 
 }
