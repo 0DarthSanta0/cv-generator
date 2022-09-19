@@ -15,7 +15,7 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th *ngFor="let col of columnName" [pSortableColumn]="col">
+                <th *ngFor="let col of columnNames" [pSortableColumn]="col">
                     {{col | titlecase}}
                     <p-columnFilter type="text" [field]="col" display="menu"></p-columnFilter>
                     <p-sortIcon [field]="col"></p-sortIcon>
@@ -27,7 +27,7 @@
                     class="data_row"
                     (click)="emitIdRow(data.id)"
             >
-                <td *ngFor="let col of columnName">
+                <td *ngFor="let col of columnNames">
                     {{data[col]}}
                 </td>
             </tr>

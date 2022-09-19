@@ -7,23 +7,23 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomTableComponent<T> {
-    @Input() set tableData(inputListData: T[] | null) {
-        if (inputListData) {
-            this.listData = inputListData;
+    @Input() set tableData(dataList: T[] | null) {
+        if (dataList) {
+            this.dataList = dataList;
         }
     };
 
     public get tableData(): T[] {
-        return this.listData;
+        return this.dataList;
     }
-    private listData: T[];
+    private dataList: T[];
 
     @Input() globalFilteredFields: string[] = [];
-    @Input() columnName: string[] = [];
-    @Output() clickByRow = new EventEmitter<string>();
+    @Input() columnNames: string[] = [];
+    @Output() rowClicked = new EventEmitter<string>();
 
     public emitIdRow(value: string): void {
-        this.clickByRow.emit(value);
+        this.rowClicked.emit(value);
     }
 }
 
