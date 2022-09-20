@@ -2,14 +2,14 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {Theme} from "../app/shared/constants/theme";
+import {Theme} from '@constants/theme';
 
 export const environment = {
   production: false,
   api: 'http://localhost:1337/api',
   locales: ['en', 'ru'],
   defaultLocale: 'en',
-  defaultTheme: Theme.light
+  defaultTheme: Theme.LIGHT
 };
 
 /*

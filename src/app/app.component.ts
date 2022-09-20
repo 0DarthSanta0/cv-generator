@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getCurrentUserAction } from './store/auth/actions/current-user.action';
-import { LanguageService } from './shared/utils/language.service';
-import { ThemeService } from './shared/utils/theme.service';
+import { LanguageService } from '@utils/language.service';
+import { ThemeService } from '@utils/theme.service';
 
 @Component({
     selector: 'app-root',

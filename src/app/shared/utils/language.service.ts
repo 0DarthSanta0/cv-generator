@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {LocalStorageService} from "../services/local-storage.service";
-import {environment} from "../../../environments/environment";
+import {LocalStorageService} from '@services/local-storage.service';
+import {environment} from '@environment/environment';
+import { LocalStorageKeysEnum } from '@constants/local-storage-keys';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,16 @@ export class LanguageService {
   }
 
   public changeLanguage(lang: string): void {
-    this.localStorage.setValue('language', lang);
+    this.localStorage.setValue(LocalStorageKeysEnum.LANGUAGE, lang);
     this.translateService.use(lang);
   }
 
   public getCurrentLanguage(): string {
-    return this.localStorage.getValue('language');
+    return this.localStorage.getValue(LocalStorageKeysEnum.LANGUAGE);
   }
 
   public setDefaultLanguage(): void {
-    if (!this.localStorage.getValue('language')) {
-      this.translateService.use(environment.defaultLocale);
-    } else {
-      this.translateService.use(this.localStorage.getValue('language'));
-    }
+    const language = this.localStorage.getValue(LocalStorageKeysEnum.LANGUAGE) || environment.defaultLocale;
+    this.changeLanguage(language);
   }
 }

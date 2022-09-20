@@ -2,14 +2,13 @@
     <form [formGroup]="headerForm">
         <p-inputSwitch
                 class="header__switch"
-                formControlName="switchTheme"
+                formControlName="themeSwitcher"
         ></p-inputSwitch>
-        <p-dropdown
+
+        <app-dropdown
                 class="header__languages"
                 formControlName="language"
-                [options]="languages"
-        >
-        </p-dropdown>
+                [listData]="LANGUAGES"
+        ></app-dropdown>
     </form>
 </header>
-

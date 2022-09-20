@@ -1,55 +1,51 @@
-import {Inject, Injectable} from '@angular/core';
-import {DOCUMENT} from "@angular/common";
-import {LocalStorageService} from "../services/local-storage.service";
-import {environment} from "../../../environments/environment";
-import {Theme} from "../constants/theme";
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { LocalStorageService } from '@services/local-storage.service';
+import { environment } from '@environment/environment';
+import { Theme } from '@constants/theme';
+import { LocalStorageKeysEnum } from '@constants/local-storage-keys';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ThemeService {
 
-  constructor(
-      @Inject(DOCUMENT) private document: Document,
-      private localStorage: LocalStorageService
-  ) {
-  }
-
-  public switchTheme(theme: string): void {
-    this.localStorage.setValue('theme', theme);
-    let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
-
-    this.applyCustomTheme(theme);
-
-    if (themeLink) {
-      themeLink.href = theme + '.css';
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private localStorage: LocalStorageService
+    ) {
     }
 
-  }
+    public switchTheme(theme: string): void {
+        this.localStorage.setValue(LocalStorageKeysEnum.THEME, theme);
+        const themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
 
-  public getStatusForSwitchInput(): boolean {
-    return !(this.localStorage.getValue('theme') === environment.defaultTheme);
-  }
+        this.applyCustomTheme(theme);
 
-  public setDefaultTheme(): void {
-    if (!this.localStorage.getValue('theme')) {
-      this.switchTheme(environment.defaultTheme);
-    } else {
-      this.switchTheme(this.localStorage.getValue('theme'));
-    }
-  }
-
-  private applyCustomTheme(theme: string): void {
-    switch (theme) {
-      case Theme.light:
-        this.document.body.removeAttribute('dark');
-        this.document.body.setAttribute('light', '');
-        break;
-      case Theme.dark:
-        this.document.body.removeAttribute('light');
-        this.document.body.setAttribute('dark', '');
-        break;
+        if (themeLink) {
+            themeLink.href = theme + '.css';
+        }
     }
 
-  }
+    public getStatusForSwitchInput(): boolean {
+        return !(this.localStorage.getValue(LocalStorageKeysEnum.THEME) === environment.defaultTheme);
+    }
+
+    public setDefaultTheme(): void {
+        const theme = this.localStorage.getValue(LocalStorageKeysEnum.THEME) || environment.defaultTheme;
+        this.switchTheme(theme);
+    }
+
+    private applyCustomTheme(theme: string): void {
+        switch (theme) {
+            case Theme.LIGHT:
+                this.document.body.removeAttribute(Theme.DARK);
+                this.document.body.setAttribute(Theme.LIGHT, '');
+                break;
+            case Theme.DARK:
+                this.document.body.removeAttribute(Theme.LIGHT);
+                this.document.body.setAttribute(Theme.DARK, '');
+                break;
+        }
+    }
 }
