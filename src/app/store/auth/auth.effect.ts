@@ -13,6 +13,7 @@ import {
   getCurrentUserSuccessAction
 } from "./actions/current-user.action";
 import {Router} from "@angular/router";
+import { AppRoutes } from '../../shared/constants/app-routes';
 
 @Injectable()
 export class AuthEffect {
@@ -72,7 +73,7 @@ export class AuthEffect {
           this.actions$.pipe(
               ofType(loginSuccessAction),
               tap(() => {
-                this.router.navigateByUrl('/')
+                this.router.navigateByUrl(AppRoutes.EMPLOYEES_ROUTE)
               })
           ),
       {dispatch: false}

@@ -21,6 +21,7 @@ import {appReducers} from "./store";
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MissingTranslationService} from "./shared/utils/missing-translation.service";
+import { EmployeesEffect } from './store/employees/employees.effect';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import {MissingTranslationService} from "./shared/utils/missing-translation.serv
         strictStateSerializability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffect]),
+    EffectsModule.forRoot([AuthEffect, EmployeesEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
