@@ -1,1 +1,3 @@
-<p>breadcrumbs works!</p>
+<ng-container *ngIf="(breadcrumbs$ | async) as breadcrumbs">
+  <p-breadcrumb class="custom-breadcrumbs" [model]="breadcrumbs"></p-breadcrumb>
+</ng-container>
