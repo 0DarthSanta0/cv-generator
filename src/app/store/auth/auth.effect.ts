@@ -21,10 +21,11 @@ export class AuthEffect {
         ofType(registerAction),
         switchMap(({request}) => {
             return this.authService.register(request).pipe(
-                map((currentUser: CurrentUserInterface) => {
-                    this.localStorage.setValue('accessToken', currentUser.jwt);
-                    return registerSuccessAction({currentUser});
-                }),
+                map((currentUser: CurrentUserInterface) => (
+                        registerSuccessAction({currentUser})
+                    )
+                ),
+                tap((currentUser) => this.localStorage.setValue('accessToken', currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(
                         registerFailureAction({errors: errorResponse.error.error})
@@ -38,10 +39,10 @@ export class AuthEffect {
         ofType(loginAction),
         switchMap(({request}) => {
             return this.authService.login(request).pipe(
-                map((currentUser) => {
-                    this.localStorage.setValue('accessToken', currentUser.jwt);
-                    return loginSuccessAction({currentUser});
-                }),
+                map((currentUser) => (
+                    loginSuccessAction({currentUser})
+                )),
+                tap((currentUser) => this.localStorage.setValue('accessToken', currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(loginFailureAction({errors: errorResponse.error.error}))
                 })
@@ -57,9 +58,9 @@ export class AuthEffect {
                 return of(getCurrentUserFailureAction());
             }
             return this.authService.getCurrentUser().pipe(
-                map((currentUser) => {
-                    return getCurrentUserSuccessAction({currentUser});
-                }),
+                map((currentUser) => (
+                    getCurrentUserSuccessAction({currentUser})
+                )),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(getCurrentUserFailureAction());
                 })
