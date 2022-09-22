@@ -1,4 +1,4 @@
-export interface CurrentUserInterface {
+export interface EmployeesResponseInterface {
     id: number,
     username: string,
     firstName: string,
@@ -7,7 +7,10 @@ export interface CurrentUserInterface {
     education: string,
     description: string,
     jwt: string,
-    position: string,
+    position: {
+        id: number,
+        name: string
+    }
     cvs: {
         ids: number[]
     },

@@ -4,9 +4,9 @@
 
 <ng-template #table>
     <app-custom-table
-            [tableData]="employees$ | async"
-            [globalFilteredFields]="['firstName','lastName','email']"
-            [columnNames]="['firstName','lastName','email']"
+            [tableData]="employeesWithSkills$ | async"
+            [globalFilteredFields]="columnNames"
+            [columnNames]="columnNames"
+            (rowClicked)="redirectToEmployeesInfo($event)"
     ></app-custom-table>
 </ng-template>
-

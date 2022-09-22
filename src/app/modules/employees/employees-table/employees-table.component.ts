@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { employeesListAction } from '../../../store/employees/actions/employees-table.action';
-import { isLoadingSelector, listEmployeesSelector } from '../../../store/employees/employees.selectors';
-import { EmployeesInterface } from '../../../shared/models/interfaces/employees.interface';
+import { isLoadingSelector, listEmployeesWithSkillsSelector } from '../../../store/employees/employees.selectors';
+import { IEmployeesWithSkills } from '../../../shared/models/employees.interface';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../../../shared/constants/app-routes';
 
 @Component({
     selector: 'app-employees-table',
@@ -14,9 +16,12 @@ import { EmployeesInterface } from '../../../shared/models/interfaces/employees.
 export class EmployeesTableComponent implements OnInit {
 
     public isLoading$: Observable<boolean>;
-    public employees$: Observable<EmployeesInterface[]>;
+    public employeesWithSkills$: Observable<IEmployeesWithSkills[]>;
+
+    public columnNames: string[] = ['firstName', 'lastName', 'email', 'position', 'skills'];
 
     constructor(private store: Store,
+                private router: Router,
     ) {
     }
 
@@ -25,10 +30,13 @@ export class EmployeesTableComponent implements OnInit {
         this.getDataFromStore();
     }
 
+    public redirectToEmployeesInfo(id: string): void {
+        this.router.navigate([AppRoutes.EMPLOYEES_ROUTE, id]);
+    }
+
     private getDataFromStore(): void {
-        this.employees$ = this.store.pipe(
-            select(listEmployeesSelector),
-            map((employees) => [...employees])
+        this.employeesWithSkills$ = this.store.pipe(
+            select(listEmployeesWithSkillsSelector),
         );
         this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     }
