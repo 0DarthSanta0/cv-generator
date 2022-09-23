@@ -4,7 +4,6 @@ import { getCurrentUserAction } from './store/auth/actions/current-user.action';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { isLoggedIn } from './store/auth/auth.selectors';
 import { AppRoutes } from './shared/constants/app-routes';
 
 @Component({
@@ -23,11 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getCurrentUserAction());
-    this.store.select(isLoggedIn).subscribe(
-      (isLogged: boolean | null) => {
-        this.route.navigate([`/${isLogged ? AppRoutes.MAIN_ROUTE : AppRoutes.REGISTER_ROUTE}`]);
-      }
-    );
+    this.route.navigate([`/${AppRoutes.MAIN_ROUTE}`]);
     this.translateService.use(environment.defaultLocale);
   }
 }
