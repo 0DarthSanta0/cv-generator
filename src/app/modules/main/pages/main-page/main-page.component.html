@@ -1,7 +1,10 @@
-<div class="side-panel"></div>
+<div class="side-panel">
+  <p-listbox [options]="listElements" [(ngModel)]="selected" (onClick)="select($event)" optionLabel="label"></p-listbox>
+</div>
 <div class="page-content">
   <header>
     <app-breadcrumbs class="breadcrumbs"></app-breadcrumbs>
+    <p class="selected-module">{{selected.label}}</p>
   </header>
   <router-outlet></router-outlet>
 </div>
