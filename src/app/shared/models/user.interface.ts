@@ -1,4 +1,4 @@
-import { IdsListInterface } from './interfaces/ids-list.interface';
+import { JsonDataResponseInterface } from './interfaces/json-data-response.interface';
 
 export interface UserInterface {
     id: number,
@@ -10,7 +10,6 @@ export interface UserInterface {
     description: string,
     jwt: string,
     position: string,
-    cvs: IdsListInterface,
-    languages: IdsListInterface,
-    skills: IdsListInterface,
+    languages: JsonDataResponseInterface,
+    skills: JsonDataResponseInterface,
 }

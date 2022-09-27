@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { BackendErrorsInterface } from '../../../shared/models/backend-errors.interface';
 import { EmployeesActionTypes } from '../employees-action-types';
-import { EmployeesInterface } from '../../../shared/models/employees.interface';
+import { IEmployeesWithSkills } from '../../../shared/models/employees.interface';
 import { SkillInterface } from '../../../shared/models/skill.interface';
 
 export const employeesListAction = createAction(
@@ -10,7 +10,7 @@ export const employeesListAction = createAction(
 
 export const employeesListSuccessAction = createAction(
     EmployeesActionTypes.EMPLOYEES_LIST_SUCCESS,
-    props<{ listEmployees: EmployeesInterface[] }>()
+    props<{ listEmployees: IEmployeesWithSkills[] }>()
 )
 
 export const employeesListFailureAction = createAction(

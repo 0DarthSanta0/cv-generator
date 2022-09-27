@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { employeesListAction } from '../../../store/employees/actions/employees-table.action';
-import { isLoadingSelector, listEmployeesWithSkillsSelector } from '../../../store/employees/employees.selectors';
+import { isLoadingSelector, listEmployeesSelector } from '../../../store/employees/employees.selectors';
 import { IEmployeesWithSkills } from '../../../shared/models/employees.interface';
 import { Router } from '@angular/router';
 import { AppRoutes } from '../../../shared/constants/app-routes';
@@ -35,9 +35,7 @@ export class EmployeesTableComponent implements OnInit {
     }
 
     private getDataFromStore(): void {
-        this.employeesWithSkills$ = this.store.pipe(
-            select(listEmployeesWithSkillsSelector),
-        );
+        this.employeesWithSkills$ = this.store.pipe(select(listEmployeesSelector),);
         this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     }
 

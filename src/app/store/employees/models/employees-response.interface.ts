@@ -1,4 +1,5 @@
 import { PositionInterface } from '../../../shared/models/interfaces/position.interface';
+import { JsonDataResponseInterface } from '../../../shared/models/interfaces/json-data-response.interface';
 
 export interface EmployeesResponseInterface {
     id: number,
@@ -10,13 +11,6 @@ export interface EmployeesResponseInterface {
     description: string,
     jwt: string,
     position: PositionInterface,
-    cvs: {
-        ids: number[]
-    },
-    languages: {
-        ids: number[]
-    },
-    skills: {
-        ids: number[],
-    },
+    languages: JsonDataResponseInterface,
+    skills: JsonDataResponseInterface,
 }
