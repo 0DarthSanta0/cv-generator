@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EmployeesResponseInterface } from '../../store/employees/models/employees-response.interface';
-import { EmployeesInterface } from '../models/employees.interface';
+import { EmployeesInterface, IEmployeesWithSkills } from '../models/employees.interface';
 import { SkillsListResponseInterface } from '../../store/employees/models/skills-list-response.interface';
 import { SkillInterface } from '../models/skill.interface';
 
@@ -18,6 +18,22 @@ export class EmployeesMapperService {
             }
             return mappedEmployee;
         });
+    }
+
+    public employeeWithSkills(listEmployees: EmployeesInterface[], skills: SkillInterface[]): IEmployeesWithSkills[] {
+        return  listEmployees.reduce((acc: IEmployeesWithSkills[], employee: EmployeesInterface) => {
+            const employeesSkills = employee.skills.data.map((dataSkill) =>
+                (skills.find((skill) => skill.id === dataSkill.id))
+            );
+
+            const employeesWithSkills: IEmployeesWithSkills = {
+                ...employee,
+                employees: employee,
+                skills: employeesSkills.map((skill) => skill!.name),
+            }
+            console.log(employeesWithSkills)
+            return [...acc, employeesWithSkills];
+        }, [])
     }
 
     public skillsMap(skillResponse: SkillsListResponseInterface): SkillInterface[] {

@@ -15,6 +15,7 @@ import { SkillsService } from '../../shared/services/http/skills.service';
 import { select, Store } from '@ngrx/store';
 import { listSkillsSelector } from './employees.selectors';
 import { EmployeesInterface, IEmployeesWithSkills } from '../../shared/models/employees.interface';
+import { EmployeesMapperService } from '../../shared/utils/employees-mapper.service';
 
 @Injectable()
 export class EmployeesEffects {
@@ -24,21 +25,7 @@ export class EmployeesEffects {
         switchMap(() =>
             this.employeesService.getListEmployees()),
         withLatestFrom(this.store.pipe(select(listSkillsSelector))),
-        map(([listEmployees, skills]) => (
-            listEmployees.reduce((acc: IEmployeesWithSkills[], employee: EmployeesInterface) => {
-                const employeesSkills = employee.skills.data.map((dataSkill) =>
-                    (skills.find((skill) => skill.id === dataSkill.id))
-                );
-
-                const employeesWithSkills: IEmployeesWithSkills = {
-                    ...employee,
-                    employees: employee,
-                    skills: employeesSkills.map((skill) => skill!.name),
-                }
-                console.log(employeesWithSkills)
-                return [...acc, employeesWithSkills];
-            }, [])
-        )),
+        map(([listEmployees, skills]) => (this.employeeMappers.employeeWithSkills(listEmployees, skills))),
         map((listEmployees) =>
             employeesListSuccessAction({listEmployees})
         ),
@@ -63,6 +50,7 @@ export class EmployeesEffects {
                 private store: Store,
                 private employeesService: EmployeesService,
                 private skillsService: SkillsService,
+                private employeeMappers: EmployeesMapperService
     ) {
     }
 }
