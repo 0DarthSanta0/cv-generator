@@ -16,7 +16,7 @@ export class ThemeService {
     ) {
     }
 
-    public switchTheme(theme: string): void {
+    public switchTheme(theme: Theme): void {
         this.localStorage.setValue(LocalStorageKeysEnum.THEME, theme);
         const themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
 
@@ -36,16 +36,11 @@ export class ThemeService {
         this.switchTheme(theme);
     }
 
-    private applyCustomTheme(theme: string): void {
-        switch (theme) {
-            case Theme.LIGHT:
-                this.document.body.removeAttribute(Theme.DARK);
-                this.document.body.setAttribute(Theme.LIGHT, '');
-                break;
-            case Theme.DARK:
-                this.document.body.removeAttribute(Theme.LIGHT);
-                this.document.body.setAttribute(Theme.DARK, '');
-                break;
+    private applyCustomTheme(theme: Theme): void {
+
+        if (theme === Theme.LIGHT){
+            this.document.body.removeAttribute(Theme.DARK);
         }
+        this.document.body.setAttribute(theme, '');
     }
 }

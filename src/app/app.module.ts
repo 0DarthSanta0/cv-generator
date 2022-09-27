@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from '@components/controls/input/app-input.module';
 import { AutocompleteModule } from '@components/controls/autocomplete/autocomplete.module';
 import { PasswordModule } from 'primeng/password';
@@ -10,7 +8,6 @@ import { DatePickerModule } from '@components/controls/date-picker/date-picker.m
 import { AuthModule } from './modules/auth/auth.module';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '@environment/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageService } from '@services/local-storage.service';
@@ -19,8 +16,11 @@ import { CustomButtonModule } from '@components/custom-button/custom-button.modu
 import { AuthEffect } from './store/auth/auth.effect';
 import { appReducers } from './store';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from '@utils/missing-translation.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
     declarations: [

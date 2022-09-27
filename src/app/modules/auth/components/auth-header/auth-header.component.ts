@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { environment, HeaderForm, LanguageService, Theme, ThemeService } from '../../index'
+import { environment } from '@environment/environment';
+import { LanguageService } from '@utils/language.service';
+import { ThemeService } from '@utils/theme.service';
+import { HeaderForm } from '@auth';
+import { Theme } from '@constants/theme';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-auth-header',
@@ -17,7 +21,7 @@ export class AuthHeaderComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: NonNullableFormBuilder,
         private languageService: LanguageService,
         private themeService: ThemeService,
     ) {
@@ -33,9 +37,9 @@ export class AuthHeaderComponent implements OnInit, OnDestroy {
     }
 
     private initializeForm(): void {
-        this.headerForm = this.formBuilder.group(<HeaderForm>{
-                language: new FormControl(this.languageService.getCurrentLanguage()),
-                themeSwitcher: new FormControl(this.themeService.getStatusForSwitchInput())
+        this.headerForm = this.formBuilder.group<HeaderForm>({
+                language: this.formBuilder.control(this.languageService.getCurrentLanguage()),
+                themeSwitcher: this.formBuilder.control(this.themeService.getStatusForSwitchInput())
             }
         );
         this.headerForm.controls.language

@@ -21,10 +21,7 @@ export class AuthEffect {
         ofType(registerAction),
         switchMap(({request}) => {
             return this.authService.register(request).pipe(
-                map((currentUser: CurrentUserInterface) => (
-                        registerSuccessAction({currentUser})
-                    )
-                ),
+                map((currentUser: CurrentUserInterface) => registerSuccessAction({currentUser})),
                 tap((currentUser) => this.localStorage.setValue('accessToken', currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(
@@ -39,9 +36,7 @@ export class AuthEffect {
         ofType(loginAction),
         switchMap(({request}) => {
             return this.authService.login(request).pipe(
-                map((currentUser) => (
-                    loginSuccessAction({currentUser})
-                )),
+                map((currentUser) => loginSuccessAction({currentUser})),
                 tap((currentUser) => this.localStorage.setValue('accessToken', currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(loginFailureAction({errors: errorResponse.error.error}))
@@ -58,10 +53,8 @@ export class AuthEffect {
                 return of(getCurrentUserFailureAction());
             }
             return this.authService.getCurrentUser().pipe(
-                map((currentUser) => (
-                    getCurrentUserSuccessAction({currentUser})
-                )),
-                catchError((errorResponse: HttpErrorResponse) => {
+                map((currentUser) => getCurrentUserSuccessAction({currentUser})),
+                catchError(() => {
                     return of(getCurrentUserFailureAction());
                 })
             )

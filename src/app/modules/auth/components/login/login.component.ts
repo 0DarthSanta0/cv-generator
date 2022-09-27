@@ -1,19 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import {
-    AppRoutes,
-    BackendErrorsInterface,
-    environment,
-    isSubmittingSelector,
-    loginAction,
-    LoginRequestInterface,
-    REQUIRED_EMAIL_FIELD,
-    REQUIRED_FIELD,
-    validationErrorsSelector,
-    LoginForm
-} from '../../index';
+import { REQUIRED_EMAIL_FIELD, REQUIRED_FIELD } from '@constants/validation-errors';
+import { AppRoutes } from '@constants/app-routes';
+import { environment } from '@environment/environment';
+import { BackendErrorsInterface } from '@models/backend-errors.interface';
+import { LoginRequestInterface } from '@ourStore/auth/models/login-request.interface';
+import { loginAction } from '@ourStore/auth/actions/login.actions';
+import { isSubmittingSelector, validationErrorsSelector } from '@ourStore/auth/auth.selectors';
+import { LoginForm } from '@auth';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -35,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: NonNullableFormBuilder,
         private store: Store,
     ) {
     }
@@ -63,9 +59,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     private initializeForm(): void {
-        this.loginForm = this.formBuilder.group(<LoginForm>{
-            identifier: new FormControl('', [Validators.required]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)])
+        this.loginForm = this.formBuilder.group<LoginForm>({
+            identifier: this.formBuilder.control('', [Validators.required]),
+            password: this.formBuilder.control('', [Validators.required, Validators.minLength(6)])
         });
     }
 

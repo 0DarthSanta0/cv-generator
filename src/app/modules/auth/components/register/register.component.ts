@@ -1,19 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import {
-    AppRoutes,
-    BackendErrorsInterface,
-    environment,
-    isSubmittingSelector,
-    registerAction,
-    RegisterRequestInterface,
-    REQUIRED_EMAIL_FIELD,
-    REQUIRED_FIELD,
-    validationErrorsSelector,
-    RegisterForm
-} from '../../index';
+import { REQUIRED_EMAIL_FIELD, REQUIRED_FIELD } from '@constants/validation-errors';
+import { AppRoutes } from '@constants/app-routes';
+import { environment } from '@environment/environment';
+import { BackendErrorsInterface } from '@models/backend-errors.interface';
+import { RegisterRequestInterface } from '@ourStore/auth/models/register-request.interface';
+import { registerAction } from '@ourStore/auth/actions/register.actions';
+import { isSubmittingSelector, validationErrorsSelector } from '@ourStore/auth/auth.selectors';
+import { RegisterForm } from '@auth';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-register',
@@ -35,7 +31,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: NonNullableFormBuilder,
         private store: Store,
     ) {
     }
@@ -63,11 +59,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
 
     private initializeForm(): void {
-        this.registerForm = this.formBuilder.group(<RegisterForm>{
-            username: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        this.registerForm = this.formBuilder.group<RegisterForm>({
+            username: this.formBuilder.control('', [Validators.required]),
+            email: this.formBuilder.control('', [Validators.required, Validators.email]),
+            password: this.formBuilder.control('', [Validators.required, Validators.minLength(6)]),
         });
-
     }
 }

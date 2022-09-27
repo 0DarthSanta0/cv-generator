@@ -19,14 +19,14 @@ const initialState: AuthStateInterface = {
 export const authReducer = createReducer(
     initialState,
     on(
-        registerAction, (state): AuthStateInterface => ({
+        registerAction,loginAction, (state): AuthStateInterface => ({
             ...state,
             isSubmitting: true,
             validationErrors: null
         })
     ),
     on(
-        registerSuccessAction, (state, action): AuthStateInterface => ({
+        registerSuccessAction,loginSuccessAction, getCurrentUserSuccessAction,(state, action): AuthStateInterface => ({
             ...state,
             isSubmitting: false,
             isLoggedIn: true,
@@ -34,29 +34,7 @@ export const authReducer = createReducer(
         })
     ),
     on(
-        registerFailureAction, (state, action): AuthStateInterface => ({
-            ...state,
-            isSubmitting: false,
-            validationErrors: action.errors
-        })
-    ),
-    on(
-        loginAction, (state): AuthStateInterface => ({
-            ...state,
-            isSubmitting: true,
-            validationErrors: null
-        })
-    ),
-    on(
-        loginSuccessAction, (state, action): AuthStateInterface => ({
-            ...state,
-            isSubmitting: false,
-            isLoggedIn: true,
-            currentUser: action.currentUser,
-        })
-    ),
-    on(
-        loginFailureAction, (state, action): AuthStateInterface => ({
+        registerFailureAction, loginFailureAction, (state, action): AuthStateInterface => ({
             ...state,
             isSubmitting: false,
             validationErrors: action.errors
@@ -66,14 +44,6 @@ export const authReducer = createReducer(
         getCurrentUserAction, (state): AuthStateInterface => ({
             ...state,
             isLoading: true
-        })
-    ),
-    on(
-        getCurrentUserSuccessAction, (state, action): AuthStateInterface => ({
-            ...state,
-            isLoading: false,
-            isLoggedIn: true,
-            currentUser: action.currentUser
         })
     ),
     on(

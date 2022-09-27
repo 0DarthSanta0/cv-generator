@@ -26,6 +26,7 @@
       "@constants/*": ["app/shared/constants/*"],
       "@utils/*": ["app/shared/utils/*"],
       "@environment/*": ["environments/*"],
+      "@auth": ["app/modules/auth/auth-barrel.ts"],
     },
     "module": "es2020",
     "lib": [
