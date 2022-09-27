@@ -1,6 +1,6 @@
-import { CurrentUserInterface } from './current-user.interface';
+import { UserInterface } from './user.interface';
 
-export type EmployeesInterface = Omit<CurrentUserInterface, 'jwt'>
+export type EmployeesInterface = Omit<UserInterface, 'jwt'>
 
 export interface IEmployeesWithSkills {
     employees: EmployeesInterface,

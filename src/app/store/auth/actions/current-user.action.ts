@@ -1,6 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 import {ActionTypes} from "../action-types";
-import {CurrentUserInterface} from "../../../shared/models/current-user.interface";
+import {UserInterface} from "../../../shared/models/user.interface";
 
 export const getCurrentUserAction = createAction(
     ActionTypes.GET_CURRENT_USER
@@ -8,7 +8,7 @@ export const getCurrentUserAction = createAction(
 
 export const getCurrentUserSuccessAction = createAction(
     ActionTypes.GET_CURRENT_USER_SUCCESS,
-    props<{currentUser: CurrentUserInterface}>()
+    props<{currentUser: UserInterface}>()
 )
 
 export const getCurrentUserFailureAction = createAction(

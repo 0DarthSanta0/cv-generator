@@ -14,7 +14,7 @@ import {
 import { SkillsService } from '../../shared/services/http/skills.service';
 
 @Injectable()
-export class EmployeesEffect {
+export class EmployeesEffects {
 
     public getListEmployees$ = createEffect(() => this.actions$.pipe(
         ofType(employeesListAction),

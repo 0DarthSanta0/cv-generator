@@ -1,3 +1,5 @@
+import { PositionInterface } from '../../../shared/models/interfaces/position.interface';
+
 export interface EmployeesResponseInterface {
     id: number,
     username: string,
@@ -7,10 +9,7 @@ export interface EmployeesResponseInterface {
     education: string,
     description: string,
     jwt: string,
-    position: {
-        id: number,
-        name: string
-    }
+    position: PositionInterface,
     cvs: {
         ids: number[]
     },

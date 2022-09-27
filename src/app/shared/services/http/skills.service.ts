@@ -3,25 +3,25 @@ import { map, Observable } from 'rxjs';
 import { EndpointsUrl } from '../../constants/endpoints';
 import { ApiService } from './api.service';
 import { SkillInterface } from '../../models/skill.interface';
-import { SkillResponseInterface } from '../../../store/employees/models/skill-response.interface';
+import { SkillsListResponseInterface } from '../../../store/employees/models/skills-list-response.interface';
+import { EmployeesMapperService } from '../../utils/employees-mapper.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SkillsService extends ApiService {
 
+    constructor(
+        private employeesMapper: EmployeesMapperService,
+        override http: HttpClient
+    ) {
+        super(http);
+    }
+
     public getListSkills(): Observable<SkillInterface[]> {
-        return this.http.get<SkillResponseInterface>(this.api + EndpointsUrl.LIST_SKILLS).pipe(
-            map((item) =>
-                item.data.map((item) => item).reduce((acc: SkillInterface[], skill) => (
-                    [...acc,
-                        {
-                            id: skill.id,
-                            name: skill.attributes.name
-                        }
-                    ]
-                ), [])
-            ),
+        return this.http.get<SkillsListResponseInterface>(this.api + EndpointsUrl.LIST_SKILLS).pipe(
+            map(this.employeesMapper.skillsMap)
         )
     }
 }

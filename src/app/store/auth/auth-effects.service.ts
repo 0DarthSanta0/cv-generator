@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {registerAction, registerFailureAction, registerSuccessAction} from "./actions/register.actions";
 import {catchError, map, of, switchMap, tap} from "rxjs";
 import {AuthService} from "../../shared/services/http/auth.service";
-import {CurrentUserInterface} from "../../shared/models/current-user.interface";
+import {UserInterface} from "../../shared/models/user.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
 import {loginAction, loginFailureAction, loginSuccessAction} from "./actions/login.actions";
@@ -16,13 +16,13 @@ import {Router} from "@angular/router";
 import { AppRoutes } from '../../shared/constants/app-routes';
 
 @Injectable()
-export class AuthEffect {
+export class AuthEffects {
 
   public register$ = createEffect(() => this.actions$.pipe(
       ofType(registerAction),
       switchMap(({request}) => {
         return this.authService.register(request).pipe(
-            map((currentUser: CurrentUserInterface) => {
+            map((currentUser: UserInterface) => {
               this.localStorage.setValue('accessToken', currentUser.jwt);
               return registerSuccessAction({currentUser});
             }),

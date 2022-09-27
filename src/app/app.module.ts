@@ -16,12 +16,12 @@ import {EffectsModule} from "@ngrx/effects";
 import {LocalStorageService} from "./shared/services/local-storage.service";
 import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 import {CustomButtonModule} from "./shared/components/custom-button/custom-button.module";
-import {AuthEffect} from "./store/auth/auth.effect";
+import {AuthEffects} from "./store/auth/auth-effects.service";
 import {appReducers} from "./store";
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MissingTranslationService} from "./shared/utils/missing-translation.service";
-import { EmployeesEffect } from './store/employees/employees.effect';
+import { EmployeesEffects } from './store/employees/employees-effects.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { EmployeesEffect } from './store/employees/employees.effect';
         strictStateSerializability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffect, EmployeesEffect]),
+    EffectsModule.forRoot([AuthEffects, EmployeesEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
