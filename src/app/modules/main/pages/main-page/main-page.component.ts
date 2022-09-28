@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { setBreadcrumbs } from '../../../../store/breadcrumbs/breadcrumbs.actions';
-import { AppRoutes } from '../../../../shared/constants/app-routes';
 import { SelectEvent } from '../../../../shared/models/interfaces/select.event';
 import { Router } from '@angular/router';
 import { MainModulesTitles } from '../../../../shared/constants/main-modules-titles';
+import { ListElement } from '../../../../shared/models/interfaces/list-element.interface';
+import { FIRST_SELECTED_ELEMENT, MAIN_PAGE_ELEMENTS_LIST } from '../../../../shared/constants/main-page-list';
 
 @Component({
   selector: 'app-main-page',
@@ -14,29 +15,9 @@ import { MainModulesTitles } from '../../../../shared/constants/main-modules-tit
 })
 export class MainPageComponent implements OnInit {
 
-  public listElements: SelectEvent[] = [
-    {
-      value: MainModulesTitles.EMPLOYEES_VALUE,
-      label: MainModulesTitles.EMPLOYEES_LABEL,
-    },
-    {
-      value: MainModulesTitles.PROJECTS_VALUE,
-      label: MainModulesTitles.PROJECTS_LABEL,
-    },
-    {
-      value: MainModulesTitles.CV_TEMPLATES_VALUE,
-      label: MainModulesTitles.CV_TEMPLATES_LABEL,
-    },
-    {
-      value: MainModulesTitles.ENTITIES_VALUE,
-      label: MainModulesTitles.ENTITIES_LABEL,
-    },
-  ];
+  public listElements: ListElement[] = MAIN_PAGE_ELEMENTS_LIST;
 
-  public selected: SelectEvent = {
-    value: MainModulesTitles.MAIN_VALUE,
-    label: MainModulesTitles.MAIN_LABEL,
-  };
+  public selected: ListElement = FIRST_SELECTED_ELEMENT;
 
   constructor(
     private store: Store,
@@ -49,13 +30,13 @@ export class MainPageComponent implements OnInit {
   }
 
   public select(event: SelectEvent): void {
-    this.route.navigate([`/${MainModulesTitles.MAIN_LABEL}/${event.value}`]);
+    this.route.navigate([`/${MainModulesTitles.MAIN_VALUE}/${event.value.value}`]);
   }
 
   private setBreadcrumbs(): void {
     this.store.dispatch(setBreadcrumbs({
       breadcrumbs: [
-        { label: AppRoutes.MAIN_ROUTE, url: undefined },
+        { label: MainModulesTitles.MAIN_LABEL, url: undefined },
       ]
     }));
   }

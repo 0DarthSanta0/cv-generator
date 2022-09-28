@@ -5,10 +5,9 @@ import { ProjectsRoutingModule } from './projects-routing.module';
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     ProjectsRoutingModule
-  ]
+  ],
 })
 export class ProjectsModule { }

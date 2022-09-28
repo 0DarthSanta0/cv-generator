@@ -9,6 +9,11 @@ const routes: Routes = [
     component: MainPageComponent,
     children: [
       {
+        path: '',
+        redirectTo: AppRoutes.EMPLOYEES_ROUTE,
+        pathMatch: 'full',
+      },
+      {
         path: AppRoutes.EMPLOYEES_ROUTE,
         loadChildren: () => import('../employees/employees.module').then(m => m.EmployeesModule),
       },

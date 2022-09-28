@@ -5,7 +5,6 @@ import { CvTemplatesRoutingModule } from './cv-templates-routing.module';
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     CvTemplatesRoutingModule

@@ -5,7 +5,6 @@ import { EntitiesRoutingModule } from './entities-routing.module';
 
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     EntitiesRoutingModule
