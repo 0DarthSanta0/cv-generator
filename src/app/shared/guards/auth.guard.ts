@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { isLoggedIn } from '../../store/auth/auth.selectors';
 import { AppRoutes } from '../constants/app-routes';
@@ -19,14 +19,20 @@ export class AuthGuard implements CanActivate {
   public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-    this.store.select(isLoggedIn).subscribe(
-      (isLogged: boolean | null) => {
-        if (!isLogged && isLogged != null) {
-          this.route.navigate([`/${AppRoutes.REGISTER_ROUTE}`]);
+    return this.store.select(isLoggedIn).pipe(
+      filter((isLogged: boolean | null) => {
+        if (isLogged != null) return true;
+        return false;
+      }),
+      map((isLogged: boolean | null) => {
+          if (!isLogged) {
+            this.route.navigate([`/${AppRoutes.REGISTER_ROUTE}`]);
+            return false;
+          };
+          return true;
         }
-      }
+      ),
     );
-    return true;
   }
 
 }
