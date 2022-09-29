@@ -63,7 +63,6 @@ import { EmployeesEffects } from './store/employees/employees-effects.service';
     })
   ],
   providers: [
-    LocalStorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
