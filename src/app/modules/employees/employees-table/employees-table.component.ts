@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { employeesListAction } from '../../../store/employees/actions/employees-table.action';
-import { isLoadingSelector, listEmployeesSelector } from '../../../store/employees/employees.selectors';
-import { IEmployeesWithSkills } from '../../../shared/models/employees.interface';
+import { employeesListAction } from '@ourStore/employees/actions/employees-table.action';
+import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/employees.selectors';
+import { IEmployeesWithSkills } from '@models/employees.interface';
 import { Router } from '@angular/router';
-import { AppRoutes } from '../../../shared/constants/app-routes';
+import { AppRoutes } from '@constants/app-routes';
 
 @Component({
     selector: 'app-employees-table',

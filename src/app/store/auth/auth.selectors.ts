@@ -1,5 +1,5 @@
-import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {AuthStateInterface} from "./models/auth-state.interface";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AuthStateInterface } from './models/auth-state.interface';
 
 export const authFeatureSelector = createFeatureSelector<AuthStateInterface>('auth');
 

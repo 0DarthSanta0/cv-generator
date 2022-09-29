@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { EmployeesResponseInterface } from '../../store/employees/models/employees-response.interface';
-import { EmployeesInterface, IEmployeesWithSkills } from '../models/employees.interface';
-import { SkillsListResponseInterface } from '../../store/employees/models/skills-list-response.interface';
-import { SkillInterface } from '../models/skill.interface';
+import { EmployeesResponseInterface } from '@ourStore/employees/models/employees-response.interface';
+import { EmployeesInterface, IEmployeesWithSkills } from '@models/employees.interface';
+import { SkillsListResponseInterface } from '@ourStore/employees/models/skills-list-response.interface';
+import { SkillInterface } from '@models/skill.interface';
 
 @Injectable({
     providedIn: 'root'
