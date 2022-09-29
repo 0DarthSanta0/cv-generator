@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { employeesListAction } from '@ourStore/employees/actions/employees-table.action';
 import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/employees.selectors';
@@ -35,7 +35,10 @@ export class EmployeesTableComponent implements OnInit {
     }
 
     private getDataFromStore(): void {
-        this.employeesWithSkills$ = this.store.pipe(select(listEmployeesSelector),);
+        this.employeesWithSkills$ = this.store.pipe(
+            select(listEmployeesSelector),
+            map(empl => [...empl])
+        );
         this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     }
 

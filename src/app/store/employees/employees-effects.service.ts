@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EmployeesService } from '../../shared/services/http/employees.service';
+import { EmployeesService } from '@services/http/employees.service';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
@@ -11,11 +11,10 @@ import {
     skillsListFailureAction,
     skillsListSuccessAction
 } from './actions/employees-table.action';
-import { SkillsService } from '../../shared/services/http/skills.service';
+import { SkillsService } from '@services/http/skills.service';
 import { select, Store } from '@ngrx/store';
 import { listSkillsSelector } from './employees.selectors';
-import { EmployeesInterface, IEmployeesWithSkills } from '../../shared/models/employees.interface';
-import { EmployeesMapperService } from '../../shared/utils/employees-mapper.service';
+import { EmployeesMapperService } from '@utils/employees-mapper.service';
 
 @Injectable()
 export class EmployeesEffects {

@@ -4,5 +4,5 @@ export type EmployeesInterface = Omit<UserInterface, 'jwt'>
 
 export interface IEmployeesWithSkills {
     employees: EmployeesInterface,
-    skills: string[]
+    skills: (string | undefined)[]
 }

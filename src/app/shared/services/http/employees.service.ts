@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { EndpointsUrl } from '../../constants/endpoints';
-import { EmployeesResponseInterface } from '../../../store/employees/models/employees-response.interface';
-import { EmployeesInterface } from '../../models/employees.interface';
-import { EmployeesMapperService } from '../../utils/employees-mapper.service';
+import { EndpointsUrl } from '@constants/endpoints';
+import { EmployeesResponseInterface } from '@ourStore/employees/models/employees-response.interface';
+import { EmployeesInterface } from '@models/employees.interface';
+import { EmployeesMapperService } from '@utils/employees-mapper.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class EmployeesService extends ApiService {
 
     constructor(
         private employeesMapper: EmployeesMapperService,
-        override http: HttpClient
+        @Inject(HttpClient) http: HttpClient
     ) {
         super(http);
     }

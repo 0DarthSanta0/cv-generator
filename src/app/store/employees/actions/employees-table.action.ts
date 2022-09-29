@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { BackendErrorsInterface } from '../../../shared/models/backend-errors.interface';
+import { BackendErrorsInterface } from '@models/backend-errors.interface';
 import { EmployeesActionTypes } from '../employees-action-types';
-import { IEmployeesWithSkills } from '../../../shared/models/employees.interface';
-import { SkillInterface } from '../../../shared/models/skill.interface';
+import { IEmployeesWithSkills } from '@models/employees.interface';
+import { SkillInterface } from '@models/skill.interface';
 
 export const employeesListAction = createAction(
     EmployeesActionTypes.EMPLOYEES_LIST
