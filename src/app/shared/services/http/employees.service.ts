@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { EndpointsUrl } from '@constants/endpoints';
 import { EmployeesResponseInterface } from '@ourStore/employees/models/employees-response.interface';
 import { EmployeesInterface } from '@models/employees.interface';
 import { EmployeesMapperService } from '@utils/employees-mapper.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -14,13 +13,12 @@ export class EmployeesService extends ApiService {
 
     constructor(
         private employeesMapper: EmployeesMapperService,
-        @Inject(HttpClient) http: HttpClient
     ) {
-        super(http);
+        super();
     }
 
     public getListEmployees(): Observable<EmployeesInterface[]> {
-        return this.http.get<EmployeesResponseInterface[]>(this.api + EndpointsUrl.LIST_EMPLOYEES).pipe(
+        return this.httpService.get<EmployeesResponseInterface[]>(this.api + EndpointsUrl.LIST_EMPLOYEES).pipe(
             map(this.employeesMapper.employeesWithPositionMap)
         )
     }

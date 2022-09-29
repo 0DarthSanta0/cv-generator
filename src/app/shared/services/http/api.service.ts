@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environment/environment';
 
@@ -9,9 +9,5 @@ export class ApiService {
 
   protected api: string = environment.api;
 
-  constructor(
-      protected http: HttpClient
-  ) {
-  }
-
+  protected httpService = inject(HttpClient);
 }
