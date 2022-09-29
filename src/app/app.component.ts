@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this.store.dispatch(skillsListAction());
         this.store.dispatch(getCurrentUserAction());
-        this.store.dispatch(getCurrentUserAction());
         this.languageService.setDefaultLanguage();
         this.themeService.setDefaultTheme();
     }
