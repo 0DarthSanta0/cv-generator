@@ -1,0 +1,1 @@
+export const COLUMN_NAMES: string[] = ['firstName', 'lastName', 'email', 'position', 'skills'];

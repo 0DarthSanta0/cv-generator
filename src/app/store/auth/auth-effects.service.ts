@@ -14,6 +14,7 @@ import {
 } from './actions/current-user.action'
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
+import { LocalStorageKeysEnum } from '@constants/local-storage-keys';
 
 @Injectable()
 export class AuthEffects {
@@ -22,10 +23,8 @@ export class AuthEffects {
         ofType(registerAction),
         switchMap(({request}) => {
             return this.authService.register(request).pipe(
-                map((currentUser: UserInterface) => {
-                    this.localStorage.setValue('accessToken', currentUser.jwt);
-                    return registerSuccessAction({currentUser});
-                }),
+                map((currentUser: UserInterface) => registerSuccessAction({currentUser})),
+                tap((currentUser) => this.localStorage.setValue(LocalStorageKeysEnum.ACCESS_TOKEN, currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(
                         registerFailureAction({errors: errorResponse.error.error})
@@ -40,7 +39,7 @@ export class AuthEffects {
         switchMap(({request}) => {
             return this.authService.login(request).pipe(
                 map((currentUser) => loginSuccessAction({currentUser})),
-                tap((currentUser) => this.localStorage.setValue('accessToken', currentUser.currentUser.jwt)),
+                tap((currentUser) => this.localStorage.setValue(LocalStorageKeysEnum.ACCESS_TOKEN, currentUser.currentUser.jwt)),
                 catchError((errorResponse: HttpErrorResponse) => {
                     return of(loginFailureAction({errors: errorResponse.error.error}))
                 })

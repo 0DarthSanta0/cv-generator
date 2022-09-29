@@ -6,6 +6,7 @@ import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/em
 import { IEmployeesWithSkills } from '@models/employees.interface';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
+import { COLUMN_NAMES } from '@constants/table-value';
 
 @Component({
     selector: 'app-employees-table',
@@ -18,7 +19,7 @@ export class EmployeesTableComponent implements OnInit {
     public isLoading$: Observable<boolean>;
     public employeesWithSkills$: Observable<IEmployeesWithSkills[]>;
 
-    public columnNames: string[] = ['firstName', 'lastName', 'email', 'position', 'skills'];
+    public columnNames: string[] = COLUMN_NAMES;
 
     constructor(private store: Store,
                 private router: Router,

@@ -22,15 +22,17 @@ export class EmployeesMapperService {
 
     public employeeWithSkills(listEmployees: EmployeesInterface[], skills: SkillInterface[]): IEmployeesWithSkills[] {
 
-        const skillsMap = new Map<number, string>();
-        skills.forEach(skill => skillsMap.set(skill.id, skill.name));
+        const skillsMap = skills.reduce((acc, skill) => ({
+            ...acc,
+            [skill.id]:skill.name
+        }),{} as {[id: number]: string});
 
         return  listEmployees.reduce((acc: IEmployeesWithSkills[], employee: EmployeesInterface) => {
 
             const employeesWithSkills: IEmployeesWithSkills = {
                 ...employee,
                 employees: employee,
-                skills: employee.skills.data.map(skill => skillsMap.get(skill.id)),
+                skills: employee.skills.data.map(skill => skillsMap[skill.id]),
             }
             return [...acc, employeesWithSkills];
         }, [])
