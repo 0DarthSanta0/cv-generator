@@ -5,6 +5,8 @@ import {AppRoutes} from "./shared/constants/app-routes";
 const routes: Routes = [
    {path: '', pathMatch: 'full', redirectTo: '/register'},
    {path: AppRoutes.REGISTER_ROUTE, loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)},
+   {path: AppRoutes.EMPLOYEES_ROUTE, loadChildren: () => import('./modules/employees/employees.module').then(m => m.EmployeesModule)},
+
 ];
 
 @NgModule({
