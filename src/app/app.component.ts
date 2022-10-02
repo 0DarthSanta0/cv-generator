@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getCurrentUserAction } from './store/auth/actions/current-user.action';
-import { skillsListAction } from './store/employees/actions/employees-table.action';
+import { languagesListAction, skillsListAction } from '@ourStore/employees/employees.actions';
 import { LanguageService } from '@utils/language.service';
 import { ThemeService } from '@utils/theme.service';
 
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.store.dispatch(skillsListAction());
+        this.store.dispatch(languagesListAction());
         this.store.dispatch(getCurrentUserAction());
         this.languageService.setDefaultLanguage();
         this.themeService.setDefaultTheme();

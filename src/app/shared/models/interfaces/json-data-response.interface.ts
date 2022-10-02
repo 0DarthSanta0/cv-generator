@@ -1,8 +1,8 @@
 export interface JsonDataResponseInterface {
-    data: [
-        {
-            id: number,
-            level: string
-        }
-    ]
+    data: JsonData[]
+}
+
+export interface JsonData {
+    id: number,
+    level: number
 }

@@ -6,5 +6,29 @@
   "links": {
     "registerNavigate": "Don't have an account?",
     "loginNavigate": "Already has an account?"
+  },
+  "emplInfo": {
+    "info" : "Information",
+    "infoContent": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "userName": "User Name",
+      "education": "Education",
+      "description": "Description"
+    },
+    "skills" : "Skills",
+    "skillsContent": {
+      "skill": "Skill",
+      "level": "Skill level"
+    },
+    "languages" : "Languages",
+    "languagesContent": {
+      "language": "Language",
+      "level": "Language level"
+    },
+    "buttons": {
+      "addSkill": "Add skill",
+      "addLang": "Add language"
+    }
   }
 }

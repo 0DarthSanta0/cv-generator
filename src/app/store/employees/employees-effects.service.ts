@@ -4,17 +4,19 @@ import { EmployeesService } from '@services/http/employees.service';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+    employeeByIdAction, employeeByIdFailureAction, employeeByIdSuccessAction,
     employeesListAction,
     employeesListFailureAction,
-    employeesListSuccessAction,
+    employeesListSuccessAction, languagesListAction, languagesListFailureAction, languagesListSuccessAction,
     skillsListAction,
     skillsListFailureAction,
     skillsListSuccessAction
-} from './actions/employees-table.action';
+} from './employees.actions';
 import { SkillsService } from '@services/http/skills.service';
 import { select, Store } from '@ngrx/store';
-import { listSkillsSelector } from './employees.selectors';
+import { listLanguagesSelector, listSkillsSelector } from './employees.selectors';
 import { EmployeesMapperService } from '@utils/employees-mapper.service';
+import { EmplLanguageService } from '@services/http/empl-language.service';
 
 @Injectable()
 export class EmployeesEffects {
@@ -24,7 +26,7 @@ export class EmployeesEffects {
         switchMap(() =>
             this.employeesService.getListEmployees()),
         withLatestFrom(this.store.pipe(select(listSkillsSelector))),
-        map(([listEmployees, skills]) => (this.employeeMappers.employeeWithSkills(listEmployees, skills))),
+        map(([listEmployees, skills]) => (this.employeeMappers.getEmployeesWithSkills(listEmployees, skills))),
         map((listEmployees) =>
             employeesListSuccessAction({listEmployees})
         ),
@@ -45,10 +47,37 @@ export class EmployeesEffects {
         )
     ));
 
+    public getListLanguages$ = createEffect(() => this.actions$.pipe(
+        ofType(languagesListAction),
+        switchMap(() =>
+            this.languageService.getListLanguage()),
+        map((listLanguages) =>
+            languagesListSuccessAction({listLanguages})
+        ),
+        catchError((errorResponse: HttpErrorResponse) =>
+            of(languagesListFailureAction({errors: errorResponse.error.error}))
+        )
+    ));
+
+    public getEmployeeDTOById = createEffect(() => this.actions$.pipe(
+            ofType(employeeByIdAction),
+            switchMap(({id}) => this.employeesService.getEmployeeById(id)),
+            withLatestFrom(this.store.pipe(select(listLanguagesSelector)), this.store.pipe(select(listSkillsSelector))),
+            map(([employee, languages, skills]) => this.employeeMappers.getEmployeeDTO(employee,skills, languages)),
+            map((employeeDTO) => {
+                return employeeByIdSuccessAction({employeeDTO});
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+                return of(employeeByIdFailureAction({errors: errorResponse.error.error}))
+            })
+        )
+    )
+
     constructor(private actions$: Actions,
                 private store: Store,
                 private employeesService: EmployeesService,
                 private skillsService: SkillsService,
+                private languageService: EmplLanguageService,
                 private employeeMappers: EmployeesMapperService
     ) {
     }

@@ -6,5 +6,29 @@
   "links": {
     "registerNavigate": "У вас нет аккаунта?",
     "loginNavigate": "Уже есть аккаунт?"
+  },
+  "emplInfo": {
+    "info" : "Информация",
+    "infoContent": {
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "userName": "Имя пользователя",
+      "education": "Образование",
+      "description": "Описание"
+    },
+    "skills" : "Навыки",
+    "skillsContent": {
+      "skill": "Навык",
+      "level": "Уровень навыка"
+    },
+    "languages" : "Языки",
+    "languagesContent": {
+      "language": "Язык",
+      "level": "Уровень языка"
+    },
+    "buttons": {
+      "addSkill": "Добавить навык",
+      "addLang": "Добавить язык"
+    }
   }
 }

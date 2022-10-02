@@ -22,6 +22,7 @@ import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ng
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from '@utils/missing-translation.service';
 import { EmployeesEffects } from './store/employees/employees-effects.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EmployeesEffects } from './store/employees/employees-effects.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

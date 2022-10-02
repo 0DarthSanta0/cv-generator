@@ -1,0 +1,139 @@
+<app-spinner *ngIf="(isLoading$ | async); else info"
+             strokeWidth="4"
+></app-spinner>
+
+<ng-template #info>
+    <div class="wrapper" *ngIf="!(isLoading$ | async)">
+
+        <form [formGroup]="infoForm">
+            <div class="info">
+                <p-panel [header]="'emplInfo.info' | translate" [toggleable]="true">
+                    <div class="info__body">
+                        <div class="info__body_combine">
+                            <app-input
+                                    [label]="'emplInfo.infoContent.firstName' | translate"
+                                    [formControlName]="'firstName'"
+                                    [errorsMap]="requiredField"
+                            ></app-input>
+                            <app-input
+                                    [label]="'emplInfo.infoContent.lastName' | translate"
+                                    [formControlName]="'lastName'"
+                                    [errorsMap]="requiredField"
+                            ></app-input>
+                            <app-input
+                                    [label]="'emplInfo.infoContent.userName' | translate"
+                                    [formControlName]="'userName'"
+                                    [errorsMap]="requiredField"
+                            ></app-input>
+                            <app-input
+                                    label="Email"
+                                    [formControlName]="'email'"
+                                    [errorsMap]="requiredField"
+                            ></app-input>
+                        </div>
+
+                        <app-textarea
+                                [label]="'emplInfo.infoContent.education' | translate"
+                                [formControlName]="'education'"
+                                [errorsMap]="requiredField"
+                                [rows]="2"
+                        ></app-textarea>
+                        <app-textarea
+                                [label]="'emplInfo.infoContent.description' | translate"
+                                [formControlName]="'description'"
+                                [errorsMap]="requiredField"
+                                [rows]="3"
+                        ></app-textarea>
+                    </div>
+                </p-panel>
+            </div>
+            <div class="skills">
+                <p-panel [header]="'emplInfo.skills' | translate" [toggleable]="true">
+                    <div class="skills__body">
+
+                        <ul formArrayName="skills" class="panel-list">
+                            <li
+                                    *ngFor="let skill of skills.controls; let i=index"
+                            >
+                                <div [formGroupName]="i" class="panel-content">
+                                    <app-autocomplete
+                                            [label]="'emplInfo.skillsContent.skill' | translate"
+                                            formControlName="skillName"
+                                            [errorsMap]="requiredField"
+                                            [dataList]="allSkillsName"
+                                    ></app-autocomplete>
+                                    <app-autocomplete
+                                            [label]="'emplInfo.skillsContent.level' | translate"
+                                            formControlName="skillLevel"
+                                            [errorsMap]="requiredField"
+                                    ></app-autocomplete>
+                                    <div class="cross" (click)="removeSkill(i)">
+                                        <i class="pi pi-times"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="add-skill" (click)="addSkill()">
+                            <div>
+                                <i class="pi pi-plus"></i>
+                            </div>
+                            <span class="title">
+                                {{'emplInfo.buttons.addSkill' | translate}}
+                            </span>
+                        </div>
+
+                    </div>
+                </p-panel>
+            </div>
+            <div class="language">
+                <p-panel [header]="'emplInfo.languages' | translate" [toggleable]="true">
+                    <div class="languages__body">
+
+                        <ul formArrayName="languages" class="panel-list">
+                            <li
+                                    *ngFor="let language of languages.controls; let i=index"
+                            >
+                                <div [formGroupName]="i" class="panel-content">
+                                    <app-autocomplete
+                                            [label]="'emplInfo.languagesContent.language' | translate"
+                                            formControlName="languageName"
+                                            [errorsMap]="requiredField"
+                                            [dataList]="allLanguagesName"
+                                    ></app-autocomplete>
+                                    <app-autocomplete
+                                            [label]="'emplInfo.languagesContent.level' | translate"
+                                            formControlName="languageLevel"
+                                            [errorsMap]="requiredField"
+                                            [dataList]="allLanguagesName"
+                                    ></app-autocomplete>
+                                    <div class="cross" (click)="removeLanguage(i)">
+                                        <i class="pi pi-times"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="add-skill" (click)="addLanguage()">
+                            <div>
+                                <i class="pi pi-plus"></i>
+                            </div>
+                            <span class="title">
+                                {{'emplInfo.buttons.addLang' | translate}}
+                            </span>
+                        </div>
+
+                    </div>
+                </p-panel>
+            </div>
+
+            <div class="save-btn">
+                <app-custom-button
+                        label="Save change"
+                        (click)="onSubmit()"
+                        [disabled]="(infoForm.invalid || infoForm.pending)"
+                ></app-custom-button>
+            </div>
+        </form>
+
+    </div>
+</ng-template>
+

@@ -1,19 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
 import { EmployeesStateInterface } from './models/employees-state.interface';
 import {
+    employeeByIdAction,
+    employeeByIdFailureAction, employeeByIdSuccessAction,
     employeesListAction,
     employeesListFailureAction,
-    employeesListSuccessAction,
+    employeesListSuccessAction, languagesListAction, languagesListFailureAction, languagesListSuccessAction,
     skillsListAction,
     skillsListFailureAction,
     skillsListSuccessAction
-} from './actions/employees-table.action';
+} from './employees.actions';
 
 const initialState: EmployeesStateInterface = {
     isLoading: false,
     employeesList: [],
     skillsList: [],
+    languagesList: [],
+    employeeDTO: null,
     errors: null,
+    isSubmittingEmplInfo: false
 }
 
 export const employeesReducer = createReducer(
@@ -36,7 +41,6 @@ export const employeesReducer = createReducer(
         employeesListFailureAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
-            employeesList: [],
             errors: action.errors,
         })
     ),
@@ -58,8 +62,51 @@ export const employeesReducer = createReducer(
         skillsListFailureAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
-            employeesList: [],
-            skillsList: [],
+            errors: action.errors,
+        })
+    ),
+    on(
+        languagesListAction, (state): EmployeesStateInterface => ({
+            ...state,
+            isLoading: true,
+        })
+    ),
+    on(
+        languagesListSuccessAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            languagesList: action.listLanguages,
+            errors: null,
+        })
+    ),
+    on(
+        languagesListFailureAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            errors: action.errors,
+        })
+    ),
+    on(
+        employeeByIdAction, (state): EmployeesStateInterface => ({
+            ...state,
+            isSubmittingEmplInfo: true,
+            isLoading: true,
+        })
+    ),
+    on(
+        employeeByIdSuccessAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            isSubmittingEmplInfo: false,
+            employeeDTO: action.employeeDTO,
+            errors: null,
+        })
+    ),
+    on(
+        employeeByIdFailureAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            isSubmittingEmplInfo: false,
             errors: action.errors,
         })
     ),

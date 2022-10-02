@@ -19,7 +19,23 @@ export class EmployeesService extends ApiService {
 
     public getListEmployees(): Observable<EmployeesInterface[]> {
         return this.httpService.get<EmployeesResponseInterface[]>(this.api + EndpointsUrl.LIST_EMPLOYEES).pipe(
-            map(this.employeesMapper.employeesWithPositionMap)
+            map(this.employeesMapper.getEmployeesWithPositionMap)
         )
+    }
+
+    public getEmployeeById(id: number): Observable<EmployeesInterface> {
+        return this.httpService.get<EmployeesResponseInterface>(this.api + '/users/' + id + '?populate=position').pipe(
+            map(employee => {
+                return {
+                    ...employee,
+                    position: employee.position.name
+                }
+            })
+        )
+    }
+
+    public addSkillToEmployee(id: number, skill: any) {
+        console.log("tes")
+        return this.httpService.put(this.api + '/users/' + id, skill);
     }
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { employeesListAction } from '@ourStore/employees/actions/employees-table.action';
+import { employeesListAction } from '@ourStore/employees/employees.actions';
 import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/employees.selectors';
 import { IEmployeesWithSkills } from '@models/employees.interface';
 import { Router } from '@angular/router';
