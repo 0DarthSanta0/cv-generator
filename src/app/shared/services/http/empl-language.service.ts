@@ -4,7 +4,7 @@ import { LanguageInterface } from '@models/interfaces/language.interface';
 import { map, Observable } from 'rxjs';
 import { EndpointsUrl } from '@constants/endpoints';
 import { JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
-import { EmployeesMapperService } from '@utils/employees-mapper.service';
+import { EmployeesMapperService } from '@services/employees-mapper.service';
 
 @Injectable({
     providedIn: 'root'

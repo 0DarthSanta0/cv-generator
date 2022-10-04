@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { PositionInterface } from '@models/interfaces/position.interface';
 import { ApiService } from '@services/http/api.service';
 import { EndpointsUrl } from '@constants/endpoints';
-import { EmployeesMapperService } from '@utils/employees-mapper.service';
+import { EmployeesMapperService } from '@services/employees-mapper.service';
 import { JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
 
 @Injectable({

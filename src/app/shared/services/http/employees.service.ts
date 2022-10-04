@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { EndpointsUrl } from '@constants/endpoints';
 import { EmployeesResponseInterface } from '@ourStore/employees/models/employees-response.interface';
 import { EmployeesInterface } from '@models/employees.interface';
-import { EmployeesMapperService } from '@utils/employees-mapper.service';
+import { EmployeesMapperService } from '@services/employees-mapper.service';
 
 @Injectable({
     providedIn: 'root'

@@ -23,7 +23,7 @@ import {
 import { SkillsService } from '@services/http/skills.service';
 import { select, Store } from '@ngrx/store';
 import { listLanguagesSelector, listPositionsSelector, listSkillsSelector } from './employees.selectors';
-import { EmployeesMapperService } from '@utils/employees-mapper.service';
+import { EmployeesMapperService } from '@services/employees-mapper.service';
 import { EmplLanguageService } from '@services/http/empl-language.service';
 import { EmployeesInterface } from '@models/employees.interface';
 import { PositionService } from '@services/http/position.service';

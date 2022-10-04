@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getCurrentUserAction } from './store/auth/actions/current-user.action';
 import { languagesListAction, positionsListAction, skillsListAction } from '@ourStore/employees/employees.actions';
-import { LanguageService } from '@utils/language.service';
-import { ThemeService } from '@utils/theme.service';
+import { LanguageService } from '@services/language.service';
+import { ThemeService } from '@services/theme.service';
 
 @Component({
     selector: 'app-root',

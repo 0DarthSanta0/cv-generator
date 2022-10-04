@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { environment } from '@environment/environment';
-import { LanguageService } from '@utils/language.service';
-import { ThemeService } from '@utils/theme.service';
+import { LanguageService } from '@services/language.service';
+import { ThemeService } from '@services/theme.service';
 import { HeaderForm } from '@auth';
 import { Theme } from '@constants/theme';
 import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
