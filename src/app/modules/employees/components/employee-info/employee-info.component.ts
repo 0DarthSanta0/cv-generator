@@ -14,7 +14,6 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { EmployeeFormDtoInterface, InfoFormInterface, LanguageFormInterface, SkillFormInterface } from '@employees';
 import { employeeByIdAction, employeeUpdateAction } from '@ourStore/employees/employees.actions';
-import { PositionService } from '@services/http/position.service';
 
 @Component({
     selector: 'app-employee-info',
@@ -39,7 +38,6 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
         private store: Store,
         private route: ActivatedRoute,
         private formBuilder: NonNullableFormBuilder,
-        private sr: PositionService
     ) {
     }
 
