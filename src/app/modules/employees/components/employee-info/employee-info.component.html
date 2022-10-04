@@ -30,6 +30,12 @@
                                     [formControlName]="'email'"
                                     [errorsMap]="requiredField"
                             ></app-input>
+                            <app-autocomplete
+                                    [label]="'emplInfo.infoContent.position' | translate"
+                                    formControlName="position"
+                                    [errorsMap]="requiredField"
+                                    [dataList]="allPositionsName"
+                            ></app-autocomplete>
                         </div>
 
                         <app-textarea
@@ -65,7 +71,7 @@
                                     <app-autocomplete
                                             [label]="'emplInfo.skillsContent.level' | translate"
                                             formControlName="skillLevel"
-                                            [errorsMap]="requiredField"
+                                            [errorsMap]="requiredFieldWithLength"
                                     ></app-autocomplete>
                                     <div class="cross" (click)="removeSkill(i)">
                                         <i class="pi pi-times"></i>
@@ -73,11 +79,11 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="add-skill" (click)="addSkill()">
-                            <div>
+                        <div class="add-skill">
+                            <span>
                                 <i class="pi pi-plus"></i>
-                            </div>
-                            <span class="title">
+                            </span>
+                            <span class="title" (click)="addSkill()">
                                 {{'emplInfo.buttons.addSkill' | translate}}
                             </span>
                         </div>
@@ -103,7 +109,7 @@
                                     <app-autocomplete
                                             [label]="'emplInfo.languagesContent.level' | translate"
                                             formControlName="languageLevel"
-                                            [errorsMap]="requiredField"
+                                            [errorsMap]="requiredFieldWithLength"
                                             [dataList]="allLanguagesName"
                                     ></app-autocomplete>
                                     <div class="cross" (click)="removeLanguage(i)">
@@ -112,11 +118,11 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="add-skill" (click)="addLanguage()">
+                        <div class="add-skill">
                             <div>
                                 <i class="pi pi-plus"></i>
                             </div>
-                            <span class="title">
+                            <span class="title" (click)="addLanguage()">
                                 {{'emplInfo.buttons.addLang' | translate}}
                             </span>
                         </div>

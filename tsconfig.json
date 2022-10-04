@@ -27,6 +27,7 @@
       "@utils/*": ["app/shared/utils/*"],
       "@environment/*": ["environments/*"],
       "@auth": ["app/modules/auth/auth-barrel.ts"],
+      "@employees": ["app/modules/employees/employees-barrel.ts"],
     },
     "module": "es2020",
     "lib": [

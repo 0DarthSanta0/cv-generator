@@ -1,174 +1,189 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { REQUIRED_FIELD } from '@constants/validation-errors';
+import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
 import {
-  employeeDTOSelector,
-  isLoadingSelector,
-  isSubmittingEmplInfo,
-  listLanguagesSelector,
-  listSkillsSelector
+    employeeDTOSelector,
+    isLoadingSelector,
+    listLanguagesSelector,
+    listPositionsSelector,
+    listSkillsSelector
 } from '@ourStore/employees/employees.selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
-import { LanguageFormInterface } from '../../interfaces/language-form.interface';
-import { SkillFormInterface } from '../../interfaces/skill-form.interface';
-import { EmployeesService } from '@services/http/employees.service';
-import { employeeByIdAction } from '@ourStore/employees/employees.actions';
+import { EmployeeFormDtoInterface, InfoFormInterface, LanguageFormInterface, SkillFormInterface } from '@employees';
+import { employeeByIdAction, employeeUpdateAction } from '@ourStore/employees/employees.actions';
+import { PositionService } from '@services/http/position.service';
 
 @Component({
-  selector: 'app-employee-info',
-  templateUrl: './employee-info.component.html',
-  styleUrls: ['./employee-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-employee-info',
+    templateUrl: './employee-info.component.html',
+    styleUrls: ['./employee-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmployeeInfoComponent implements OnInit {
+export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
-  public infoForm: FormGroup;
-  public requiredField = REQUIRED_FIELD;
-  public allSkillsName: string[] = [];
-  public allLanguagesName: string[] = [];
+    public infoForm: FormGroup;
+    public requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
+    public requiredField = REQUIRED_FIELD;
+    public allSkillsName: string[] = [];
+    public allLanguagesName: string[] = [];
+    public allPositionsName: string[] = [];
 
-  public isLoading$: Observable<boolean>;
-  public isSubmittingEmplInfo$: Observable<boolean>;
+    public isLoading$: Observable<boolean>;
 
-  constructor(
-      private store: Store,
-      private route: ActivatedRoute,
-      private formBuilder: NonNullableFormBuilder,
-      private service: EmployeesService
-  ) {
-  }
+    private destroy$ = new Subject<void>();
 
-  public get skills(): FormArray {
-    return this.infoForm.controls['skills'] as FormArray;
-  }
-
-  public get languages(): FormArray {
-    return this.infoForm.controls['languages'] as FormArray;
-  }
-
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.store.dispatch(employeeByIdAction({id:+id}));
+    constructor(
+        private store: Store,
+        private route: ActivatedRoute,
+        private formBuilder: NonNullableFormBuilder,
+        private sr: PositionService
+    ) {
     }
 
-    this.defineForm();
-    this.getDataFromStore();
-  }
+    public get skills(): FormArray {
+        return this.infoForm.controls['skills'] as FormArray;
+    }
 
-  public addSkill(): void {
-    const skillForm = this.formBuilder.group<SkillFormInterface>({
-      skillName: this.formBuilder.control('', [Validators.required]),
-      skillLevel: this.formBuilder.control(0, [Validators.required])
-    })
-    this.skills.push(skillForm);
-  }
+    public get languages(): FormArray {
+        return this.infoForm.controls['languages'] as FormArray;
+    }
 
-  public addLanguage(): void {
-    const languageForm = this.formBuilder.group<LanguageFormInterface>({
-      languageName: this.formBuilder.control('', [Validators.required]),
-      languageLevel: this.formBuilder.control(0, [Validators.required])
-    })
-    this.languages.push(languageForm);
-  }
+    ngOnInit(): void {
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.store.dispatch(employeeByIdAction({id: +id}));
+        }
 
-  public removeLanguage(languageIndex: number): void {
-    this.languages.removeAt(languageIndex);
-  }
+        this.defineForm();
+        this.getDataFromStore();
+    }
 
-  public removeSkill(skillIndex: number): void {
-    this.skills.removeAt(skillIndex);
-  }
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 
-  public onSubmit() {
-    // this.service.addSkillToEmployee(12, {
-    //   skills: {
-    //     "data": [
-    //       {
-    //         "id": 4,
-    //         "level": 5
-    //       },
-    //       {
-    //         "id": 3,
-    //         "level": 5
-    //       },
-    //       {
-    //         "id": 1,
-    //         "level": 4
-    //       },
-    //       {
-    //         "id": 2,
-    //         "level": 2
-    //       },
-    //     ]
-    //   }
-    //
-    // })
-  }
-
-  private getDataFromStore(): void {
-    this.store.pipe(select(listSkillsSelector))
-        .subscribe((skills) => {
-          skills.forEach(skill => this.allSkillsName.push(skill.name));
-        });
-
-    this.store.pipe(select(listLanguagesSelector))
-        .subscribe((languages) => {
-          languages.forEach(language => this.allLanguagesName.push(language.name));
-        });
-
-    this.store.pipe(select(employeeDTOSelector))
-        .subscribe((employeeDTO) => {
-          if (employeeDTO) {
-            this.initializeForm(employeeDTO);
-          }
+    public addSkill(): void {
+        const skillForm = this.formBuilder.group<SkillFormInterface>({
+            skillName: this.formBuilder.control('', [Validators.required]),
+            skillLevel: this.formBuilder.control(0, [Validators.required])
         })
-    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    this.isSubmittingEmplInfo$ = this.store.pipe(select(isSubmittingEmplInfo));
-  }
+        this.skills.push(skillForm);
+    }
 
-  private defineForm(): void {
-    this.infoForm = this.formBuilder.group({
-      firstName: this.formBuilder.control('', [Validators.required]),
-      lastName: this.formBuilder.control('', [Validators.required]),
-      userName: this.formBuilder.control('', [Validators.required]),
-      email: this.formBuilder.control('', [Validators.required, Validators.email]),
-      education: this.formBuilder.control('', [Validators.required]),
-      description: this.formBuilder.control('', [Validators.required]),
-      skills: this.formBuilder.array([]),
-      languages: this.formBuilder.array([]),
-    });
-  }
+    public addLanguage(): void {
+        const languageForm = this.formBuilder.group<LanguageFormInterface>({
+            languageName: this.formBuilder.control('', [Validators.required]),
+            languageLevel: this.formBuilder.control(0, [Validators.required])
+        })
+        this.languages.push(languageForm);
+    }
 
-  private initializeForm(employeeDTO: EmployeeInfoDtoInterface): void {
-    this.infoForm.patchValue({
-      firstName: employeeDTO.employee.firstName,
-      lastName: employeeDTO.employee.lastName,
-      userName: employeeDTO.employee.username,
-      email: employeeDTO.employee.email,
-      education: employeeDTO.employee.education,
-      description: employeeDTO.employee.description,
-    });
+    public removeLanguage(languageIndex: number): void {
+        this.languages.removeAt(languageIndex);
+    }
 
-    employeeDTO.skills.forEach(skill => {
-      this.skills.push(
-          this.formBuilder.group({
-            skillName: new FormControl(skill.name, [Validators.required]),
-            skillLevel: new FormControl(skill.level, [Validators.required]),
-          })
-      )
-    });
+    public removeSkill(skillIndex: number): void {
+        this.skills.removeAt(skillIndex);
+    }
 
-    employeeDTO.languages.forEach(language => {
-      this.languages.push(
-          this.formBuilder.group({
-            languageName: new FormControl(language.name, [Validators.required]),
-            languageLevel: new FormControl(language.level, [Validators.required]),
-          })
-      )
-    });
-  }
+    public onSubmit() {
+        const employeeForm: EmployeeFormDtoInterface = this.infoForm.value;
+        this.store.dispatch(employeeUpdateAction({newEmployee: employeeForm}));
+    }
+
+    private getDataFromStore(): void {
+        this.store.pipe(
+            select(listSkillsSelector),
+            takeUntil(this.destroy$)
+        )
+            .subscribe((skills) => {
+                skills.forEach(skill => this.allSkillsName.push(skill.name));
+            });
+
+        this.store.pipe(
+            select(listLanguagesSelector),
+            takeUntil(this.destroy$)
+        )
+            .subscribe((languages) => {
+                languages.forEach(language => this.allLanguagesName.push(language.name));
+            });
+
+        this.store.pipe(
+            select(employeeDTOSelector),
+            takeUntil(this.destroy$)
+        )
+            .subscribe((employeeDTO) => {
+                if (employeeDTO) {
+                    this.initializeForm(employeeDTO);
+                }
+            });
+
+        this.store.pipe(
+            select(listPositionsSelector),
+            takeUntil(this.destroy$)
+        ).subscribe((positions) => {
+            positions.forEach(position => this.allPositionsName.push(position.name));
+        });
+
+        this.isLoading$ = this.store.pipe(select(isLoadingSelector));
+
+    }
+
+    private defineForm(): void {
+        this.infoForm = this.formBuilder.group<InfoFormInterface>({
+            id: this.formBuilder.control(0, []),
+            firstName: this.formBuilder.control('', [Validators.required]),
+            lastName: this.formBuilder.control('', [Validators.required]),
+            userName: this.formBuilder.control('', [Validators.required]),
+            email: this.formBuilder.control('', [Validators.required, Validators.email]),
+            education: this.formBuilder.control('', [Validators.required]),
+            position: this.formBuilder.control('', [Validators.required]),
+            description: this.formBuilder.control('', [Validators.required]),
+            skills: this.formBuilder.array([]),
+            languages: this.formBuilder.array([]),
+        });
+    }
+
+    private initializeForm(employeeDTO: EmployeeInfoDtoInterface): void {
+        this.infoForm.patchValue({
+            id: employeeDTO.employee.id,
+            firstName: employeeDTO.employee.firstName,
+            lastName: employeeDTO.employee.lastName,
+            userName: employeeDTO.employee.username,
+            email: employeeDTO.employee.email,
+            education: employeeDTO.employee.education,
+            description: employeeDTO.employee.description,
+            position: employeeDTO.employee.position,
+        });
+
+        employeeDTO.skills.forEach(skill => {
+            this.skills.push(
+                this.formBuilder.group<SkillFormInterface>({
+                    skillName: this.formBuilder.control(skill.name, [Validators.required]),
+                    skillLevel: this.formBuilder.control(skill.level, [
+                        Validators.required,
+                        Validators.max(5),
+                        Validators.min(1)
+                    ]),
+                })
+            )
+        });
+
+        employeeDTO.languages.forEach(language => {
+            this.languages.push(
+                this.formBuilder.group(<LanguageFormInterface>{
+                    languageName: this.formBuilder.control(language.name, [Validators.required]),
+                    languageLevel: this.formBuilder.control(language.level, [
+                        Validators.required,
+                        Validators.max(5),
+                        Validators.min(1)
+                    ]),
+                })
+            )
+        });
+    }
 }

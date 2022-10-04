@@ -1,33 +1,17 @@
 import { Injectable } from '@angular/core';
 import { EmployeesResponseInterface } from '@ourStore/employees/models/employees-response.interface';
 import { EmployeesInterface, IEmployeesWithSkills } from '@models/employees.interface';
-import { SkillsListResponseInterface } from '@ourStore/employees/models/skills-list-response.interface';
 import { SkillInterface } from '@models/skill.interface';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
+import { EmployeeFormDtoInterface } from '@employees';
+import { JsonData, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import { PositionInterface } from '@models/interfaces/position.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EmployeesMapperService {
-
-    private static nameMapper<T extends { id: number, name: string }>(data: T[]): { [id: number]: string } {
-        const dataMap = data.reduce((acc, current) => ({
-            ...acc,
-            [current.id]: current.name
-        }), {});
-
-        return dataMap;
-    }
-
-    private static levelMapper<T extends { id: number, level: number }>(data: T[]): { [id: number]: number } {
-        const dataMap = data.reduce((acc, current) => ({
-            ...acc,
-            [current.id]: current.level
-        }), {});
-
-        return dataMap;
-    }
 
     public getEmployeesWithPositionMap(employees: EmployeesResponseInterface[]): EmployeesInterface[] {
         return employees.map((employee) => {
@@ -41,8 +25,8 @@ export class EmployeesMapperService {
     }
 
     public getEmployeesWithSkills(listEmployees: EmployeesInterface[], skills: SkillInterface[]): IEmployeesWithSkills[] {
-        const skillsMap = EmployeesMapperService.nameMapper(skills);
 
+        const skillsMap = this.nameMapper(skills);
         return listEmployees.reduce((acc: IEmployeesWithSkills[], employee: EmployeesInterface) => {
 
             const employeesWithSkills: IEmployeesWithSkills = {
@@ -54,21 +38,23 @@ export class EmployeesMapperService {
         }, []);
     }
 
-    public skillsMap(skillResponse: SkillsListResponseInterface): SkillInterface[] {
-        return skillResponse.data.map((item) => item).reduce((acc: SkillInterface[], skill) => (
-            [...acc,
-                {
-                    id: skill.id,
-                    name: skill.attributes.name
+    public responseMap(dataResponse: JsonResponse<JsonDataWithAttributes[]>): { id: number, name: string }[] {
+        return dataResponse.data
+            .map((item: JsonDataWithAttributes) => item)
+            .reduce((acc, data: JsonDataWithAttributes) => {
+                    const newObj: { id: number, name: string } = {
+                        id: data.id,
+                        name: data.attributes.name,
+                    }
+                    return [...acc, newObj];
                 }
-            ]
-        ), []);
+                , [] as { id: number, name: string }[]);
     }
 
     public getEmployeeDTO(employee: EmployeesInterface, skills: SkillInterface[], languages: LanguageInterface[]): EmployeeInfoDtoInterface {
 
-        const emplSkillsWithLevelMap = EmployeesMapperService.levelMapper(employee.skills.data);
-        const emplLanguagesWithLevelMap = EmployeesMapperService.levelMapper(employee.languages.data);
+        const emplSkillsWithLevelMap = this.levelMapper(employee.skills.data);
+        const emplLanguagesWithLevelMap = this.levelMapper(employee.languages.data);
 
         const emplSkills = skills.filter((skill) => emplSkillsWithLevelMap[skill.id]);
         const emplLanguages = languages.filter((language) => emplLanguagesWithLevelMap[language.id]);
@@ -91,5 +77,60 @@ export class EmployeesMapperService {
             })
         }
         return employeeDTO;
+    }
+
+    public employeeDTOToEmployee(dto: EmployeeFormDtoInterface, allSkills: SkillInterface[], allLanguages: LanguageInterface[], allPositions: PositionInterface[]): EmployeesInterface {
+
+        const skillsObj = this.nameMapper(allSkills);
+        const languagesObj = this.nameMapper(allLanguages);
+        const positionsObj = this.nameMapper(allPositions);
+
+        const skills: JsonResponse<JsonData[]> = {
+            'data': dto.skills.map((skill) => {
+                return {
+                    id: +this.getKeyByValue(skillsObj, skill.skillName),
+                    level: +skill.skillLevel
+                }
+            })
+        }
+
+        const languages: JsonResponse<JsonData[]> = {
+            'data': dto.languages.map((language) => {
+                return {
+                    id: +this.getKeyByValue(languagesObj, language.languageName),
+                    level: +language.languageLevel
+                }
+            })
+        }
+
+        const newEmployee: EmployeesInterface = {
+            ...dto,
+            skills: skills,
+            languages: languages,
+            position: +this.getKeyByValue(positionsObj, dto.position)
+        }
+
+        return newEmployee;
+    }
+
+    private nameMapper<T extends { id: number, name: string }>(data: T[]): { [id: number]: string } {
+        const dataMap = data.reduce((acc, current) => ({
+            ...acc,
+            [current.id]: current.name
+        }), {});
+        return dataMap;
+    }
+
+    private levelMapper<T extends { id: number, level: number }>(data: T[]): { [id: number]: number } {
+        const dataMap = data.reduce((acc, current) => ({
+            ...acc,
+            [current.id]: current.level
+        }), {});
+
+        return dataMap;
+    }
+
+    private getKeyByValue(obj: any, value: any): any {
+        return Object.keys(obj).find(key => obj[key] === value);
     }
 }

@@ -1,7 +1,9 @@
 {
   "validations": {
     "requiredError": "Поле не может быть пустым",
-    "emailError": "Введите корректный email"
+    "emailError": "Введите корректный email",
+    "maxError": "Введите коррескную длину",
+    "minError": "Введите корректную длину"
   },
   "links": {
     "registerNavigate": "У вас нет аккаунта?",
@@ -14,7 +16,8 @@
       "lastName": "Фамилия",
       "userName": "Имя пользователя",
       "education": "Образование",
-      "description": "Описание"
+      "description": "Описание",
+      "position": "Позиция"
     },
     "skills" : "Навыки",
     "skillsContent": {

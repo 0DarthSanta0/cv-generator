@@ -34,8 +34,7 @@ export class EmployeesService extends ApiService {
         )
     }
 
-    public addSkillToEmployee(id: number, skill: any) {
-        console.log("tes")
-        return this.httpService.put(this.api + '/users/' + id, skill);
+    public updateEmployee(dataEmployee: EmployeesInterface): any {
+        return this.httpService.put<any>(this.api + EndpointsUrl.USERS_UPDATE + dataEmployee.id, dataEmployee);
     }
 }

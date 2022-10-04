@@ -2,10 +2,15 @@ import { createReducer, on } from '@ngrx/store';
 import { EmployeesStateInterface } from './models/employees-state.interface';
 import {
     employeeByIdAction,
-    employeeByIdFailureAction, employeeByIdSuccessAction,
+    employeeByIdFailureAction,
+    employeeByIdSuccessAction,
     employeesListAction,
     employeesListFailureAction,
-    employeesListSuccessAction, languagesListAction, languagesListFailureAction, languagesListSuccessAction,
+    employeesListSuccessAction,
+    languagesListAction,
+    languagesListFailureAction,
+    languagesListSuccessAction,
+    positionsListAction, positionsListFailureAction, positionsListSuccessAction,
     skillsListAction,
     skillsListFailureAction,
     skillsListSuccessAction
@@ -16,9 +21,9 @@ const initialState: EmployeesStateInterface = {
     employeesList: [],
     skillsList: [],
     languagesList: [],
+    positionsList: [],
     employeeDTO: null,
     errors: null,
-    isSubmittingEmplInfo: false
 }
 
 export const employeesReducer = createReducer(
@@ -87,9 +92,29 @@ export const employeesReducer = createReducer(
         })
     ),
     on(
+        positionsListAction, (state): EmployeesStateInterface => ({
+            ...state,
+            isLoading: true,
+        })
+    ),
+    on(
+        positionsListSuccessAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            positionsList: action.listPositions,
+            errors: null,
+        })
+    ),
+    on(
+        positionsListFailureAction, (state, action): EmployeesStateInterface => ({
+            ...state,
+            isLoading: false,
+            errors: action.errors,
+        })
+    ),
+    on(
         employeeByIdAction, (state): EmployeesStateInterface => ({
             ...state,
-            isSubmittingEmplInfo: true,
             isLoading: true,
         })
     ),
@@ -97,7 +122,6 @@ export const employeesReducer = createReducer(
         employeeByIdSuccessAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
-            isSubmittingEmplInfo: false,
             employeeDTO: action.employeeDTO,
             errors: null,
         })
@@ -106,7 +130,6 @@ export const employeesReducer = createReducer(
         employeeByIdFailureAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
-            isSubmittingEmplInfo: false,
             errors: action.errors,
         })
     ),

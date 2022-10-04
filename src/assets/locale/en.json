@@ -1,7 +1,9 @@
 {
   "validations": {
     "requiredError": "The field should not be empty",
-    "emailError": "Enter the correct email"
+    "emailError": "Enter the correct email",
+    "maxError": "Enter the correct length",
+    "minError": "Enter the correct length"
   },
   "links": {
     "registerNavigate": "Don't have an account?",
@@ -14,7 +16,8 @@
       "lastName": "Last Name",
       "userName": "User Name",
       "education": "Education",
-      "description": "Description"
+      "description": "Description",
+      "position": "Position"
     },
     "skills" : "Skills",
     "skillsContent": {

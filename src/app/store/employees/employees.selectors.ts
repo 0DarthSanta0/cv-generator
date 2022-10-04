@@ -23,6 +23,11 @@ export const listLanguagesSelector = createSelector(
     (employeesState: EmployeesStateInterface) => employeesState.languagesList
 );
 
+export const listPositionsSelector = createSelector(
+    employeesFeatureSelector,
+    (employeesState: EmployeesStateInterface) => employeesState.positionsList
+);
+
 export const errorsSelector = createSelector(
     employeesFeatureSelector,
     (employeesState: EmployeesStateInterface) => employeesState.errors
@@ -31,9 +36,4 @@ export const errorsSelector = createSelector(
 export const employeeDTOSelector = createSelector(
     employeesFeatureSelector,
     (employeesState: EmployeesStateInterface) => employeesState.employeeDTO
-)
-
-export const isSubmittingEmplInfo = createSelector(
-    employeesFeatureSelector,
-    (employeesState: EmployeesStateInterface) => employeesState.isSubmittingEmplInfo
 )
