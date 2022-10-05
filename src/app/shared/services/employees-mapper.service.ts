@@ -86,18 +86,18 @@ export class EmployeesMapperService {
         const positionsObj = this.nameMapper(allPositions);
 
         const skills: JsonResponse<JsonData[]> = {
-            'data': dto.skills.map((skill) => {
+            data: dto.skills.map((skill) => {
                 return {
-                    id: this.getKeyByValue(skillsObj, skill.skillName),
+                    id: +this.getKeyByValue(skillsObj, skill.skillName),
                     level: skill.skillLevel
                 }
             })
         }
 
         const languages: JsonResponse<JsonData[]> = {
-            'data': dto.languages.map((language) => {
+            data: dto.languages.map((language) => {
                 return {
-                    id: this.getKeyByValue(languagesObj, language.languageName),
+                    id: +this.getKeyByValue(languagesObj, language.languageName),
                     level: language.languageLevel
                 }
             })
@@ -130,7 +130,11 @@ export class EmployeesMapperService {
         return dataMap;
     }
 
-    private getKeyByValue(obj: any, value: any): any {
-        return Object.keys(obj).find(key => obj[key] === value);
+    private getKeyByValue(obj: any, value: any): string {
+        const key = Object.keys(obj).find(key => obj[key] === value);
+        if (key) {
+            return key;
+        }
+        return '';
     }
 }

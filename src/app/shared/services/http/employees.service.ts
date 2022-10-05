@@ -34,7 +34,7 @@ export class EmployeesService extends ApiService {
         )
     }
 
-    public updateEmployee(dataEmployee: EmployeesInterface): any {
-        return this.httpService.put<any>(this.api + EndpointsUrl.USERS_UPDATE + dataEmployee.id, dataEmployee);
+    public updateEmployee(dataEmployee: EmployeesInterface): Observable<EmployeesInterface> {
+        return this.httpService.put<EmployeesInterface>(this.api + EndpointsUrl.USERS_UPDATE + dataEmployee.id, dataEmployee);
     }
 }
