@@ -5,10 +5,10 @@ export interface InfoFormInterface {
     id: FormControl<number>,
     lastName: FormControl<string>,
     email: FormControl<string>,
-    userName: FormControl<string>,
+    username: FormControl<string>,
     education: FormControl<string>,
     description: FormControl<string>,
-    position: FormControl<string>,
+    position: FormControl<string | number>,
     skills: FormArray,
     languages: FormArray
 }

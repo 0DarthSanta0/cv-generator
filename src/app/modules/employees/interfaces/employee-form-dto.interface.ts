@@ -6,7 +6,7 @@ export interface EmployeeFormDtoInterface {
     email: string,
     education: string,
     description: string,
-    position: string,
+    position: string | number,
     skills: {
         skillName: string,
         skillLevel: number,

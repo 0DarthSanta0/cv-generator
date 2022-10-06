@@ -15,7 +15,10 @@ import {
     employeeUpdateSuccessAction,
     languagesListAction,
     languagesListFailureAction,
-    languagesListSuccessAction, positionsListAction, positionsListFailureAction, positionsListSuccessAction,
+    languagesListSuccessAction,
+    positionsListAction,
+    positionsListFailureAction,
+    positionsListSuccessAction,
     skillsListAction,
     skillsListFailureAction,
     skillsListSuccessAction
@@ -31,7 +34,7 @@ import { PositionService } from '@services/http/position.service';
 @Injectable()
 export class EmployeesEffects {
 
-    public getListEmployees$ = createEffect(() => this.actions$.pipe(
+    public employeesList$ = createEffect(() => this.actions$.pipe(
         ofType(employeesListAction),
         switchMap(() => this.employeesService.getListEmployees()),
         withLatestFrom(this.store.pipe(select(listSkillsSelector))),
@@ -44,7 +47,7 @@ export class EmployeesEffects {
         )
     ));
 
-    public getListSkills$ = createEffect(() => this.actions$.pipe(
+    public skillsList$ = createEffect(() => this.actions$.pipe(
         ofType(skillsListAction),
         switchMap(() =>
             this.skillsService.getListSkills()),
@@ -56,7 +59,7 @@ export class EmployeesEffects {
         )
     ));
 
-    public getListLanguages$ = createEffect(() => this.actions$.pipe(
+    public languagesList$ = createEffect(() => this.actions$.pipe(
         ofType(languagesListAction),
         switchMap(() =>
             this.languageService.getListLanguage()),
@@ -68,7 +71,7 @@ export class EmployeesEffects {
         )
     ));
 
-    public getListPositions$ = createEffect(() => this.actions$.pipe(
+    public positionsList$ = createEffect(() => this.actions$.pipe(
         ofType(positionsListAction),
         switchMap(() =>
             this.positionService.getListPositions()),
@@ -80,7 +83,7 @@ export class EmployeesEffects {
         )
     ));
 
-    public getEmployeeDTOById$ = createEffect(() => this.actions$.pipe(
+    public employeeById$ = createEffect(() => this.actions$.pipe(
             ofType(employeeByIdAction),
             switchMap(({id}) => this.employeesService.getEmployeeById(id)),
             withLatestFrom(this.store.pipe(select(listLanguagesSelector)), this.store.pipe(select(listSkillsSelector))),
@@ -94,7 +97,7 @@ export class EmployeesEffects {
         )
     );
 
-    public updateEmployee$ = createEffect(() => this.actions$.pipe(
+    public employeeUpdate$ = createEffect(() => this.actions$.pipe(
         ofType(employeeUpdateAction),
         withLatestFrom(
             this.store.pipe(select(listLanguagesSelector)),

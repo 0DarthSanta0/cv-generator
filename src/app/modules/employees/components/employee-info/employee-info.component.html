@@ -10,46 +10,31 @@
                 <p-panel [header]="'emplInfo.info' | translate" [toggleable]="true">
                     <div class="info__body">
                         <div class="info__body_combine">
-                            <app-input
-                                    [label]="'emplInfo.infoContent.firstName' | translate"
-                                    [formControlName]="'firstName'"
-                                    [errorsMap]="requiredField"
-                            ></app-input>
-                            <app-input
-                                    [label]="'emplInfo.infoContent.lastName' | translate"
-                                    [formControlName]="'lastName'"
-                                    [errorsMap]="requiredField"
-                            ></app-input>
-                            <app-input
-                                    [label]="'emplInfo.infoContent.userName' | translate"
-                                    [formControlName]="'userName'"
-                                    [errorsMap]="requiredField"
-                            ></app-input>
-                            <app-input
-                                    label="Email"
-                                    [formControlName]="'email'"
-                                    [errorsMap]="requiredField"
-                            ></app-input>
+
+                            <div *ngFor="let emplInfo of ['firstName', 'lastName', 'username', 'email']">
+                                <app-input
+                                        [label]="'emplInfo.infoContent.' + emplInfo | translate"
+                                        [formControlName]="emplInfo"
+                                        [errorsMap]="requiredField"
+                                ></app-input>
+                            </div>
+
                             <app-autocomplete
                                     [label]="'emplInfo.infoContent.position' | translate"
-                                    formControlName="position"
+                                    [formControlName]="'position'"
                                     [errorsMap]="requiredField"
                                     [dataList]="allPositionsName"
                             ></app-autocomplete>
                         </div>
 
-                        <app-textarea
-                                [label]="'emplInfo.infoContent.education' | translate"
-                                [formControlName]="'education'"
-                                [errorsMap]="requiredField"
-                                [rows]="2"
-                        ></app-textarea>
-                        <app-textarea
-                                [label]="'emplInfo.infoContent.description' | translate"
-                                [formControlName]="'description'"
-                                [errorsMap]="requiredField"
-                                [rows]="3"
-                        ></app-textarea>
+                        <div *ngFor="let data of ['education','description']">
+                            <app-textarea
+                                    [label]="'emplInfo.infoContent.' + data | translate"
+                                    [formControlName]="data"
+                                    [errorsMap]="requiredField"
+                                    [rows]="3"
+                            ></app-textarea>
+                        </div>
                     </div>
                 </p-panel>
             </div>
@@ -59,17 +44,17 @@
 
                         <ul formArrayName="skills" class="panel-list">
                             <li
-                                    *ngFor="let skill of skills.controls; let i=index"
+                                    *ngFor="let skill of infoForm.controls.skills.controls; let i=index"
                             >
                                 <div [formGroupName]="i" class="panel-content">
                                     <app-autocomplete
-                                            [label]="'emplInfo.skillsContent.skill' | translate"
+                                            [label]="'emplInfo.skillsContent.skillName' | translate"
                                             formControlName="skillName"
                                             [errorsMap]="requiredField"
                                             [dataList]="allSkillsName"
                                     ></app-autocomplete>
                                     <app-autocomplete
-                                            [label]="'emplInfo.skillsContent.level' | translate"
+                                            [label]="'emplInfo.skillsContent.skillLevel' | translate"
                                             formControlName="skillLevel"
                                             [errorsMap]="requiredFieldWithLength"
                                     ></app-autocomplete>
@@ -97,17 +82,17 @@
 
                         <ul formArrayName="languages" class="panel-list">
                             <li
-                                    *ngFor="let language of languages.controls; let i=index"
+                                    *ngFor="let language of infoForm.controls.languages.controls; let i=index"
                             >
                                 <div [formGroupName]="i" class="panel-content">
                                     <app-autocomplete
-                                            [label]="'emplInfo.languagesContent.language' | translate"
+                                            [label]="'emplInfo.languagesContent.languageName' | translate"
                                             formControlName="languageName"
                                             [errorsMap]="requiredField"
                                             [dataList]="allLanguagesName"
                                     ></app-autocomplete>
                                     <app-autocomplete
-                                            [label]="'emplInfo.languagesContent.level' | translate"
+                                            [label]="'emplInfo.languagesContent.languageLevel' | translate"
                                             formControlName="languageLevel"
                                             [errorsMap]="requiredFieldWithLength"
                                             [dataList]="allLanguagesName"

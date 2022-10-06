@@ -14,20 +14,21 @@
     "infoContent": {
       "firstName": "First Name",
       "lastName": "Last Name",
-      "userName": "User Name",
+      "username": "User Name",
       "education": "Education",
       "description": "Description",
-      "position": "Position"
+      "position": "Position",
+      "email": "Email"
     },
     "skills" : "Skills",
     "skillsContent": {
-      "skill": "Skill",
-      "level": "Skill level"
+      "skillName": "Skill",
+      "skillLevel": "Skill level"
     },
     "languages" : "Languages",
     "languagesContent": {
-      "language": "Language",
-      "level": "Language level"
+      "languageName": "Language",
+      "languageLevel": "Language level"
     },
     "buttons": {
       "addSkill": "Add skill",

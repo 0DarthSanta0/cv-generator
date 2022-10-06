@@ -14,20 +14,21 @@
     "infoContent": {
       "firstName": "Имя",
       "lastName": "Фамилия",
-      "userName": "Имя пользователя",
+      "username": "Имя пользователя",
       "education": "Образование",
       "description": "Описание",
-      "position": "Позиция"
+      "position": "Позиция",
+      "email": "Email"
     },
     "skills" : "Навыки",
     "skillsContent": {
-      "skill": "Навык",
-      "level": "Уровень навыка"
+      "skillName": "Навык",
+      "skillLevel": "Уровень навыка"
     },
     "languages" : "Языки",
     "languagesContent": {
-      "language": "Язык",
-      "level": "Уровень языка"
+      "languageName": "Язык",
+      "languageLevel": "Уровень языка"
     },
     "buttons": {
       "addSkill": "Добавить навык",
