@@ -5,7 +5,7 @@ import { IEmployeesWithSkills } from '@models/employees.interface';
 import { SkillInterface } from '@models/skill.interface';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
-import { EmployeeFormDtoInterface } from '@employees';
+import { IEmployeeFormDto } from '@employees';
 import { PositionInterface } from '@models/interfaces/position.interface';
 
 export const employeesListAction = createAction(
@@ -82,7 +82,7 @@ export const employeeByIdFailureAction = createAction(
 
 export const employeeUpdateAction = createAction(
     EmployeesActionTypes.EMPLOYEE_UPDATE,
-    props<{ newEmployee: EmployeeFormDtoInterface }>()
+    props<{ newEmployee: IEmployeeFormDto }>()
 )
 
 export const employeeUpdateSuccessAction = createAction(

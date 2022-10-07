@@ -11,7 +11,7 @@
                     <div class="info__body">
                         <div class="info__body_combine">
 
-                            <div *ngFor="let emplInfo of ['firstName', 'lastName', 'username', 'email']">
+                            <div *ngFor="let emplInfo of inputArray">
                                 <app-input
                                         [label]="'emplInfo.infoContent.' + emplInfo | translate"
                                         [formControlName]="emplInfo"
@@ -27,7 +27,7 @@
                             ></app-autocomplete>
                         </div>
 
-                        <div *ngFor="let data of ['education','description']">
+                        <div *ngFor="let data of textAreaArray">
                             <app-textarea
                                     [label]="'emplInfo.infoContent.' + data | translate"
                                     [formControlName]="data"

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
 import {
     employeeDTOSelector,
@@ -12,8 +12,9 @@ import {
 } from '@ourStore/employees/employees.selectors';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
-import { EmployeeFormDtoInterface, InfoFormInterface, LanguageFormInterface, SkillFormInterface } from '@employees';
+import { IEmployeeFormDto, IInfoForm, ILanguageForm, ISkillForm } from '@employees';
 import { employeeByIdAction, employeeUpdateAction } from '@ourStore/employees/employees.actions';
+import { EMPL_INFO_INPUT, EMPL_INFO_TEXTAREA } from '@constants/employee';
 
 @Component({
     selector: 'app-employee-info',
@@ -23,7 +24,10 @@ import { employeeByIdAction, employeeUpdateAction } from '@ourStore/employees/em
 })
 export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
-    public infoForm: FormGroup<InfoFormInterface>;
+    public readonly inputArray = EMPL_INFO_INPUT;
+    public readonly textAreaArray = EMPL_INFO_TEXTAREA;
+
+    public infoForm: FormGroup<IInfoForm>;
     public requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
     public requiredField = REQUIRED_FIELD;
     public allSkillsName: string[] = [];
@@ -56,31 +60,31 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
     }
 
     public addSkill(): void {
-        const skillForm = this.formBuilder.group<SkillFormInterface>({
+        const skillForm = this.formBuilder.group<ISkillForm>({
             skillName: this.formBuilder.control('', [Validators.required]),
             skillLevel: this.formBuilder.control(0, [Validators.required])
         });
-        (<FormArray>this.infoForm.controls['skills']).push(skillForm);
+        this.infoForm.controls.skills.push(skillForm);
     }
 
     public addLanguage(): void {
-        const languageForm = this.formBuilder.group<LanguageFormInterface>({
+        const languageForm = this.formBuilder.group<ILanguageForm>({
             languageName: this.formBuilder.control('', [Validators.required]),
             languageLevel: this.formBuilder.control(0, [Validators.required])
         });
-        (<FormArray>this.infoForm.controls['languages']).push(languageForm);
+        this.infoForm.controls.languages.push(languageForm);
     }
 
     public removeLanguage(languageIndex: number): void {
-        (<FormArray>this.infoForm.controls['languages']).removeAt(languageIndex);
+        this.infoForm.controls.languages.removeAt(languageIndex);
     }
 
     public removeSkill(skillIndex: number): void {
-        (<FormArray>this.infoForm.controls['skills']).removeAt(skillIndex);
+        this.infoForm.controls.skills.removeAt(skillIndex);
     }
 
     public onSubmit() {
-        const newEmployee: EmployeeFormDtoInterface = <EmployeeFormDtoInterface>this.infoForm.value;
+        const newEmployee: IEmployeeFormDto = <IEmployeeFormDto>this.infoForm.value;
         this.store.dispatch(employeeUpdateAction({newEmployee: newEmployee}));
     }
 
@@ -123,7 +127,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
     }
 
     private defineForm(): void {
-        this.infoForm = this.formBuilder.group<InfoFormInterface>({
+        this.infoForm = this.formBuilder.group<IInfoForm>({
             id: this.formBuilder.control(0, []),
             firstName: this.formBuilder.control('', [Validators.required]),
             lastName: this.formBuilder.control('', [Validators.required]),
@@ -150,7 +154,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
         });
 
         employeeDto.skills.forEach((skill) => {
-            const skillGroup = this.formBuilder.group<SkillFormInterface>({
+            const skillGroup = this.formBuilder.group<ISkillForm>({
                 skillName: this.formBuilder.control(skill.name, [Validators.required]),
                 skillLevel: this.formBuilder.control(skill.level, [
                     Validators.required,
@@ -162,7 +166,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
         });
 
         employeeDto.languages.forEach((language) => {
-            const languageGroup = this.formBuilder.group(<LanguageFormInterface>{
+            const languageGroup = this.formBuilder.group(<ILanguageForm>{
                 languageName: this.formBuilder.control(language.name, [Validators.required]),
                 languageLevel: this.formBuilder.control(language.level, [
                     Validators.required,

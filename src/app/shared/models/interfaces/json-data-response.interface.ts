@@ -5,11 +5,13 @@ export interface JsonData {
 
 export interface JsonDataWithAttributes {
     id: number,
-    attributes: {
-        name: string
-    }
+    attributes: JsonAttribute
 }
 
 export type JsonResponse<T> = {
     data: T,
+}
+
+export interface JsonAttribute  {
+    name: string;
 }

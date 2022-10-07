@@ -1,6 +1,6 @@
 import { FormArray, FormControl } from '@angular/forms';
 
-export interface InfoFormInterface {
+export interface IInfoForm {
     firstName: FormControl<string>,
     id: FormControl<number>,
     lastName: FormControl<string>,

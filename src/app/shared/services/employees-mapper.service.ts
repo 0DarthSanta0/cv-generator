@@ -4,7 +4,7 @@ import { EmployeesInterface, IEmployeesWithSkills } from '@models/employees.inte
 import { SkillInterface } from '@models/skill.interface';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
-import { EmployeeFormDtoInterface } from '@employees';
+import { IEmployeeFormDto } from '@employees';
 import { JsonData, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
 import { PositionInterface } from '@models/interfaces/position.interface';
 
@@ -79,7 +79,7 @@ export class EmployeesMapperService {
         return employeeDTO;
     }
 
-    public employeeDTOToEmployee(dto: EmployeeFormDtoInterface, allSkills: SkillInterface[], allLanguages: LanguageInterface[], allPositions: PositionInterface[]): EmployeesInterface {
+    public employeeDTOToEmployee(dto: IEmployeeFormDto, allSkills: SkillInterface[], allLanguages: LanguageInterface[], allPositions: PositionInterface[]): EmployeesInterface {
 
         const skillsObj = this.nameMapper(allSkills);
         const languagesObj = this.nameMapper(allLanguages);

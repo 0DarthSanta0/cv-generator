@@ -1,6 +1,11 @@
 import { FormControl } from '@angular/forms';
 
-export interface LanguageFormInterface {
+export interface ILanguageForm {
     languageName: FormControl<string>,
     languageLevel: FormControl<number>,
+}
+
+export interface ILanguageFormResponse {
+    languageName: string,
+    languageLevel: number,
 }

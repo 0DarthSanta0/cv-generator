@@ -1,4 +1,7 @@
-export interface EmployeeFormDtoInterface {
+import { ISkillFormResponse } from './skill-form.interface';
+import { ILanguageFormResponse } from './language-form.interface';
+
+export interface IEmployeeFormDto {
     id: number,
     username: string,
     firstName: string,
@@ -7,12 +10,6 @@ export interface EmployeeFormDtoInterface {
     education: string,
     description: string,
     position: string | number,
-    skills: {
-        skillName: string,
-        skillLevel: number,
-    }[],
-    languages: {
-        languageName: string,
-        languageLevel: number,
-    }[]
+    skills: ISkillFormResponse[],
+    languages: ILanguageFormResponse[]
 }
