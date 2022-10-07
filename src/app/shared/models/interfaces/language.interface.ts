@@ -1,4 +1,4 @@
-export interface SkillInterface {
+export interface LanguageInterface {
     id: number,
     name: string,
     level?: number

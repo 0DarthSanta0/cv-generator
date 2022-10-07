@@ -20,8 +20,9 @@ import { AuthEffects } from './store/auth/auth-effects.service';
 import { appReducers } from './store';
 import { MissingTranslationHandler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { MissingTranslationService } from '@utils/missing-translation.service';
+import { MissingTranslationService } from '@services/missing-translation.service';
 import { EmployeesEffects } from './store/employees/employees-effects.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EmployeesEffects } from './store/employees/employees-effects.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

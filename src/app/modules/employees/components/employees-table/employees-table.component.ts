@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { employeesListAction } from '@ourStore/employees/actions/employees-table.action';
+import { employeesListAction } from '@ourStore/employees/employees.actions';
 import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/employees.selectors';
 import { IEmployeesWithSkills } from '@models/employees.interface';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
-import { COLUMN_NAMES } from '@constants/table-value';
+import { COLUMN_TABLE_NAMES } from '@constants/employee';
 
 @Component({
     selector: 'app-employees-table',
@@ -19,7 +19,7 @@ export class EmployeesTableComponent implements OnInit {
     public isLoading$: Observable<boolean>;
     public employeesWithSkills$: Observable<IEmployeesWithSkills[]>;
 
-    public columnNames: string[] = COLUMN_NAMES;
+    public columnNames: string[] = COLUMN_TABLE_NAMES;
 
     constructor(private store: Store,
                 private router: Router,

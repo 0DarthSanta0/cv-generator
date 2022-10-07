@@ -1,10 +1,38 @@
 {
   "validations": {
     "requiredError": "The field should not be empty",
-    "emailError": "Enter the correct email"
+    "emailError": "Enter the correct email",
+    "maxError": "Enter the correct length",
+    "minError": "Enter the correct length"
   },
   "links": {
     "registerNavigate": "Don't have an account?",
     "loginNavigate": "Already has an account?"
+  },
+  "emplInfo": {
+    "info" : "Information",
+    "infoContent": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "username": "User Name",
+      "education": "Education",
+      "description": "Description",
+      "position": "Position",
+      "email": "Email"
+    },
+    "skills" : "Skills",
+    "skillsContent": {
+      "skillName": "Skill",
+      "skillLevel": "Skill level"
+    },
+    "languages" : "Languages",
+    "languagesContent": {
+      "languageName": "Language",
+      "languageLevel": "Language level"
+    },
+    "buttons": {
+      "addSkill": "Add skill",
+      "addLang": "Add language"
+    }
   }
 }

@@ -1,10 +1,38 @@
 {
   "validations": {
     "requiredError": "Поле не может быть пустым",
-    "emailError": "Введите корректный email"
+    "emailError": "Введите корректный email",
+    "maxError": "Введите коррескную длину",
+    "minError": "Введите корректную длину"
   },
   "links": {
     "registerNavigate": "У вас нет аккаунта?",
     "loginNavigate": "Уже есть аккаунт?"
+  },
+  "emplInfo": {
+    "info" : "Информация",
+    "infoContent": {
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "username": "Имя пользователя",
+      "education": "Образование",
+      "description": "Описание",
+      "position": "Позиция",
+      "email": "Email"
+    },
+    "skills" : "Навыки",
+    "skillsContent": {
+      "skillName": "Навык",
+      "skillLevel": "Уровень навыка"
+    },
+    "languages" : "Языки",
+    "languagesContent": {
+      "languageName": "Язык",
+      "languageLevel": "Уровень языка"
+    },
+    "buttons": {
+      "addSkill": "Добавить навык",
+      "addLang": "Добавить язык"
+    }
   }
 }

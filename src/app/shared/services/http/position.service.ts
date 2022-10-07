@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { PositionInterface } from '@models/interfaces/position.interface';
+import { ApiService } from '@services/http/api.service';
 import { EndpointsUrl } from '@constants/endpoints';
-import { ApiService } from './api.service';
-import { SkillInterface } from '@models/skill.interface';
 import { EmployeesMapperService } from '@services/employees-mapper.service';
 import { JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SkillsService extends ApiService {
+export class PositionService extends ApiService {
 
     constructor(
         private employeesMapper: EmployeesMapperService,
@@ -17,8 +17,8 @@ export class SkillsService extends ApiService {
         super();
     }
 
-    public getListSkills(): Observable<SkillInterface[]> {
-        return this.httpService.get<JsonResponse<JsonDataWithAttributes[]>>(this.api + EndpointsUrl.LIST_SKILLS).pipe(
+    public getListPositions(): Observable<PositionInterface[]> {
+        return this.httpService.get<JsonResponse<JsonDataWithAttributes[]>>(this.api + EndpointsUrl.LIST_POSITIONS).pipe(
             map(this.employeesMapper.responseMap)
         )
     }
