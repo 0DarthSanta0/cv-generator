@@ -19,7 +19,7 @@
 
 .page-content {
   flex: 6;
-  .selected-module {
+  &__selected-module {
     margin: 1rem;
   }
 }
