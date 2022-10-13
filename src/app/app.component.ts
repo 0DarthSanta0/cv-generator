@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getCurrentUserAction());
-    this.route.navigate([`/${AppRoutes.MAIN_ROUTE}`]);
     this.translateService.use(environment.defaultLocale);
   }
 }

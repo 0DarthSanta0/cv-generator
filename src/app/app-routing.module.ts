@@ -5,6 +5,11 @@ import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: AppRoutes.MAIN_ROUTE,
+  },
+  {
     path: AppRoutes.REGISTER_ROUTE,
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
