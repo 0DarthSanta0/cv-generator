@@ -1,0 +1,56 @@
+.wrapper {
+  width: 900px;
+  margin: 0 auto;
+
+  .save-btn {
+    width: 10rem;
+    float: right;
+    margin-top: 1.5rem;
+  }
+
+  .info {
+    &__body {
+      .info__body_combine {
+        display: grid;
+        grid-template-columns: repeat(2, 18rem);
+        gap: 1em;
+
+      }
+    }
+  }
+
+  .add-skill {
+    margin-top: 0.7rem;
+    display: flex;
+    justify-content: end;
+
+    &__title {
+      margin-left: 0.3rem;
+    }
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  .panel-list {
+    .panel-content {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .cross {
+        padding-top: 1.4rem;
+        color: red;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    li {
+      list-style-type: none;
+    }
+  }
+}

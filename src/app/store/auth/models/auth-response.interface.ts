@@ -1,6 +1,6 @@
-import {CurrentUserInterface} from "../../../shared/models/current-user.interface";
+import {UserInterface} from "../../../shared/models/user.interface";
 
 export interface AuthResponseInterface {
    jwt: string,
-   user: CurrentUserInterface
+   user: UserInterface
 }
