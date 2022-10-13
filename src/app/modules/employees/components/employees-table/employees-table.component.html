@@ -1,0 +1,12 @@
+<app-spinner *ngIf="(isLoading$ | async); else table"
+             strokeWidth="4"
+></app-spinner>
+
+<ng-template #table>
+    <app-custom-table
+            [tableData]="employeesWithSkills$ | async"
+            [globalFilteredFields]="columnNames"
+            [columnNames]="columnNames"
+            (rowClicked)="redirectToEmployeesInfo($event)"
+    ></app-custom-table>
+</ng-template>
