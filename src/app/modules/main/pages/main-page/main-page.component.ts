@@ -29,7 +29,7 @@ export class MainPageComponent implements OnInit {
    this.setBreadcrumbs();
   }
 
-  public select(event: SelectEvent): void {
+  public onSelect(event: SelectEvent): void {
     this.route.navigate([`/${MainModulesTitles.MAIN_VALUE}/${event.value.value}`]);
   }
 
