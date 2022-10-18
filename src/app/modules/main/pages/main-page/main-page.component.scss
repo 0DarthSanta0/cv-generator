@@ -1,0 +1,25 @@
+:host {
+  ::ng-deep {
+    .p-listbox {
+      border: 0;
+    }
+    .p-breadcrumb {
+      border: 0;
+    }
+  }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.side-panel {
+  flex: 1;
+}
+
+.page-content {
+  flex: 6;
+  &__selected-module {
+    margin: 1rem;
+  }
+}
