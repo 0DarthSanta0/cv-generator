@@ -5,10 +5,9 @@
             <div class="content__name">
                 <span>INNOWISE</span>
             </div>
-            <span class="dot">•</span>
         </div>
         <div class="user-name">
-            {{userName}}
+            {{(currentUser | async)!.firstName + " " + (currentUser | async)!.lastName}}
         </div>
 
         <app-auth-header></app-auth-header>

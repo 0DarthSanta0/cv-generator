@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { getCurrentUser } from '@ourStore/auth/auth.selectors';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
+import { UserInterface } from '@models/user.interface';
 
 @Component({
     selector: 'app-header',
@@ -9,27 +10,15 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
-    public userName: string = '';
-
-    private destroy$ = new Subject<void>();
+    public currentUser: Observable<UserInterface | null>
 
     constructor(private store: Store) {
     }
 
     ngOnInit(): void {
-        this.store.pipe(
-            select(getCurrentUser),
-            takeUntil(this.destroy$)
-        ).subscribe((user) => {
-            this.userName = user?.firstName + ' ' + user?.lastName
-        })
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
+        this.currentUser = this.store.pipe(select(getCurrentUser))
     }
 
 }

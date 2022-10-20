@@ -20,14 +20,16 @@
       .content__name {
         font-family: Roboto, serif;
         font-weight: bold;
+
+        :after {
+          content: '•';
+          position: absolute;
+          color: red;
+          top: -0.7rem;
+          right: 0;
+        }
       }
 
-      .dot {
-        color: red;
-        position: absolute;
-        top: -1rem;
-        right: 0;
-      }
     }
 
     .user-name {
