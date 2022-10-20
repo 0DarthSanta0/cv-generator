@@ -25,53 +25,55 @@ import { EmployeesEffects } from './store/employees/employees-effects.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppInputModule,
-    AutocompleteModule,
-    PasswordModule,
-    CustomButtonModule,
-    DatePickerModule,
-    AuthModule,
-    StoreModule.forRoot(appReducers, {
-      runtimeChecks: {
-        strictActionImmutability: true,
-        strictActionSerializability: true,
-        strictStateImmutability: true,
-        strictStateSerializability: true,
-      },
-    }),
-    EffectsModule.forRoot([AuthEffects, EmployeesEffects]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-      autoPause: true,
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
-      useDefaultLang: false,
-    })
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppInputModule,
+        AutocompleteModule,
+        PasswordModule,
+        CustomButtonModule,
+        DatePickerModule,
+        AuthModule,
+        StoreModule.forRoot(appReducers, {
+            runtimeChecks: {
+                strictActionImmutability: true,
+                strictActionSerializability: true,
+                strictStateImmutability: true,
+                strictStateSerializability: true,
+            },
+        }),
+        EffectsModule.forRoot([AuthEffects, EmployeesEffects]),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: environment.production,
+            autoPause: true,
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationService},
+            useDefaultLang: false,
+        })
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

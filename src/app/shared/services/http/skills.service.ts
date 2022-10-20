@@ -4,7 +4,7 @@ import { EndpointsUrl } from '@constants/endpoints';
 import { ApiService } from './api.service';
 import { SkillInterface } from '@models/skill.interface';
 import { EmployeesMapperService } from '@services/employees-mapper.service';
-import { JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import { JsonAttribute, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +18,7 @@ export class SkillsService extends ApiService {
     }
 
     public getListSkills(): Observable<SkillInterface[]> {
-        return this.httpService.get<JsonResponse<JsonDataWithAttributes[]>>(this.api + EndpointsUrl.LIST_SKILLS).pipe(
+        return this.httpService.get<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_SKILLS).pipe(
             map(this.employeesMapper.responseMap)
         )
     }

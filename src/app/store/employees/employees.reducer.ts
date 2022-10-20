@@ -7,20 +7,13 @@ import {
     employeesListAction,
     employeesListFailureAction,
     employeesListSuccessAction,
-    languagesListAction,
-    languagesListFailureAction,
-    languagesListSuccessAction,
     positionsListAction, positionsListFailureAction, positionsListSuccessAction,
-    skillsListAction,
-    skillsListFailureAction,
-    skillsListSuccessAction
+
 } from './employees.actions';
 
 const initialState: EmployeesStateInterface = {
     isLoading: false,
     employeesList: [],
-    skillsList: [],
-    languagesList: [],
     positionsList: [],
     employeeDTO: null,
     errors: null,
@@ -44,48 +37,6 @@ export const employeesReducer = createReducer(
     ),
     on(
         employeesListFailureAction, (state, action): EmployeesStateInterface => ({
-            ...state,
-            isLoading: false,
-            errors: action.errors,
-        })
-    ),
-    on(
-        skillsListAction, (state): EmployeesStateInterface => ({
-            ...state,
-            isLoading: true,
-        })
-    ),
-    on(
-        skillsListSuccessAction, (state, action): EmployeesStateInterface => ({
-            ...state,
-            isLoading: false,
-            skillsList: action.listSkills,
-            errors: null,
-        })
-    ),
-    on(
-        skillsListFailureAction, (state, action): EmployeesStateInterface => ({
-            ...state,
-            isLoading: false,
-            errors: action.errors,
-        })
-    ),
-    on(
-        languagesListAction, (state): EmployeesStateInterface => ({
-            ...state,
-            isLoading: true,
-        })
-    ),
-    on(
-        languagesListSuccessAction, (state, action): EmployeesStateInterface => ({
-            ...state,
-            isLoading: false,
-            languagesList: action.listLanguages,
-            errors: null,
-        })
-    ),
-    on(
-        languagesListFailureAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
             errors: action.errors,

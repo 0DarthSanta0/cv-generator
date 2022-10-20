@@ -3,9 +3,9 @@ export interface JsonData {
     level: number
 }
 
-export interface JsonDataWithAttributes {
+export interface JsonDataWithAttributes<T> {
     id: number,
-    attributes: JsonAttribute
+    attributes: T
 }
 
 export type JsonResponse<T> = {

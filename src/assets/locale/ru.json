@@ -34,5 +34,10 @@
       "addSkill": "Добавить навык",
       "addLang": "Добавить язык"
     }
+  },
+  "entities": {
+    "skillsLabel": "Навыки",
+    "languagesLabel": "Языки",
+    "responsibilitiesLabel": "Ответственности"
   }
 }

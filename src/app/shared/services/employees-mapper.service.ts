@@ -5,7 +5,12 @@ import { SkillInterface } from '@models/skill.interface';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
 import { IEmployeeFormDto } from '@employees';
-import { JsonData, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import {
+    JsonAttribute,
+    JsonData,
+    JsonDataWithAttributes,
+    JsonResponse
+} from '@models/interfaces/json-data-response.interface';
 import { PositionInterface } from '@models/interfaces/position.interface';
 
 @Injectable({
@@ -38,17 +43,17 @@ export class EmployeesMapperService {
         }, []);
     }
 
-    public responseMap(dataResponse: JsonResponse<JsonDataWithAttributes[]>): { id: number, name: string }[] {
+    public responseMap(dataResponse: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>): { id: number, name: string }[] {
         return dataResponse.data
-            .map((item: JsonDataWithAttributes) => item)
-            .reduce((acc, data: JsonDataWithAttributes) => {
-                    const newObj: { id: number, name: string } = {
-                        id: data.id,
-                        name: data.attributes.name,
-                    }
-                    return [...acc, newObj];
+          .map((item: JsonDataWithAttributes<JsonAttribute>) => item)
+          .reduce((acc, data: JsonDataWithAttributes<JsonAttribute>) => {
+                const newObj: { id: number, name: string } = {
+                    id: data.id,
+                    name: data.attributes.name,
                 }
-                , [] as { id: number, name: string }[]);
+                return [...acc, newObj];
+            }
+            , [] as { id: number, name: string }[]);
     }
 
     public getEmployeeDTO(employee: EmployeesInterface, skills: SkillInterface[], languages: LanguageInterface[]): EmployeeInfoDtoInterface {
