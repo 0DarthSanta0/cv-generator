@@ -12,13 +12,13 @@ import { UserInterface } from '@models/user.interface';
 })
 export class HeaderComponent implements OnInit {
 
-    public currentUser: Observable<UserInterface | null>
+    public currentUser$: Observable<UserInterface | null>
 
     constructor(private store: Store) {
     }
 
     ngOnInit(): void {
-        this.currentUser = this.store.pipe(select(getCurrentUser))
+        this.currentUser$ = this.store.pipe(select(getCurrentUser))
     }
 
 }
