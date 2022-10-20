@@ -33,16 +33,16 @@ export const getProjectByIdFail = createAction(
 )
 
 export const updateProject = createAction(
-  ActionTypes.POST_PROJECT,
+  ActionTypes.UPDATE_PROJECT,
   props<{ newProject: ProjectsInterface }>()
 )
 
 export const updateProjectSuccess = createAction(
-  ActionTypes.POST_PROJECT_SUCCESS,
+  ActionTypes.UPDATE_PROJECT_SUCCESS,
 )
 
 export const updateProjectFail = createAction(
-  ActionTypes.POST_PROJECT_FAIL,
+  ActionTypes.UPDATE_PROJECT_FAIL,
   props<{ errors: BackendErrorsInterface }>()
 )
 

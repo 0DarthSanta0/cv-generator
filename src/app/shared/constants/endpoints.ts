@@ -6,5 +6,7 @@ export enum EndpointsUrl {
   LIST_SKILLS = '/skills',
   LIST_LANGUAGES = '/languages',
   USERS_UPDATE = '/users/',
-  LIST_POSITIONS = '/positions'
+  LIST_POSITIONS = '/positions',
+  LIST_PROJECTS = '/projects?populate=skills',
+  PROJECTS = '/projects/',
 }
