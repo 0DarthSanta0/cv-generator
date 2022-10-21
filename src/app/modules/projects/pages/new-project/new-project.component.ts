@@ -42,13 +42,13 @@ export class NewProjectComponent implements OnInit {
   public onSubmit(): void {
     const newProject: ProjectsInterface = <ProjectsInterface>this.infoForm.value;
     this.store.dispatch(postProject({newProject}));
-    this.router.navigate([AppRoutes.PROJECT_ROUTE]);
+    this.router.navigate([AppRoutes.PROJECTS_ROUTE]);
   }
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
       { label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE },
-      { label: PROJECTS, routerLink: AppRoutes.PROJECT_ROUTE},
+      { label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
       { label: NEW, },
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

@@ -35,7 +35,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public navigateToInfoPage(id: string): void {
-    this.router.navigate([AppRoutes.PROJECT_ROUTE, id]);
+    this.router.navigate([AppRoutes.PROJECTS_ROUTE, id]);
   }
 
   public navigateToNewProjectPage(): void {
@@ -45,7 +45,7 @@ export class ProjectsListComponent implements OnInit {
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
       { label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE },
-      { label: PROJECTS, routerLink: AppRoutes.PROJECT_ROUTE},
+      { label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }
