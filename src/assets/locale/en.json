@@ -34,5 +34,24 @@
       "addSkill": "Add skill",
       "addLang": "Add language"
     }
+  },
+  "projectInfo": {
+    "info" : "Information",
+    "infoContent": {
+      "name": "Name",
+      "internalName": "Internal Name",
+      "domain": "Domain",
+      "from": "From",
+      "to": "To",
+      "description": "Description"
+    },
+    "skills" : "Skills",
+    "skillsContent": {
+      "skillName": "Skill",
+      "skillLevel": "Skill level"
+    },
+    "buttons": {
+      "addSkill": "Add skill"
+    }
   }
 }

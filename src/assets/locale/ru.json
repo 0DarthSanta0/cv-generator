@@ -34,5 +34,24 @@
       "addSkill": "Добавить навык",
       "addLang": "Добавить язык"
     }
+  },
+  "projectInfo": {
+    "info" : "Информация",
+    "infoContent": {
+      "name": "Имя",
+      "internalName": "Внутреннее имя",
+      "domain": "Домен",
+      "from": "От",
+      "to": "До",
+      "description": "Описание"
+    },
+    "skills" : "Умения",
+    "skillsContent": {
+      "skillName": "Умение",
+      "skillLevel": "Уровень"
+    },
+    "buttons": {
+      "addSkill": "Добавить умение"
+    }
   }
 }

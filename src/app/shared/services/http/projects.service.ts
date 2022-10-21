@@ -38,11 +38,15 @@ export class ProjectsService extends ApiService {
   }
 
   public updateProject(project: ProjectsInterface): Observable<ProjectsInterface> {
-    return this.httpService.put<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS + project.id, project);
+    return this.httpService.put<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS + project.id, {
+      data: project,
+    });
   }
 
   public postProject(project: ProjectsInterface): Observable<ProjectsInterface> {
-    return this.httpService.post<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS, project);
+    return this.httpService.post<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS, {
+      data: project,
+    });
   }
 
 }

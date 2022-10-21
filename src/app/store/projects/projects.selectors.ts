@@ -3,9 +3,9 @@ import { ProjectsStateInterface } from '@models/interfaces/projects.state.interf
 
 export const projectsFeatureSelector = createFeatureSelector<ProjectsStateInterface>('projects');
 
-export const isLoadingSelector = createSelector(
+export const isLoadingProjectSelector = createSelector(
   projectsFeatureSelector,
-  (state: ProjectsStateInterface) => state.projectsList
+  (state: ProjectsStateInterface) => state.isLoading
 );
 
 export const projectsListSelector = createSelector(
