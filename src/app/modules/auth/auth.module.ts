@@ -42,6 +42,9 @@ import { AppDropdownModule } from '@components/controls/app-dropdown/app-dropdow
         InputSwitchModule,
         AppDropdownModule,
     ],
+    exports: [
+        AuthHeaderComponent
+    ],
     providers: [AuthService, LocalStorageService]
 })
 export class AuthModule {

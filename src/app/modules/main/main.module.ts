@@ -2,16 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { StoreModule } from '@ngrx/store';
-import { breadcrumbsReducer } from '../../store/breadcrumbs/breadcrumbs.reducers';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { BreadcrumbsModule } from '@components/breadcrumbs/breadcrumbs.module';
+import { ListboxModule } from 'primeng/listbox';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './pages/header/header.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { AuthModule } from '../auth/auth.module';
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    MainRoutingModule,
-    StoreModule.forRoot(breadcrumbsReducer),
-  ]
+  declarations: [
+    MainPageComponent,
+    HeaderComponent,
+    FooterComponent
+  ],
+    imports: [
+        CommonModule,
+        MainRoutingModule,
+        BreadcrumbsModule,
+        ListboxModule,
+        FormsModule,
+        AuthModule,
+    ],
 })
 export class MainModule { }

@@ -1,0 +1,15 @@
+.wrapper {
+  height: 8vh;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-footer);
+  font-family: Roboto, serif;
+
+  &__content {
+    font-size: 1.6rem;
+    color: grey;
+  }
+}
