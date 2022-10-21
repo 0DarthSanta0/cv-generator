@@ -2,11 +2,18 @@
              strokeWidth="4"
 ></app-spinner>
 
+<div class="new-proj-btn">
+  <app-custom-button
+    label="New project"
+    (click)="navigateToNewProjectPage()"
+  ></app-custom-button>
+</div>
+
 <ng-template #table>
   <app-custom-table
     [tableData]="projects$| async"
     [globalFilteredFields]="columnNames"
     [columnNames]="columnNames"
-    (rowClicked)="redirectToProjectsInfo($event)"
+    (rowClicked)="navigateToInfoPage($event)"
   ></app-custom-table>
 </ng-template>
