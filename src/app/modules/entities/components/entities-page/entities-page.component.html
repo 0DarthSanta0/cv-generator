@@ -13,9 +13,9 @@
         </div>
 
         <div class="content__entities">
-            <div class="items" *ngFor="let entity of entities | searchFilter:searchingText">
-                <div class="item" (click)="redirectToAddEntity(entity)">
-                    {{entity | translate}}
+            <div class="items" *ngFor="let entity of entities | keyvalue | searchFilter:searchingText" >
+                <div class="item" (click)="redirectToAddEntity(entity.key)">
+                    {{entity.value | translate}}
                 </div>
             </div>
         </div>

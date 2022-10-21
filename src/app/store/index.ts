@@ -7,17 +7,21 @@ import { BreadcrumbsState } from '@models/interfaces/breadcrumbs.state.interface
 import { breadcrumbsReducer } from './breadcrumbs/breadcrumbs.reducers';
 import { IMainState } from '@ourStore/main/models/main-state.interface';
 import { mainReducer } from '@ourStore/main/main.reducer';
+import { IEntitiesState } from '@ourStore/entities/models/entities-state.interface';
+import { entitiesReducer } from '@ourStore/entities/entities.reducer';
 
 export interface AppState {
   auth: AuthStateInterface,
   employees: EmployeesStateInterface,
   breadcrumbs: BreadcrumbsState,
-  main: IMainState
+  main: IMainState,
+  entities: IEntitiesState
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
   auth: authReducer,
   employees: employeesReducer,
   breadcrumbs: breadcrumbsReducer,
-  main: mainReducer
+  main: mainReducer,
+  entities: entitiesReducer
 }

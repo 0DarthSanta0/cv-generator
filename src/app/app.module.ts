@@ -13,7 +13,6 @@ import { environment } from '@environment/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { LocalStorageService } from '@services/local-storage.service';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
 import { AuthEffects } from './store/auth/auth-effects.service';
@@ -23,6 +22,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from '@services/missing-translation.service';
 import { EmployeesEffects } from './store/employees/employees-effects.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainEffects } from '@ourStore/main/main-effects';
+import { EntitiesEffects } from '@ourStore/entities/entities-effects';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
                 strictStateSerializability: true,
             },
         }),
-        EffectsModule.forRoot([AuthEffects, EmployeesEffects]),
+        EffectsModule.forRoot([AuthEffects, EmployeesEffects, MainEffects, EntitiesEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
             logOnly: environment.production,

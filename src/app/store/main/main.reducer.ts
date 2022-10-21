@@ -1,7 +1,5 @@
 import { IMainState } from '@ourStore/main/models/main-state.interface';
 import { createReducer, on } from '@ngrx/store';
-
-import { EmployeesStateInterface } from '@ourStore/employees/models/employees-state.interface';
 import {
   languagesList,
   languagesListFailure,
@@ -25,7 +23,10 @@ const initialState: IMainState = {
 export const mainReducer = createReducer(
   initialState,
   on(
-    skillsList,languagesList,responsibilitiesList, (state): IMainState => ({
+    skillsList,
+    languagesList,
+    responsibilitiesList,
+    (state): IMainState => ({
       ...state,
       isLoading: true,
     })
@@ -55,7 +56,10 @@ export const mainReducer = createReducer(
     })
   ),
   on(
-    languagesListFailure,skillsListFailure,responsibilitiesListFailure, (state, action): IMainState => ({
+    languagesListFailure,
+    skillsListFailure,
+    responsibilitiesListFailure,
+    (state, action): IMainState => ({
       ...state,
       isLoading: false,
       errors: action.errors,

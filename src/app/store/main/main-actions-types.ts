@@ -10,4 +10,5 @@ export enum MainActionsTypes {
   RESPONSIBILITIES_LIST = '[Main] Get responsibilities list',
   RESPONSIBILITIES_LIST_SUCCESS = '[Main] Get responsibilities list success',
   RESPONSIBILITIES_LIST_FAILURE = '[Main] Get responsibilities list failure',
+
 }

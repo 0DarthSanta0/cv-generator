@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AddEntityComponent } from './components/add-entity/add-entity.component';
 import { SearchFilterPipe } from '../../shared/pipes/search-filter.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppInputModule } from '@components/controls/input/app-input.module';
+import { CustomButtonModule } from '@components/custom-button/custom-button.module';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
     EntitiesRoutingModule,
     ReactiveFormsModule,
     InputTextModule,
-    TranslateModule
+    TranslateModule,
+    AppInputModule,
+    CustomButtonModule,
   ],
   declarations: [
     EntitiesPageComponent,

@@ -1,1 +1,1 @@
-export const ENTITIES: string[] = ['entities.skillsLabel', 'entities.languagesLabel', 'entities.responsibilitiesLabel'];
+export const ENTITIES_ITEMS = {skills: 'entities.skillsLabel', languages: 'entities.languagesLabel', responsibilities:'entities.responsibilitiesLabel'};

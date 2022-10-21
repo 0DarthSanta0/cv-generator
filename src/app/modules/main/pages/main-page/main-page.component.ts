@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { MainModulesTitles } from '@constants/main-modules-titles';
 import { ListElement } from '@models/interfaces/list-element.interface';
 import { FIRST_SELECTED_ELEMENT, MAIN_PAGE_ELEMENTS_LIST } from '@constants/main-page-list';
-import { languagesList, skillsList } from '@ourStore/main/main-actions';
+import { languagesList, responsibilitiesList, skillsList } from '@ourStore/main/main-actions';
 import { positionsListAction } from '@ourStore/employees/employees.actions';
 
 @Component({
@@ -25,12 +25,14 @@ export class MainPageComponent implements OnInit {
     private store: Store,
     private cdr: ChangeDetectorRef,
     private route: Router,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
-   this.setBreadcrumbs();
+    this.setBreadcrumbs();
     this.store.dispatch(skillsList());
     this.store.dispatch(languagesList());
+    this.store.dispatch(responsibilitiesList());
     this.store.dispatch(positionsListAction());
   }
 
@@ -41,7 +43,7 @@ export class MainPageComponent implements OnInit {
   private setBreadcrumbs(): void {
     this.store.dispatch(setBreadcrumbs({
       breadcrumbs: [
-        { label: MainModulesTitles.MAIN_LABEL, url: undefined },
+        {label: MainModulesTitles.MAIN_LABEL, url: undefined},
       ]
     }));
   }

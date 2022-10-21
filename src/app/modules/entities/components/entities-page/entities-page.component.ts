@@ -5,7 +5,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
 import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
-import { ENTITIES } from '@constants/entities';
+import { ENTITIES_ITEMS } from '@constants/entities';
+import { Store } from '@ngrx/store';
+import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 
 @Component({
   selector: 'app-entities-page',
@@ -17,19 +19,23 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
 
   public searchInput: FormGroup<ISearchInputForm>;
 
+  public pathBreadcrumb: MenuItem[] = [{label: 'entities',routerLink:AppRoutes.ENTITIES_ROUTE}]
+
   public searchingText: string = '';
-  public entities: string[] = ENTITIES;
-  public pathBreadcrumb: MenuItem[] = [{label: ''}, {}]
+  public entities = ENTITIES_ITEMS;
+
   private destroy$ = new Subject<void>();
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private router: Router,
+    private store: Store,
   ) {
   }
 
   ngOnInit(): void {
     this.defineForm();
+    this.store.dispatch(setBreadcrumbs({breadcrumbs: this.pathBreadcrumb}))
   }
 
   ngOnDestroy(): void {
