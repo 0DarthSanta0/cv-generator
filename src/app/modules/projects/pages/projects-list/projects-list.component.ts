@@ -10,6 +10,7 @@ import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.int
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { MenuItem } from 'primeng/api';
 import { MAIN, PROJECTS } from '@constants/breadcrumbs';
+import { NEW_PROJECT } from '@constants/projects-routes';
 
 @Component({
   selector: 'app-projects-list',
@@ -35,11 +36,11 @@ export class ProjectsListComponent implements OnInit {
   }
 
   public navigateToInfoPage(id: string): void {
-    this.router.navigate([AppRoutes.PROJECTS_ROUTE, id]);
+    this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE, id]);
   }
 
   public navigateToNewProjectPage(): void {
-    this.router.navigate(['projects/new']);
+    this.router.navigate([AppRoutes.MAIN_ROUTE  + '/' + AppRoutes.PROJECTS_ROUTE + '/' + NEW_PROJECT]);
   }
 
   private setBreadcrumbs(): void {

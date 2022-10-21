@@ -51,7 +51,7 @@ export class ProjectInfoComponent implements OnInit {
   public onSubmit(): void {
     const newProject: ProjectsInterface = <ProjectsInterface>this.infoForm.value;
     this.store.dispatch(updateProject({newProject}));
-    this.router.navigate([AppRoutes.PROJECTS_ROUTE]);
+    this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE]);
   }
 
   private setBreadcrumbs(): void {

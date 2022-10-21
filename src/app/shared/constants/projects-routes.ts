@@ -1,1 +1,1 @@
-export const NEW_PROJECT = '/new';
+export const NEW_PROJECT = 'new';
