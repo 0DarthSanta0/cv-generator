@@ -23,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from '@services/missing-translation.service';
 import { EmployeesEffects } from './store/employees/employees-effects.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectsEffects } from '@ourStore/projects/projects.effects';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         strictStateSerializability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffects, EmployeesEffects]),
+    EffectsModule.forRoot([AuthEffects, EmployeesEffects, ProjectsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

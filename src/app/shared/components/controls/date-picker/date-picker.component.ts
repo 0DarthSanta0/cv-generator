@@ -9,6 +9,6 @@ import {BaseControl} from "../../../models/base-control";
 })
 export class DatePickerComponent extends BaseControl {
 
-   @Input() dateFormat: string = 'dd.mm.yy';
+   @Input() dateFormat: string = 'yy-mm-dd';
 
 }
