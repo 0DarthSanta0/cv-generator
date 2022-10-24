@@ -9,6 +9,8 @@ import { IMainState } from '@ourStore/main/models/main-state.interface';
 import { mainReducer } from '@ourStore/main/main.reducer';
 import { IEntitiesState } from '@ourStore/entities/models/entities-state.interface';
 import { entitiesReducer } from '@ourStore/entities/entities.reducer';
+import { ProjectsStateInterface } from '@models/interfaces/projects.state.interface';
+import { projectsReducers } from '@ourStore/projects/projects.reducers';
 
 export interface AppState {
   auth: AuthStateInterface,
@@ -16,12 +18,14 @@ export interface AppState {
   breadcrumbs: BreadcrumbsState,
   main: IMainState,
   entities: IEntitiesState
+  projects: ProjectsStateInterface,
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
   auth: authReducer,
   employees: employeesReducer,
   breadcrumbs: breadcrumbsReducer,
+  projects: projectsReducers,
   main: mainReducer,
   entities: entitiesReducer
 }

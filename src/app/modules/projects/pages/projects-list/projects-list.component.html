@@ -1,0 +1,18 @@
+<app-spinner *ngIf="(isLoading$ | async); else table"
+             strokeWidth="4"
+></app-spinner>
+
+<ng-template #table>
+  <div class="new-proj-btn">
+    <app-custom-button
+            label="New project"
+            (click)="navigateToNewProjectPage()"
+    ></app-custom-button>
+  </div>
+  <app-custom-table
+    [tableData]="projects$| async"
+    [globalFilteredFields]="columnNames"
+    [columnNames]="columnNames"
+    (rowClicked)="navigateToInfoPage($event)"
+  ></app-custom-table>
+</ng-template>

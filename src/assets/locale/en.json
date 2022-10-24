@@ -10,7 +10,7 @@
     "loginNavigate": "Already has an account?"
   },
   "emplInfo": {
-    "info" : "Information",
+    "info": "Information",
     "infoContent": {
       "firstName": "First Name",
       "lastName": "Last Name",
@@ -20,12 +20,12 @@
       "position": "Position",
       "email": "Email"
     },
-    "skills" : "Skills",
+    "skills": "Skills",
     "skillsContent": {
       "skillName": "Skill",
       "skillLevel": "Skill level"
     },
-    "languages" : "Languages",
+    "languages": "Languages",
     "languagesContent": {
       "languageName": "Language",
       "languageLevel": "Language level"
@@ -39,5 +39,24 @@
     "skillsLabel": "Skills",
     "languagesLabel": "Languages",
     "responsibilitiesLabel": "Responsibilities"
+  },
+  "projectInfo": {
+    "info": "Information",
+    "infoContent": {
+      "name": "Name",
+      "internalName": "Internal Name",
+      "domain": "Domain",
+      "from": "From",
+      "to": "To",
+      "description": "Description"
+    },
+    "skills": "Skills",
+    "skillsContent": {
+      "skillName": "Skill",
+      "skillLevel": "Skill level"
+    },
+    "buttons": {
+      "addSkill": "Add skill"
+    }
   }
 }

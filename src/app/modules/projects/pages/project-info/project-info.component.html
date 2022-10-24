@@ -1,0 +1,49 @@
+<app-spinner *ngIf="(isLoading$ | async); else info"
+             strokeWidth="4"
+></app-spinner>
+
+<ng-template #info>
+  <div class="wrapper" *ngIf="!(isLoading$ | async)">
+    <form [formGroup]="infoForm">
+      <div class="info">
+        <p-panel [header]="'projectInfo.info' | translate">
+          <div class="info__body">
+            <div class="info__body_combine">
+              <div *ngFor="let project of inputArray">
+                <app-input
+                  [label]="'projectInfo.infoContent.' + project | translate"
+                  [formControlName]="project"
+                  [errorsMap]="requiredField"
+                ></app-input>
+              </div>
+            </div>
+
+            <div *ngFor="let dates of dateArray">
+              <app-date-picker
+                [label]="'projectInfo.infoContent.' + dates| translate"
+                [formControlName]="dates"
+                [errorsMap]="requiredField"
+              ></app-date-picker>
+            </div>
+
+            <div *ngFor="let data of textAreaArray">
+              <app-textarea
+                [label]="'projectInfo.infoContent.' + data | translate"
+                [formControlName]="data"
+                [errorsMap]="requiredField"
+                [rows]="3"
+              ></app-textarea>
+            </div>
+          </div>
+        </p-panel>
+      </div>
+      <div class="save-btn">
+        <app-custom-button
+          label="Save change"
+          (click)="onSubmit()"
+          [disabled]="(infoForm.invalid || infoForm.pending)"
+        ></app-custom-button>
+      </div>
+    </form>
+  </div>
+</ng-template>
