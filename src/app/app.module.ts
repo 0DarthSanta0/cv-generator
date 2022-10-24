@@ -13,7 +13,6 @@ import { environment } from '@environment/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { LocalStorageService } from '@services/local-storage.service';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
 import { AuthEffects } from './store/auth/auth-effects.service';
@@ -23,11 +22,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from '@services/missing-translation.service';
 import { EmployeesEffects } from './store/employees/employees-effects.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainEffects } from '@ourStore/main/main-effects';
+import { EntitiesEffects } from '@ourStore/entities/entities-effects';
 import { ProjectsEffects } from '@ourStore/projects/projects.effects';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,7 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
         strictStateSerializability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffects, EmployeesEffects, ProjectsEffects]),
+    EffectsModule.forRoot([AuthEffects, EmployeesEffects, MainEffects, EntitiesEffects, ProjectsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -61,7 +62,7 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
+      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationService},
       useDefaultLang: false,
     })
   ],
@@ -72,11 +73,14 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
       multi: true
     }
   ],
+  exports: [],
   bootstrap: [AppComponent]
+
 })
+
 export class AppModule {
 }
 
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
-    return new TranslateHttpLoader(http, './assets/locale/', '.json');
+  return new TranslateHttpLoader(http, './assets/locale/', '.json');
 }

@@ -6,15 +6,14 @@ import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validati
 import {
     employeeDTOSelector,
     isLoadingSelector,
-    listLanguagesSelector,
     listPositionsSelector,
-    listSkillsSelector
 } from '@ourStore/employees/employees.selectors';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { IEmployeeFormDto, IInfoForm, ILanguageForm, ISkillForm } from '@employees';
 import { employeeByIdAction, employeeUpdateAction } from '@ourStore/employees/employees.actions';
 import { EMPL_INFO_INPUT, EMPL_INFO_TEXTAREA } from '@constants/employee';
+import { selectLanguages, selectSkills } from '@ourStore/main/main-selectors';
 
 @Component({
     selector: 'app-employee-info',
@@ -90,7 +89,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
     private getDataFromStore(): void {
         this.store.pipe(
-            select(listSkillsSelector),
+            select(selectSkills),
             takeUntil(this.destroy$)
         )
             .subscribe((skills) => {
@@ -98,7 +97,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
             });
 
         this.store.pipe(
-            select(listLanguagesSelector),
+            select(selectLanguages),
             takeUntil(this.destroy$)
         )
             .subscribe((languages) => {

@@ -1,4 +1,9 @@
-import { JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import {
+  JsonAttribute,
+  JsonData,
+  JsonDataWithAttributes,
+  JsonResponse
+} from '@models/interfaces/json-data-response.interface';
 
 export interface ResponseProjectInterface {
   id: number,
@@ -9,6 +14,6 @@ export interface ResponseProjectInterface {
     from: Date,
     to: Date,
     internalName: string,
-    skills: JsonResponse<JsonDataWithAttributes[]>,
+    skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
   }
 }

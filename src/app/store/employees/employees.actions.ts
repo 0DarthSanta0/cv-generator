@@ -22,19 +22,6 @@ export const employeesListFailureAction = createAction(
     props<{ errors: BackendErrorsInterface }>()
 )
 
-export const skillsListAction = createAction(
-    EmployeesActionTypes.SKILLS_LIST
-)
-
-export const skillsListSuccessAction = createAction(
-    EmployeesActionTypes.SKILLS_LIST_SUCCESS,
-    props<{ listSkills: SkillInterface[] }>()
-)
-
-export const skillsListFailureAction = createAction(
-    EmployeesActionTypes.SKILLS_LIST_FAILURE,
-    props<{ errors: BackendErrorsInterface }>()
-)
 
 
 export const positionsListAction = createAction(
@@ -48,20 +35,6 @@ export const positionsListSuccessAction = createAction(
 
 export const positionsListFailureAction = createAction(
     EmployeesActionTypes.POSITIONS_LIST_FAILURE,
-    props<{ errors: BackendErrorsInterface }>()
-)
-
-export const languagesListAction = createAction(
-    EmployeesActionTypes.LANGUAGES_LIST
-)
-
-export const languagesListSuccessAction = createAction(
-    EmployeesActionTypes.LANGUAGES_LIST_SUCCESS,
-    props<{ listLanguages: LanguageInterface[] }>()
-)
-
-export const languagesListFailureAction = createAction(
-    EmployeesActionTypes.LANGUAGES_LIST_FAILURE,
     props<{ errors: BackendErrorsInterface }>()
 )
 

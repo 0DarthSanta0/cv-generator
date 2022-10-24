@@ -1,0 +1,1 @@
+export const ENTITIES_ITEMS = {skills: 'entities.skillsLabel', languages: 'entities.languagesLabel', responsibilities:'entities.responsibilitiesLabel'};

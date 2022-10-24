@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <div class="wrapper__content">
+
+        <div class="content__side-list">
+            <div class="content__search-input">
+                <form [formGroup]="searchInput">
+                    <input pInputText
+                           type="text"
+                           class="search"
+                           placeholder="Search"
+                           [formControlName]="'text'"
+                    />
+                    <i class="pi pi-search"></i>
+                </form>
+            </div>
+            <div class="entities" *ngFor="let entity of (entities$ | async);trackBy: trackByFn | searchFilter:searchingText">
+                <div class="entity">
+                    <div class="entity__name">
+                        <div class="name">
+                            {{entity.name}}
+                        </div>
+
+                    </div>
+                    <div class="entity__delete" (click)="deleteEntity(entity.id)">
+                        <i class="pi pi-ban"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content__main">
+            <form [formGroup]="addEntityForm">
+                <div class="main__input">
+                    <app-input
+                            class="form_item"
+                            label="Name"
+                            placeholder="Name"
+                            [errorsMap]=requiredField
+                            formControlName="name"
+                    ></app-input>
+                </div>
+                <div class="main__add-entity">
+                    <app-custom-button
+                            [label]="'Add ' + entityName + ' item'"
+                            (click)="onSubmit()"
+                            [disabled]="(addEntityForm.invalid || addEntityForm.pending) ? true : false"
+                    ></app-custom-button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

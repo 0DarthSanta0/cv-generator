@@ -13,16 +13,6 @@ export const listEmployeesSelector = createSelector(
     (employeesState: EmployeesStateInterface) => employeesState.employeesList
 );
 
-export const listSkillsSelector = createSelector(
-    employeesFeatureSelector,
-    (employeesState: EmployeesStateInterface) => employeesState.skillsList
-);
-
-export const listLanguagesSelector = createSelector(
-    employeesFeatureSelector,
-    (employeesState: EmployeesStateInterface) => employeesState.languagesList
-);
-
 export const listPositionsSelector = createSelector(
     employeesFeatureSelector,
     (employeesState: EmployeesStateInterface) => employeesState.positionsList

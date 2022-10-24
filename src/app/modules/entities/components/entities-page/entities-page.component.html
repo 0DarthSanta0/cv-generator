@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <div class="wrapper__content">
+        <div class="content__search-input">
+            <form [formGroup]="searchInput">
+                <input pInputText
+                       type="text"
+                       class="search"
+                       placeholder="Search"
+                       [formControlName]="'text'"
+                />
+                <i class="pi pi-search"></i>
+            </form>
+        </div>
+
+        <div class="content__entities">
+            <div class="items" *ngFor="let entity of entities | keyvalue | searchFilter:searchingText" >
+                <div class="item" (click)="redirectToAddEntity(entity.key)">
+                    {{entity.value | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
