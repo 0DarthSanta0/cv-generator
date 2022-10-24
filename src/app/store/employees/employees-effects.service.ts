@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EmployeesService } from '@services/http/employees.service';
-import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, combineLatestWith, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   employeeByIdAction,
@@ -25,6 +25,7 @@ import { EmplLanguageService } from '@services/http/empl-language.service';
 import { EmployeesInterface } from '@models/employees.interface';
 import { PositionService } from '@services/http/position.service';
 import { selectLanguages, selectSkills } from '@ourStore/main/main-selectors';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class EmployeesEffects {
@@ -57,14 +58,14 @@ export class EmployeesEffects {
   public employeeById$ = createEffect(() => this.actions$.pipe(
       ofType(employeeByIdAction),
       switchMap(({id}) => this.employeesService.getEmployeeById(id)),
-      withLatestFrom(
+      combineLatestWith(
         this.store.pipe(select(selectLanguages)),
-        this.store.pipe(select(selectSkills)),
+        this.store.pipe(select(selectSkills))
       ),
-      filter(([_, langs]) => !!langs.length),
-      map(([employee, languages, skills]) => this.employeeMappers.getEmployeeDTO(employee, skills, languages)),
-      map((employeeDTO) => {
-        return employeeByIdSuccessAction({employeeDTO});
+      filter(([, langs, skills]) => !!langs.length && !!skills.length),
+      map(([employee, languages, skills]) => this.employeeMappers.getEmployeeDto(employee, skills, languages)),
+      map((employeeDto) => {
+        return employeeByIdSuccessAction({employeeDto: employeeDto});
       }),
       catchError((errorResponse: HttpErrorResponse) =>
         of(employeeByIdFailureAction({errors: errorResponse.error}))
@@ -79,7 +80,7 @@ export class EmployeesEffects {
       this.store.pipe(select(selectSkills)),
       this.store.pipe(select(listPositionsSelector)),
     ),
-    map(([{newEmployee}, languages, skills, positions]) => this.employeeMappers.employeeDTOToEmployee(newEmployee, skills, languages, positions)),
+    map(([{newEmployee}, languages, skills, positions]) => this.employeeMappers.employeeDtoToEmployee(newEmployee, skills, languages, positions)),
     switchMap((mappedEmployee: EmployeesInterface) => this.employeesService.updateEmployee(mappedEmployee)),
     map(() => employeeUpdateSuccessAction()),
     catchError((errorResponse: HttpErrorResponse) =>
@@ -93,7 +94,8 @@ export class EmployeesEffects {
               private skillsService: SkillsService,
               private languageService: EmplLanguageService,
               private positionService: PositionService,
-              private employeeMappers: EmployeesMapperService
+              private employeeMappers: EmployeesMapperService,
+              private _routes: ActivatedRoute
   ) {
   }
 }

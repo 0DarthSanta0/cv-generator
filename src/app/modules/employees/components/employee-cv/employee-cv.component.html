@@ -1,1 +1,244 @@
-<p>employee-cv works!</p>
+<div class="wrapper">
+    <aside class="wrapper__left-side">
+        <div class="content">
+            <div class="content__search-input">
+
+                <form [formGroup]="searchInput">
+                    <input pInputText
+                           type="text"
+                           class="search"
+                           placeholder="Search"
+                           [formControlName]="'text'"
+                    />
+                    <i class="pi pi-search"></i>
+                </form>
+
+
+            </div>
+            <div class="content__list-cv">
+<!--                <div class="cvs__list" *ngFor="let cv of employeeCvs$ | async | searchFilter:searchingText">-->
+<!--                    <div class="content__cv">-->
+<!--                        <div class="cv_open" (click)="openCv(cv.id)">-->
+<!--                            <i class="pi pi-eye" style="font-size: 1rem"></i>-->
+<!--                        </div>-->
+<!--                        <div class="cv_name">-->
+<!--                            {{cv.name}}-->
+<!--                        </div>-->
+<!--                        <div class="cv_delete" (click)="deleteCv(cv.id)">-->
+<!--                            <i class="pi pi-ban" style="font-size: 1rem"></i>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </aside>
+
+    <div class="wrapper__cv-content">
+        <div class="content" *ngIf="isLoading">
+            <div class="save-btn">
+
+                <app-custom-button
+                        class="download-btn"
+                        *ngIf="isPreview"
+                        [label]="'Download'"
+                        (click)="downloadPdf()"
+                ></app-custom-button>
+
+                <app-custom-button
+                        [label]="buttonLabel"
+                        (click)="createPreview()"
+                ></app-custom-button>
+            </div>
+
+<!--            <app-pdf-preview *ngIf="isPreview" [formData]="cv" [isDownload$]="isDownload$"></app-pdf-preview>-->
+
+            <form [formGroup]="cvInfoForm" *ngIf="!isPreview">
+                <div class="info">
+                    <p-panel [header]="'emplInfo.info' | translate" [toggleable]="true">
+                        <div class="info__body">
+                            <div class="info__body_combine">
+
+                                <div *ngFor="let emplInfo of inputArray">
+                                    <app-input
+                                            [label]="'emplInfo.infoContent.' + emplInfo | translate"
+                                            [formControlName]="emplInfo"
+                                            [errorsMap]="requiredField"
+                                    ></app-input>
+                                </div>
+                            </div>
+                            <app-textarea
+                                    [label]="'emplInfo.infoContent.description' | translate"
+                                    [formControlName]="'descriptionCv'"
+                                    [errorsMap]="requiredField"
+                                    [rows]="3"
+                            ></app-textarea>
+                            <app-textarea
+                                    [label]="'emplInfo.infoContent.education' | translate"
+                                    [formControlName]="'education'"
+                                    [errorsMap]="requiredField"
+                                    [rows]="3"
+                            ></app-textarea>
+
+                        </div>
+                    </p-panel>
+                </div>
+                <div class="skills">
+                    <p-panel [header]="'emplInfo.skills' | translate" [toggleable]="true">
+                        <div class="skills__body">
+
+                            <ul formArrayName="skills" class="panel-list">
+                                <li
+                                        *ngFor="let skill of cvInfoForm.controls.skills.controls; let i=index"
+                                >
+                                    <div [formGroupName]="i" class="panel-content">
+                                        <app-autocomplete
+                                                [label]="'emplInfo.skillsContent.skillName' | translate"
+                                                formControlName="skillName"
+                                                [errorsMap]="requiredField"
+                                                [dataList]="techStack"
+                                        ></app-autocomplete>
+                                        <app-autocomplete
+                                                [label]="'emplInfo.skillsContent.skillLevel' | translate"
+                                                formControlName="skillLevel"
+                                                [errorsMap]="requiredFieldWithLength"
+                                        ></app-autocomplete>
+                                        <div class="cross" (click)="removeSkill(i)">
+                                            <i class="pi pi-times"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="add-skill">
+                            <span>
+                                <i class="pi pi-plus"></i>
+                            </span>
+                                <span class="title" (click)="addSkill()">
+                                {{'emplInfo.buttons.addSkill' | translate}}
+                            </span>
+                            </div>
+
+                        </div>
+                    </p-panel>
+                </div>
+                <div class="language">
+                    <p-panel [header]="'emplInfo.languages' | translate" [toggleable]="true">
+                        <div class="languages__body">
+
+                            <ul formArrayName="languages" class="panel-list">
+                                <li
+                                        *ngFor="let language of cvInfoForm.controls.languages.controls; let i=index"
+                                >
+                                    <div [formGroupName]="i" class="panel-content">
+                                        <app-autocomplete
+                                                [label]="'emplInfo.languagesContent.languageName' | translate"
+                                                formControlName="languageName"
+                                                [errorsMap]="requiredField"
+                                                [dataList]="allLanguagesName"
+                                        ></app-autocomplete>
+                                        <app-autocomplete
+                                                [label]="'emplInfo.languagesContent.languageLevel' | translate"
+                                                formControlName="languageLevel"
+                                                [errorsMap]="requiredFieldWithLength"
+                                                [dataList]="allLanguagesName"
+                                        ></app-autocomplete>
+                                        <div class="cross" (click)="removeLanguage(i)">
+                                            <i class="pi pi-times"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="add-skill">
+                                <div>
+                                    <i class="pi pi-plus"></i>
+                                </div>
+                                <span class="title" (click)="addLanguage()">
+                                {{'emplInfo.buttons.addLang' | translate}}
+                            </span>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+                <div class="save-btn">
+                    <app-custom-button
+                            label="Add project"
+                            (click)="addProject()"
+                    ></app-custom-button>
+                </div>
+<!--                <div class="projects" formArrayName="projects">-->
+<!--                    <p-panel-->
+<!--                            [header]="project.value.name!"-->
+<!--                            [toggleable]="true"-->
+<!--                            *ngFor="let project of cvInfoForm.controls.projects.controls; let i=index"-->
+
+<!--                    >-->
+<!--                        <div [formGroupName]="i" class="panel-content-project">-->
+<!--                            <div class="cross" (click)="removeProject(i)">-->
+<!--                                <i class="pi pi-times"></i>-->
+<!--                            </div>-->
+<!--                            <div class="combine">-->
+<!--                                <div *ngFor="let projectField of inputProjectArray">-->
+<!--                                    <app-input-->
+<!--                                            [label]="'emplInfo.projectsContent.' + projectField | translate"-->
+<!--                                            [formControlName]="projectField"-->
+<!--                                            [errorsMap]="requiredField"-->
+<!--                                    ></app-input>-->
+<!--                                </div>-->
+
+<!--                                <app-date-picker-->
+<!--                                        [label]="'emplInfo.projectsContent.start' | translate"-->
+<!--                                        [formControlName]="'from'"-->
+<!--                                        [errorsMap]="requiredField"-->
+<!--                                >-->
+<!--                                </app-date-picker>-->
+<!--                                <app-date-picker-->
+<!--                                        [label]="'emplInfo.projectsContent.finish' | translate"-->
+<!--                                        [formControlName]="'to'"-->
+<!--                                        [errorsMap]="requiredField"-->
+<!--                                >-->
+<!--                                </app-date-picker>-->
+
+<!--                            </div>-->
+
+<!--                            <div class="autocomplete">-->
+
+<!--                                <app-autocomplete-->
+<!--                                        [label]="'emplInfo.projectsContent.techStack' | translate"-->
+<!--                                        [formControlName]="'techStack'"-->
+<!--                                        [errorsMap]="requiredField"-->
+<!--                                        [dataList]="techStack"-->
+<!--                                        [isMultiple]="true"-->
+<!--                                >-->
+<!--                                </app-autocomplete>-->
+<!--                                <app-autocomplete-->
+<!--                                        [label]="'emplInfo.projectsContent.responsibilities' | translate"-->
+<!--                                        [formControlName]="'responsibilities'"-->
+<!--                                        [errorsMap]="requiredField"-->
+<!--                                        [dataList]="responsibilities"-->
+<!--                                        [isMultiple]="true"-->
+<!--                                >-->
+<!--                                </app-autocomplete>-->
+<!--                            </div>-->
+
+<!--                            <app-textarea-->
+<!--                                    [label]="'emplInfo.infoContent.description' | translate"-->
+<!--                                    [formControlName]="'description'"-->
+<!--                                    [errorsMap]="requiredField"-->
+<!--                                    [rows]="3"-->
+<!--                            ></app-textarea>-->
+<!--                        </div>-->
+<!--                    </p-panel>-->
+
+
+<!--                </div>-->
+                <div class="save-btn">
+                    <app-custom-button
+                            label="Save change"
+                            (click)="onSubmit()"
+                            [disabled]="(cvInfoForm.invalid || cvInfoForm.pending)"
+                    ></app-custom-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

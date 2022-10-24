@@ -23,7 +23,7 @@ export const errorsSelector = createSelector(
     (employeesState: EmployeesStateInterface) => employeesState.errors
 );
 
-export const employeeDTOSelector = createSelector(
+export const employeeDtoSelector = createSelector(
     employeesFeatureSelector,
-    (employeesState: EmployeesStateInterface) => employeesState.employeeDTO
+    (employeesState: EmployeesStateInterface) => employeesState.employeeDto
 )

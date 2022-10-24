@@ -45,7 +45,7 @@ export const employeeByIdAction = createAction(
 
 export const employeeByIdSuccessAction = createAction(
     EmployeesActionTypes.EMPLOYEE_BY_ID_SUCCESS,
-    props<{ employeeDTO: EmployeeInfoDtoInterface }>()
+    props<{ employeeDto: EmployeeInfoDtoInterface }>()
 )
 
 export const employeeByIdFailureAction = createAction(

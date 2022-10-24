@@ -1,0 +1,151 @@
+.wrapper {
+  border: 0.1rem solid var(--color-border);
+  height: 600px;
+  padding-bottom: 0.6rem;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+
+  &__left-side {
+    border: 0.1rem solid var(--color-border);
+    height: 100%;
+    padding: 0.5rem;
+
+    .content {
+      &__search-input {
+        position: relative;
+        margin-bottom: 0.5rem;
+
+        .search {
+          width: 100%;
+        }
+
+        .pi {
+          position: absolute;
+          top: 30%;
+          right: 4%;
+        }
+      }
+
+      &__list-cv {
+        .cvs__list {
+
+          .content__cv {
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--color-link);
+            margin-bottom: 0.5rem;
+
+            .cv_name {
+              font-size: 1.3rem;
+            }
+
+
+            .cv_open, .cv_delete {
+              :hover {
+                cursor: pointer;
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  .wrapper__cv-content {
+    width: 87%;
+    overflow-y: auto;
+
+    .content {
+      margin: 0.5rem;
+    }
+  }
+
+  .info {
+    &__body {
+      .info__body_combine {
+        display: grid;
+        grid-template-columns: repeat(2, 18rem);
+        gap: 1em;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .add-skill {
+    margin-top: 0.7rem;
+    display: flex;
+    justify-content: end;
+
+    &__title {
+      margin-left: 0.3rem;
+    }
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  .panel-list {
+    .panel-content {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .cross {
+        padding-top: 1.4rem;
+        color: red;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    li {
+      list-style-type: none;
+    }
+  }
+
+  .panel-content-project {
+    position: relative;
+
+    .combine {
+      display: grid;
+      grid-template-columns: repeat(3, 20rem);
+      gap: 1em;
+    }
+
+    .cross {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: red;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    .autocomplete {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      display: grid;
+      gap: 1em;
+    }
+
+  }
+
+  .save-btn {
+    display: flex;
+    justify-content: end;
+    margin-top: 1.5rem;
+
+    .download-btn {
+      margin-right: 2rem;
+    }
+  }
+}

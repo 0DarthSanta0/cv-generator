@@ -5,7 +5,6 @@ import { EntitiesPageComponent } from './components/entities-page/entities-page.
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddEntityComponent } from './components/add-entity/add-entity.component';
-import { SearchFilterPipe } from '../../shared/pipes/search-filter.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppInputModule } from '@components/controls/input/app-input.module';
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
@@ -21,10 +20,11 @@ import { CustomButtonModule } from '@components/custom-button/custom-button.modu
     AppInputModule,
     CustomButtonModule,
   ],
+  exports: [
+  ],
   declarations: [
     EntitiesPageComponent,
     AddEntityComponent,
-    SearchFilterPipe
   ]
 })
 export class EntitiesModule { }

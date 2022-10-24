@@ -15,7 +15,7 @@ const initialState: EmployeesStateInterface = {
     isLoading: false,
     employeesList: [],
     positionsList: [],
-    employeeDTO: null,
+    employeeDto: null,
     errors: null,
 }
 
@@ -73,7 +73,7 @@ export const employeesReducer = createReducer(
         employeeByIdSuccessAction, (state, action): EmployeesStateInterface => ({
             ...state,
             isLoading: false,
-            employeeDTO: action.employeeDTO,
+            employeeDto: action.employeeDto,
             errors: null,
         })
     ),

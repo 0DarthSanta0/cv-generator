@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
 import {
-  employeeDTOSelector,
+  employeeDtoSelector,
   isLoadingSelector,
   listPositionsSelector,
 } from '@ourStore/employees/employees.selectors';
@@ -18,6 +18,7 @@ import { MenuItem } from 'primeng/api';
 import { EMPLOYEES, MAIN } from '@constants/breadcrumbs';
 import { AppRoutes } from '@constants/app-routes';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
+import { SkillInterface } from '@models/skill.interface';
 
 @Component({
   selector: 'app-employee-info',
@@ -29,15 +30,17 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
   public readonly inputArray = EMPL_INFO_INPUT;
   public readonly textAreaArray = EMPL_INFO_TEXTAREA;
+  public readonly requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
+  public readonly requiredField = REQUIRED_FIELD;
 
   public infoForm: FormGroup<IInfoForm>;
-  public requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
-  public requiredField = REQUIRED_FIELD;
+
   public allSkillsName: string[] = [];
   public allLanguagesName: string[] = [];
   public allPositionsName: string[] = [];
+  public employeeEmail: string = '';
+
   public isLoading$: Observable<boolean>;
-  private employeeEmail: string = '';
 
   private destroy$ = new Subject<void>();
 
@@ -48,17 +51,16 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.store.dispatch(employeeByIdAction({id: +id}));
-
     }
     this.defineForm();
     this.getDataFromStore();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -98,7 +100,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     )
       .subscribe((skills) => {
-        skills.forEach(skill => this.allSkillsName.push(skill.name));
+        skills.forEach(skill => this.allSkillsName = [...this.allSkillsName, skill.name]);
       });
 
     this.store.pipe(
@@ -110,14 +112,14 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
       });
 
     this.store.pipe(
-      select(employeeDTOSelector),
+      select(employeeDtoSelector),
       takeUntil(this.destroy$)
     )
-      .subscribe((employeeDTO) => {
-        if (employeeDTO) {
-          this.employeeEmail = employeeDTO.employee.email;
+      .subscribe((employeeDto) => {
+        if (employeeDto) {
+          this.employeeEmail = employeeDto.employee.email;
           this.setBreadcrumbs();
-          this.initializeForm(employeeDTO);
+          this.initializeForm(employeeDto);
         }
       });
 

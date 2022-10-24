@@ -7,6 +7,6 @@ export interface EmployeesStateInterface {
     isLoading: boolean,
     employeesList: IEmployeesWithSkills[],
     positionsList: PositionInterface[],
-    employeeDTO: EmployeeInfoDtoInterface | null,
+    employeeDto: EmployeeInfoDtoInterface | null,
     errors: BackendErrorsInterface | null,
 }

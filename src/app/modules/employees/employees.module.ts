@@ -18,7 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { PdfPreviewComponent } from './components/pdf-preview/pdf-preview.component';
 import { EmployeeCvComponent } from './components/employee-cv/employee-cv.component';
 import { LinksComponent } from './components/links/links.component';
-
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -26,22 +26,23 @@ import { LinksComponent } from './components/links/links.component';
     EmployeeInfoComponent,
     PdfPreviewComponent,
     EmployeeCvComponent,
-    LinksComponent
+    LinksComponent,
   ],
-    imports: [
-        CommonModule,
-        EmployeesRoutingModule,
-        CustomTableModule,
-        SpinnerModule,
-        MenuModule,
-        ButtonModule,
-        AppInputModule,
-        ReactiveFormsModule,
-        TextareaModule,
-        PanelModule,
-        AutocompleteModule,
-        CustomButtonModule,
-        TranslateModule,
-    ]
+  imports: [
+    CommonModule,
+    EmployeesRoutingModule,
+    CustomTableModule,
+    SpinnerModule,
+    MenuModule,
+    ButtonModule,
+    AppInputModule,
+    ReactiveFormsModule,
+    TextareaModule,
+    PanelModule,
+    AutocompleteModule,
+    CustomButtonModule,
+    TranslateModule,
+    InputTextModule,
+  ]
 })
 export class EmployeesModule { }
