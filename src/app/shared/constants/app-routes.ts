@@ -6,4 +6,5 @@ export enum AppRoutes {
   PROJECTS_ROUTE = 'projects',
   CV_TEMPLATES_ROUTE = 'cv-templates',
   ENTITIES_ROUTE = 'entities',
+  EMPLOYEES_ID_ROUTE = 'main/employees',
 }

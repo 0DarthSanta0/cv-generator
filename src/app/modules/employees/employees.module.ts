@@ -15,12 +15,18 @@ import { AutocompleteModule } from '@components/controls/autocomplete/autocomple
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { PdfPreviewComponent } from './components/pdf-preview/pdf-preview.component';
+import { EmployeeCvComponent } from './components/employee-cv/employee-cv.component';
+import { LinksComponent } from './components/links/links.component';
 
 
 @NgModule({
   declarations: [
     EmployeesTableComponent,
-    EmployeeInfoComponent
+    EmployeeInfoComponent,
+    PdfPreviewComponent,
+    EmployeeCvComponent,
+    LinksComponent
   ],
     imports: [
         CommonModule,

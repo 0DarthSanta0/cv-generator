@@ -8,6 +8,7 @@ import { ISearchInputForm } from '@models/interfaces/search-input-form.interface
 import { ENTITIES_ITEMS } from '@constants/entities';
 import { Store } from '@ngrx/store';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
+import { EMPLOYEES, ENTITIES, MAIN } from '@constants/breadcrumbs';
 
 @Component({
   selector: 'app-entities-page',
@@ -35,7 +36,7 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.defineForm();
-    this.store.dispatch(setBreadcrumbs({breadcrumbs: this.pathBreadcrumb}))
+    this.setBreadcrumbs();
   }
 
   ngOnDestroy(): void {
@@ -45,6 +46,14 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
 
   public redirectToAddEntity(name: string): void {
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.ENTITIES_ROUTE, name]);
+  }
+
+  private setBreadcrumbs(): void {
+    const breadcrumbs: MenuItem[] = [
+      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
+    ];
+    this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }
 
   private defineForm(): void {

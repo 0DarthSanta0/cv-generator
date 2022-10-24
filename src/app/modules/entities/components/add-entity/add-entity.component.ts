@@ -23,6 +23,7 @@ import {
 } from '@ourStore/entities/entities-actions';
 import { AddEntityForm } from '../../models/add-entity-form.interface';
 import { languagesList, responsibilitiesList, skillsList } from '@ourStore/main/main-actions';
+import { ENTITIES, MAIN } from '@constants/breadcrumbs';
 
 @Component({
   selector: 'app-add-entity',
@@ -83,12 +84,12 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   private setBreadcrumbs() {
-    const pathBreadcrumb: MenuItem[] = [
-      {label: 'entities', routerLink: AppRoutes.ENTITIES_ROUTE},
-      {label: this.entityName}
+    const breadcrumbs: MenuItem[] = [
+      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
+      {label: this.entityName},
     ];
-
-    this.store.dispatch(setBreadcrumbs({breadcrumbs: pathBreadcrumb}));
+    this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }
 
   private chooseDataStore(deleteId?: number, newEntityName?: string) {

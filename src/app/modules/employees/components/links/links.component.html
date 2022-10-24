@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <div class="wrapper__navig">
+        <ul class="navig">
+            <li class="navig__item" [ngClass]="{'active': isSelected}">
+                <a class="link"  (click)="selectComponent(infoComponentName)">Info</a>
+            </li>
+            <li class="navig__item" [ngClass]="{'active': !isSelected}">
+                <a class="link"  (click)="selectComponent(cvComponentName)">Cv list</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ng-container [ngSwitch]="selectedComponent">
+    <app-employee-info *ngSwitchCase="infoComponentName"></app-employee-info>
+    <app-employee-cv *ngSwitchCase="cvComponentName"></app-employee-cv>
+    <app-employee-info *ngSwitchDefault></app-employee-info>
+</ng-container>

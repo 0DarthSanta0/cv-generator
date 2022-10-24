@@ -24,7 +24,7 @@ export class EmployeesService extends ApiService {
     }
 
     public getEmployeeById(id: number): Observable<EmployeesInterface> {
-        return this.httpService.get<EmployeesResponseInterface>(this.api + '/users/' + id + '?populate=position').pipe(
+        return this.httpService.get<EmployeesResponseInterface>(this.api + EndpointsUrl.LIST_USERS + '/' + id + '?populate=position').pipe(
             map(employee => {
                 return {
                     ...employee,
@@ -35,6 +35,6 @@ export class EmployeesService extends ApiService {
     }
 
     public updateEmployee(dataEmployee: EmployeesInterface): Observable<EmployeesInterface> {
-        return this.httpService.put<EmployeesInterface>(this.api + EndpointsUrl.USERS_UPDATE + dataEmployee.id, dataEmployee);
+        return this.httpService.put<EmployeesInterface>(this.api + EndpointsUrl.LIST_USERS + '/' + dataEmployee.id, dataEmployee);
     }
 }
