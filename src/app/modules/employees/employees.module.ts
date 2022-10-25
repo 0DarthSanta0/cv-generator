@@ -19,6 +19,7 @@ import { PdfPreviewComponent } from './components/pdf-preview/pdf-preview.compon
 import { EmployeeCvComponent } from './components/employee-cv/employee-cv.component';
 import { LinksComponent } from './components/links/links.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { PipeModule } from '../../shared/pipes/pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { InputTextModule } from 'primeng/inputtext';
     SpinnerModule,
     MenuModule,
     ButtonModule,
+    PipeModule,
     AppInputModule,
     ReactiveFormsModule,
     TextareaModule,
@@ -43,6 +45,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CustomButtonModule,
     TranslateModule,
     InputTextModule,
+  ],
+  exports: [
   ]
 })
 export class EmployeesModule { }

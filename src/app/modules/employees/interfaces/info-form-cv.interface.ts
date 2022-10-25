@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
 
 export interface IInfoFormCv {
   id: FormControl<number>,
@@ -9,5 +10,5 @@ export interface IInfoFormCv {
   descriptionCv: FormControl<string>,
   skills: FormArray,
   languages: FormArray,
-  // projects: FormArray<FormGroup<IProjectFrom>>
+  projects: FormArray<FormGroup<ProjectInfoForm>>
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EmployeesService } from '@services/http/employees.service';
-import { catchError, combineLatestWith, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, combineLatestWith, filter, map, of, pipe, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   employeeByIdAction,
@@ -60,9 +60,12 @@ export class EmployeesEffects {
       switchMap(({id}) => this.employeesService.getEmployeeById(id)),
       combineLatestWith(
         this.store.pipe(select(selectLanguages)),
-        this.store.pipe(select(selectSkills))
+        this.store.pipe(select(selectSkills)),
+        // pipe(
+        //   // filter(([, langs, skills]) => !!langs.length && !!skills.length)
+        //   filter(() => )
+        // )
       ),
-      filter(([, langs, skills]) => !!langs.length && !!skills.length),
       map(([employee, languages, skills]) => this.employeeMappers.getEmployeeDto(employee, skills, languages)),
       map((employeeDto) => {
         return employeeByIdSuccessAction({employeeDto: employeeDto});

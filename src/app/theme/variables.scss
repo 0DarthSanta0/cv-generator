@@ -3,7 +3,9 @@
   --basic-bg-color: #E5E5E5;
   --bg-color-hover-table: #e3e3e3;
   --main-footer: rgba(227, 227, 227, 0.31);
-  --hover-items: #73aee7
+  --hover-items: #73aee7;
+  --color-border: #121212;
+
 }
 
 [dark] {
@@ -11,5 +13,7 @@
   --basic-bg-color: #121212;
   --bg-color-hover-table: rgba(150, 144, 144, 0.51);
   --main-footer: rgba(73, 76, 84, 0.38);
-  --hover-items: rgba(225, 203, 203, 0.21)
+  --hover-items: rgba(225, 203, 203, 0.21);
+  --color-border: #E5E5E5;
+
 }

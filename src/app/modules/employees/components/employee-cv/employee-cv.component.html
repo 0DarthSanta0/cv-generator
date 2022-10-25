@@ -16,20 +16,27 @@
 
             </div>
             <div class="content__list-cv">
-<!--                <div class="cvs__list" *ngFor="let cv of employeeCvs$ | async | searchFilter:searchingText">-->
-<!--                    <div class="content__cv">-->
-<!--                        <div class="cv_open" (click)="openCv(cv.id)">-->
-<!--                            <i class="pi pi-eye" style="font-size: 1rem"></i>-->
-<!--                        </div>-->
-<!--                        <div class="cv_name">-->
-<!--                            {{cv.name}}-->
-<!--                        </div>-->
-<!--                        <div class="cv_delete" (click)="deleteCv(cv.id)">-->
-<!--                            <i class="pi pi-ban" style="font-size: 1rem"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="cvs__list" *ngFor="let cv of fakeListCv | searchFilter:searchingText">
+                    <div class="content__cv">
+                        <div class="cv_open" (click)="openCv(cv.id)">
+                            <i class="pi pi-eye" style="font-size: 1rem"></i>
+                        </div>
+                        <div class="cv_name">
+                            {{cv.name}}
+                        </div>
+
+                        <div class="cv_delete" (click)="deleteCv(cv.id)">
+                            <i class="pi pi-ban" style="font-size: 1rem"></i>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
+            <app-custom-button
+                    class="set-cv"
+                    label="Add CV"
+            ></app-custom-button>
         </div>
     </aside>
 

@@ -8,6 +8,7 @@ import { AddEntityComponent } from './components/add-entity/add-entity.component
 import { TranslateModule } from '@ngx-translate/core';
 import { AppInputModule } from '@components/controls/input/app-input.module';
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
+import { PipeModule } from '../../shared/pipes/pipe/pipe.module';
 
 
 @NgModule({
@@ -19,8 +20,7 @@ import { CustomButtonModule } from '@components/custom-button/custom-button.modu
     TranslateModule,
     AppInputModule,
     CustomButtonModule,
-  ],
-  exports: [
+    PipeModule
   ],
   declarations: [
     EntitiesPageComponent,

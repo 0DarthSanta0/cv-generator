@@ -8,14 +8,14 @@ import {
 } from '@constants/employee';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
-import { ILanguageForm, ISkillForm } from '@employees';
+import { ICvFormResponse, IInfoFormCv, ILanguageForm, ISkillForm } from '@employees';
 import { SkillInterface } from '@models/skill.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
-import { IInfoFormCv } from '../../interfaces/info-form-cv.interface';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
+import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
 
 @Component({
   selector: 'app-employee-cv',
@@ -42,9 +42,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   public searchingText: string = '';
   public buttonLabel: string = BUTTON_LABEL;
 
-  // public cv: ICvFormResponseDto;
+  public cv: ICvFormResponse;
 
   // public employeeCvs$: Observable<ICvResponse[]> = this.store.pipe(select(selectCvsListForEmployee));
+  public fakeListCv: { name: string }[] = [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}];
   // public cv$: Observable<EmployeeCvDtoInterface> = this.store.pipe(select(selectCvDtoForEmployee));
   public isDownload$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -72,6 +73,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   }
 
   public openCv(id: number) {
+    //получаем cv по id
+    //получаем из cv инфу
+    // добавляем эту инфу в форму
+
     // this.store.dispatch(cvForEmpl({id: id}));
     // this.store.pipe(
     //   select(selectCvDtoForEmployee),
@@ -166,38 +171,6 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       });
   }
 
-  private defineForm(): void {
-    this.searchInput = this.formBuilder.group<ISearchInputForm>({
-      text: this.formBuilder.control('', []),
-    })
-
-    this.searchInput.controls.text.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
-      this.searchingText = text;
-    })
-
-    this.cvInfoForm = this.formBuilder.group<IInfoFormCv>({
-      id: this.formBuilder.control(0, []),
-      nameCv: this.formBuilder.control('', [Validators.required]),
-      firstName: this.formBuilder.control('', [Validators.required]),
-      lastName: this.formBuilder.control('', [Validators.required]),
-      education: this.formBuilder.control('', [Validators.required]),
-      descriptionCv: this.formBuilder.control('', [Validators.required]),
-      skills: this.formBuilder.array([]),
-      languages: this.formBuilder.array([]),
-      // projects: this.formBuilder.array([this.formBuilder.group<IProjectFrom>({
-      //   id: this.formBuilder.control(0, []),
-      //   name: this.formBuilder.control('', []),
-      //   description: this.formBuilder.control('', []),
-      //   domain: this.formBuilder.control('', []),
-      //   from: this.formBuilder.control('', []),
-      //   to: this.formBuilder.control('', []),
-      //   internalName: this.formBuilder.control('', []),
-      //   responsibilities: this.formBuilder.control([], []),
-      //   techStack: this.formBuilder.control([], []),
-      // })]),
-    });
-  }
-
   // private initializeForm(cvDto: EmployeeCvDtoInterface): void {
   //   this.cvInfoForm.controls.languages.clear();
   //   this.cvInfoForm.controls.skills.clear();
@@ -220,6 +193,38 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   //
   // }
 
+  private defineForm(): void {
+    this.searchInput = this.formBuilder.group<ISearchInputForm>({
+      text: this.formBuilder.control('', []),
+    })
+
+    this.searchInput.controls.text.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
+      this.searchingText = text;
+    })
+
+    this.cvInfoForm = this.formBuilder.group<IInfoFormCv>({
+      id: this.formBuilder.control(0, []),
+      nameCv: this.formBuilder.control('', [Validators.required]),
+      firstName: this.formBuilder.control('', [Validators.required]),
+      lastName: this.formBuilder.control('', [Validators.required]),
+      education: this.formBuilder.control('', [Validators.required]),
+      descriptionCv: this.formBuilder.control('', [Validators.required]),
+      skills: this.formBuilder.array([]),
+      languages: this.formBuilder.array([]),
+      projects: this.formBuilder.array([this.formBuilder.group<ProjectInfoForm>({
+        id: this.formBuilder.control(0, []),
+        name: this.formBuilder.control('', []),
+        description: this.formBuilder.control('', []),
+        domain: this.formBuilder.control('', []),
+        from: this.formBuilder.control(new Date(), []),
+        to: this.formBuilder.control(new Date(), []),
+        internalName: this.formBuilder.control('', []),
+        responsibilities: this.formBuilder.array([], []),
+        skills: this.formBuilder.array([], []),
+      })]),
+    });
+  }
+
   private patchSkills(skills: SkillInterface[]): void {
     skills.forEach((skill) => {
       const skillGroup = this.formBuilder.group<ISkillForm>({
@@ -231,20 +236,6 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         ]),
       });
       this.cvInfoForm.controls.skills.push(skillGroup);
-    });
-  }
-
-  private patchLanguages(languages: LanguageInterface[]): void {
-    languages.forEach((language) => {
-      const languageGroup = this.formBuilder.group(<ILanguageForm>{
-        languageName: this.formBuilder.control(language.name, [Validators.required]),
-        languageLevel: this.formBuilder.control(language.level, [
-          Validators.required,
-          Validators.max(5),
-          Validators.min(1)
-        ]),
-      });
-      this.cvInfoForm.controls.languages.push(languageGroup);
     });
   }
 
@@ -268,4 +259,17 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   //   });
   // }
 
+  private patchLanguages(languages: LanguageInterface[]): void {
+    languages.forEach((language) => {
+      const languageGroup = this.formBuilder.group(<ILanguageForm>{
+        languageName: this.formBuilder.control(language.name, [Validators.required]),
+        languageLevel: this.formBuilder.control(language.level, [
+          Validators.required,
+          Validators.max(5),
+          Validators.min(1)
+        ]),
+      });
+      this.cvInfoForm.controls.languages.push(languageGroup);
+    });
+  }
 }
