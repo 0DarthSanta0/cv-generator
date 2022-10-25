@@ -9,6 +9,7 @@ export enum EndpointsUrl {
   LIST_POSITIONS = '/positions',
   LIST_RESPONSIBILITIES = '/responsibilities',
   LIST_PROJECTS = '/projects?populate=skills',
+  LIST_CVS = '/cvs',
   PROJECTS = '/projects/',
 }
 
