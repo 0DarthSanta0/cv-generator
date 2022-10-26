@@ -1,1 +1,93 @@
-<p>pdf-preview works!</p>
+<div class="wrapper">
+    <div class="wrapper__content" #content>
+        <header class="wrapper__header">
+            <div class="header__fio">
+                <span>{{formData.firstName + ' ' + formData.lastName}}</span>
+            </div>
+            <div class="header__cv-name">
+                <span>{{formData.nameCv}}</span>
+            </div>
+        </header>
+
+        <main class="wrapper__content">
+            <h2 class="content__title">Summary</h2>
+            <div class="content__description">
+                {{formData.descriptionCv}}
+            </div>
+
+            <h2 class="content__title">Skills</h2>
+            <div class="combine__skills">
+                <div class="content__skills">
+                    <h2 class="content__title">Technical skills</h2>
+                    <div class="skills" *ngFor="let skill of formData.skills">
+                        <div class="skill_data">
+                            <div class="skill_name">
+                                {{skill.skillName}}
+                            </div>
+                            <div class="skill_level progress">
+                                <div [ngStyle]="{'width':skill.skillLevel*60+'px'}" style="background-color: green">
+                                    <span style="visibility: hidden">text</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="content__languages">
+                    <h2 class="content__title">Languages</h2>
+                    <div class="languages" *ngFor="let language of formData.languages">
+                        <div class="language__data">
+                            <div class="language__name">
+                                {{language.languageName}}
+                            </div>
+                            <div class="language_level progress">
+                                <div [ngStyle]="{'width':language.languageLevel*60+'px'}"
+                                     style="background-color: green">
+                                    <span style="visibility: hidden">text</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content__projects">
+                <h2 class="content__title">Projects</h2>
+                <div class="projects" *ngFor="let project of formData.projects">
+                    <div class="project__data">
+                        <div class="data_left">
+                            <div class="left__project-name">
+                                <span>{{project.name}}</span>
+                                <span> ( {{project.internalName}} ) </span>
+                            </div>
+                            <div class="left__domain">
+                                <span>{{project.domain}}</span>
+                            </div>
+                            <div class="left__techStack">
+                                {{project.skills}}
+                            </div>
+                        </div>
+                        <div class="data_right">
+                            <div class="right__description">
+                                {{project.description}}
+                            </div>
+                            <div class="right__period">
+                                <span class="period_from">From {{project.from}}</span>
+                                <span class="period_to"> To {{project.to}}</span>
+                            </div>
+                            <div class="right__responsibilities">
+                                <span>{{project.responsibilities}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_education">
+                <h2 class="content__title">Education</h2>
+                {{formData.education}}
+            </div>
+        </main>
+    </div>
+</div>
+

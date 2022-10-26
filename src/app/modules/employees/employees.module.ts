@@ -20,6 +20,8 @@ import { EmployeeCvComponent } from './components/employee-cv/employee-cv.compon
 import { LinksComponent } from './components/links/links.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { PipeModule } from '../../shared/pipes/pipe/pipe.module';
+import { DialogModule } from 'primeng/dialog';
+import { DatePickerModule } from '@components/controls/date-picker/date-picker.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { PipeModule } from '../../shared/pipes/pipe/pipe.module';
     CustomButtonModule,
     TranslateModule,
     InputTextModule,
+    DialogModule,
+    DatePickerModule,
   ],
   exports: [
   ]

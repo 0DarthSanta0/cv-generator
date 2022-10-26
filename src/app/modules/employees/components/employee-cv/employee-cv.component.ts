@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import {
   BUTTON_LABEL,
   EMPL_CV_INPUT,
@@ -11,16 +11,28 @@ import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validati
 import { ICvFormResponse, IInfoFormCv, ILanguageForm, ISkillForm } from '@employees';
 import { SkillInterface } from '@models/skill.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
 import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
+import { CVsInterface, FakeCvsService } from '@services/fake-cvs.service';
+import { CV_TABLE_COLUMN } from '@constants/cv';
+import { employeeCvsList, openCv, setCvTemplateToEmployee } from '@ourStore/employees/employees.actions';
+import { JsonEmployeeCv } from '@models/interfaces/json-data-response.interface';
+import {
+  employeeCvsListSelector,
+  employeeDtoSelector,
+  selectEmployeeCv
+} from '@ourStore/employees/employees.selectors';
+import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
+import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 
 @Component({
   selector: 'app-employee-cv',
   templateUrl: './employee-cv.component.html',
-  styleUrls: ['./employee-cv.component.scss']
+  styleUrls: ['./employee-cv.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmployeeCvComponent implements OnInit, OnDestroy {
 
@@ -28,25 +40,29 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   public readonly inputProjectArray = EMPL_CV_PROJECTS_INPUT;
   public readonly autoCompleteArray = EMPL_CV_PROJECTS_AUTOCOMPLETE;
   public readonly textAreaArray = EMPL_INFO_TEXTAREA;
+  public readonly requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
+  public readonly requiredField = REQUIRED_FIELD;
+  public readonly cvTable: string[] = CV_TABLE_COLUMN;
+
+  public buttonLabel: string = BUTTON_LABEL;
 
   public cvInfoForm: FormGroup<IInfoFormCv>;
   public searchInput: FormGroup<ISearchInputForm>;
 
-  public requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
-  public requiredField = REQUIRED_FIELD;
   public techStack: string[] = [];
   public allLanguagesName: string[] = [];
   public responsibilities: string[] = [];
+
   public isLoading: boolean = false;
   public isPreview: boolean = false;
+  public displayModal: boolean = false;
+
   public searchingText: string = '';
-  public buttonLabel: string = BUTTON_LABEL;
 
   public cv: ICvFormResponse;
+  public employeeCvs$: Observable<JsonEmployeeCv[]> = this.store.pipe(select(employeeCvsListSelector));
+  public allCvsTemplate$: Observable<CVsInterface[]> = this.fakeService.getCVsList();
 
-  // public employeeCvs$: Observable<ICvResponse[]> = this.store.pipe(select(selectCvsListForEmployee));
-  public fakeListCv: { name: string }[] = [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}];
-  // public cv$: Observable<EmployeeCvDtoInterface> = this.store.pipe(select(selectCvDtoForEmployee));
   public isDownload$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private destroy$ = new Subject<void>();
@@ -54,13 +70,17 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private formBuilder: NonNullableFormBuilder,
+    private fakeService: FakeCvsService
   ) {
   }
 
   ngOnInit(): void {
     this.getDataFromStore();
-    // this.store.dispatch(cvsForEmpl());
+    this.store.dispatch(employeeCvsList());
     this.defineForm();
+    this.allCvsTemplate$.subscribe((x) => {
+      console.log(x)
+    })
   }
 
   ngOnDestroy(): void {
@@ -77,14 +97,20 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     //получаем из cv инфу
     // добавляем эту инфу в форму
 
-    // this.store.dispatch(cvForEmpl({id: id}));
-    // this.store.pipe(
-    //   select(selectCvDtoForEmployee),
-    //   takeUntil(this.destroy$)
-    // ).subscribe((cv) => {
-    //   this.initializeForm(cv);
-    //   this.isLoading = true;
-    // })
+    this.store.pipe(
+      select(employeeDtoSelector),
+      takeUntil(this.destroy$)
+    ).subscribe((employee) => {
+      this.store.dispatch(openCv({idCv: id, employee: employee}));
+    })
+
+    this.store.pipe(
+      select(selectEmployeeCv),
+      takeUntil(this.destroy$)
+    ).subscribe((cv) => {
+      this.initializeForm(cv);
+      this.isLoading = true;
+    })
   }
 
   public addSkill(): void {
@@ -145,6 +171,36 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     this.isDownload$.next(true);
   }
 
+  public showModal(): void {
+    this.displayModal = true;
+  }
+
+  private initializeForm(cvDto: EmployeeCvDtoInterface): void {
+    this.cvInfoForm.controls.languages.clear();
+    this.cvInfoForm.controls.skills.clear();
+    this.cvInfoForm.controls.projects.clear();
+
+    this.cvInfoForm.patchValue({
+      id: cvDto.id,
+      firstName: cvDto.firstName,
+      lastName: cvDto.lastName,
+      education: cvDto.education,
+      descriptionCv: cvDto.description,
+      nameCv: cvDto.nameCv,
+    });
+
+    if (cvDto.skills && cvDto.languages && cvDto.projects) {
+      this.patchSkills(cvDto.skills);
+      this.patchLanguages(cvDto.languages);
+      this.patchProjects(cvDto.projects);
+    }
+
+  }
+
+  public setCvToEmployee(id: string) {
+    this.store.dispatch(setCvTemplateToEmployee({idCv: +id}));
+  }
+
   private getDataFromStore(): void {
     this.store.pipe(
       select(selectSkills),
@@ -171,27 +227,25 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       });
   }
 
-  // private initializeForm(cvDto: EmployeeCvDtoInterface): void {
-  //   this.cvInfoForm.controls.languages.clear();
-  //   this.cvInfoForm.controls.skills.clear();
-  //   this.cvInfoForm.controls.projects.clear();
-  //
-  //   this.cvInfoForm.patchValue({
-  //     id: cvDto.id,
-  //     firstName: cvDto.firstName,
-  //     lastName: cvDto.lastName,
-  //     education: cvDto.education,
-  //     descriptionCv: cvDto.descriptionCv,
-  //     nameCv: cvDto.nameCv,
-  //   });
-  //
-  //   if (cvDto.skills && cvDto.languages && cvDto.projects) {
-  //     this.patchSkills(cvDto.skills);
-  //     this.patchLanguages(cvDto.languages);
-  //     this.patchProjects(cvDto.projects);
-  //   }
-  //
-  // }
+  private patchProjects(projects: ProjectsInterface[]): void {
+    projects.forEach((project) => {
+
+      const projectGroup = this.formBuilder.group(<ProjectInfoForm>{
+        id: this.formBuilder.control(project.id, []),
+        name: this.formBuilder.control(project.name, [Validators.required,]),
+        description: this.formBuilder.control(project.description, [Validators.required,]),
+        domain: this.formBuilder.control(project.domain, [Validators.required,]),
+        from: this.formBuilder.control(project.from, [Validators.required,]),
+        to: this.formBuilder.control(project.to, [Validators.required,]),
+        internalName: this.formBuilder.control(project.internalName, [Validators.required,]),
+        // skills: this.formBuilder.control(project.skills.map((stack) => stack.name), [Validators.required,]),
+        // responsibilities: this.formBuilder.control(project.responsibilities, [Validators.required,]),
+      });
+      if (projectGroup) {
+        this.cvInfoForm.controls.projects.push(projectGroup);
+      }
+    });
+  }
 
   private defineForm(): void {
     this.searchInput = this.formBuilder.group<ISearchInputForm>({
@@ -238,26 +292,6 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       this.cvInfoForm.controls.skills.push(skillGroup);
     });
   }
-
-  // private patchProjects(projects: IProject[]): void {
-  //   projects.forEach((project) => {
-  //
-  //     const projectGroup = this.formBuilder.group(<IProjectFrom>{
-  //       id: this.formBuilder.control(project.id, []),
-  //       name: this.formBuilder.control(project.name, [Validators.required,]),
-  //       description: this.formBuilder.control(project.description, [Validators.required,]),
-  //       domain: this.formBuilder.control(project.domain, [Validators.required,]),
-  //       from: this.formBuilder.control(project.from, [Validators.required,]),
-  //       to: this.formBuilder.control(project.to, [Validators.required,]),
-  //       internalName: this.formBuilder.control(project.internalName, [Validators.required,]),
-  //       techStack: this.formBuilder.control(project.techStack.map((stack) => stack.name), [Validators.required,]),
-  //       responsibilities: this.formBuilder.control(project.responsibilities, [Validators.required,]),
-  //     });
-  //     if (projectGroup) {
-  //       this.cvInfoForm.controls.projects.push(projectGroup);
-  //     }
-  //   });
-  // }
 
   private patchLanguages(languages: LanguageInterface[]): void {
     languages.forEach((language) => {

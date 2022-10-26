@@ -1,4 +1,13 @@
 <div class="wrapper">
+    <p-dialog header="Choose cv template" [(visible)]="displayModal" [style]="{width: '50vw'}">
+        <app-custom-table
+                [tableData]="allCvsTemplate$ | async"
+                [globalFilteredFields]="cvTable"
+                [columnNames]="cvTable"
+                (rowClicked)="setCvToEmployee($event)"
+        ></app-custom-table>
+    </p-dialog>
+
     <aside class="wrapper__left-side">
         <div class="content">
             <div class="content__search-input">
@@ -16,13 +25,13 @@
 
             </div>
             <div class="content__list-cv">
-                <div class="cvs__list" *ngFor="let cv of fakeListCv | searchFilter:searchingText">
+                <div class="cvs__list" *ngFor="let cv of employeeCvs$ | async | searchFilter:searchingText">
                     <div class="content__cv">
                         <div class="cv_open" (click)="openCv(cv.id)">
                             <i class="pi pi-eye" style="font-size: 1rem"></i>
                         </div>
                         <div class="cv_name">
-                            {{cv.name}}
+                            {{cv.nameCv}}
                         </div>
 
                         <div class="cv_delete" (click)="deleteCv(cv.id)">
@@ -36,6 +45,7 @@
             <app-custom-button
                     class="set-cv"
                     label="Add CV"
+                    (click)="showModal()"
             ></app-custom-button>
         </div>
     </aside>
@@ -57,7 +67,7 @@
                 ></app-custom-button>
             </div>
 
-<!--            <app-pdf-preview *ngIf="isPreview" [formData]="cv" [isDownload$]="isDownload$"></app-pdf-preview>-->
+            <app-pdf-preview *ngIf="isPreview" [formData]="cv" [isDownload$]="isDownload$"></app-pdf-preview>
 
             <form [formGroup]="cvInfoForm" *ngIf="!isPreview">
                 <div class="info">
@@ -171,72 +181,72 @@
                             (click)="addProject()"
                     ></app-custom-button>
                 </div>
-<!--                <div class="projects" formArrayName="projects">-->
-<!--                    <p-panel-->
-<!--                            [header]="project.value.name!"-->
-<!--                            [toggleable]="true"-->
-<!--                            *ngFor="let project of cvInfoForm.controls.projects.controls; let i=index"-->
+                <div class="projects" formArrayName="projects">
+                    <p-panel
+                            [header]="project.value.name!"
+                            [toggleable]="true"
+                            *ngFor="let project of cvInfoForm.controls.projects.controls; let i=index"
 
-<!--                    >-->
-<!--                        <div [formGroupName]="i" class="panel-content-project">-->
-<!--                            <div class="cross" (click)="removeProject(i)">-->
-<!--                                <i class="pi pi-times"></i>-->
-<!--                            </div>-->
-<!--                            <div class="combine">-->
-<!--                                <div *ngFor="let projectField of inputProjectArray">-->
-<!--                                    <app-input-->
-<!--                                            [label]="'emplInfo.projectsContent.' + projectField | translate"-->
-<!--                                            [formControlName]="projectField"-->
-<!--                                            [errorsMap]="requiredField"-->
-<!--                                    ></app-input>-->
-<!--                                </div>-->
+                    >
+                        <div [formGroupName]="i" class="panel-content-project">
+                            <div class="cross" (click)="removeProject(i)">
+                                <i class="pi pi-times"></i>
+                            </div>
+                            <div class="combine">
+                                <div *ngFor="let projectField of inputProjectArray">
+                                    <app-input
+                                            [label]="'emplInfo.projectsContent.' + projectField | translate"
+                                            [formControlName]="projectField"
+                                            [errorsMap]="requiredField"
+                                    ></app-input>
+                                </div>
 
-<!--                                <app-date-picker-->
-<!--                                        [label]="'emplInfo.projectsContent.start' | translate"-->
-<!--                                        [formControlName]="'from'"-->
-<!--                                        [errorsMap]="requiredField"-->
-<!--                                >-->
-<!--                                </app-date-picker>-->
-<!--                                <app-date-picker-->
-<!--                                        [label]="'emplInfo.projectsContent.finish' | translate"-->
-<!--                                        [formControlName]="'to'"-->
-<!--                                        [errorsMap]="requiredField"-->
-<!--                                >-->
-<!--                                </app-date-picker>-->
+                                <app-date-picker
+                                        [label]="'emplInfo.projectsContent.start' | translate"
+                                        [formControlName]="'from'"
+                                        [errorsMap]="requiredField"
+                                >
+                                </app-date-picker>
+                                <app-date-picker
+                                        [label]="'emplInfo.projectsContent.finish' | translate"
+                                        [formControlName]="'to'"
+                                        [errorsMap]="requiredField"
+                                >
+                                </app-date-picker>
 
-<!--                            </div>-->
+                            </div>
 
-<!--                            <div class="autocomplete">-->
+                            <div class="autocomplete">
 
-<!--                                <app-autocomplete-->
-<!--                                        [label]="'emplInfo.projectsContent.techStack' | translate"-->
-<!--                                        [formControlName]="'techStack'"-->
-<!--                                        [errorsMap]="requiredField"-->
-<!--                                        [dataList]="techStack"-->
-<!--                                        [isMultiple]="true"-->
-<!--                                >-->
-<!--                                </app-autocomplete>-->
-<!--                                <app-autocomplete-->
-<!--                                        [label]="'emplInfo.projectsContent.responsibilities' | translate"-->
-<!--                                        [formControlName]="'responsibilities'"-->
-<!--                                        [errorsMap]="requiredField"-->
-<!--                                        [dataList]="responsibilities"-->
-<!--                                        [isMultiple]="true"-->
-<!--                                >-->
-<!--                                </app-autocomplete>-->
-<!--                            </div>-->
+                                <app-autocomplete
+                                        [label]="'emplInfo.projectsContent.techStack' | translate"
+                                        [formControlName]="'techStack'"
+                                        [errorsMap]="requiredField"
+                                        [dataList]="techStack"
+                                        [isMultiple]="true"
+                                >
+                                </app-autocomplete>
+                                <app-autocomplete
+                                        [label]="'emplInfo.projectsContent.responsibilities' | translate"
+                                        [formControlName]="'responsibilities'"
+                                        [errorsMap]="requiredField"
+                                        [dataList]="responsibilities"
+                                        [isMultiple]="true"
+                                >
+                                </app-autocomplete>
+                            </div>
 
-<!--                            <app-textarea-->
-<!--                                    [label]="'emplInfo.infoContent.description' | translate"-->
-<!--                                    [formControlName]="'description'"-->
-<!--                                    [errorsMap]="requiredField"-->
-<!--                                    [rows]="3"-->
-<!--                            ></app-textarea>-->
-<!--                        </div>-->
-<!--                    </p-panel>-->
+                            <app-textarea
+                                    [label]="'emplInfo.infoContent.description' | translate"
+                                    [formControlName]="'description'"
+                                    [errorsMap]="requiredField"
+                                    [rows]="3"
+                            ></app-textarea>
+                        </div>
+                    </p-panel>
 
 
-<!--                </div>-->
+                </div>
                 <div class="save-btn">
                     <app-custom-button
                             label="Save change"

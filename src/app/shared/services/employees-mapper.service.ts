@@ -9,9 +9,14 @@ import {
   JsonAttribute,
   JsonData,
   JsonDataWithAttributes,
+  JsonEmployeeCv,
+  JsonProject,
   JsonResponse
 } from '@models/interfaces/json-data-response.interface';
 import { PositionInterface } from '@models/interfaces/position.interface';
+import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
+import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
+import { IResponsibility } from '@models/interfaces/responsibility.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +62,6 @@ export class EmployeesMapperService {
   }
 
   public getEmployeeDto(employee: EmployeesInterface, skills: SkillInterface[], languages: LanguageInterface[]): EmployeeInfoDtoInterface {
-
-    console.log(languages)
 
     const emplSkillsWithLevelMap = this.levelMapper(employee.skills.data);
     const emplLanguagesWithLevelMap = this.levelMapper(employee.languages.data);
@@ -114,10 +117,66 @@ export class EmployeesMapperService {
       ...dto,
       skills: skills,
       languages: languages,
-      position: this.getKeyByValue(positionsObj, dto.position)
+      cvs: {data: []},
+      position: this.getKeyByValue(positionsObj, dto.position),
     }
 
     return newEmployee;
+  }
+
+  public getCvsListFormEmployee(employee: EmployeeInfoDtoInterface): JsonEmployeeCv[] {
+    return employee.employee.cvs.data;
+  }
+
+  public getEmployeeCvDto(cvId: number, employee: EmployeeInfoDtoInterface, languages: LanguageInterface[],
+                          skills: SkillInterface[], projects: ProjectsInterface[],
+                          responsibilities: IResponsibility[]
+  ): EmployeeCvDtoInterface {
+    const cv: JsonEmployeeCv[] = employee.employee.cvs.data.filter((cvs) => cvs.id === cvId);
+
+    const emplCvSkillsWithLevelMap = this.levelMapper(cv[0].skills);
+    const emplCvLanguagesWithLevelMap = this.levelMapper(cv[0].languages);
+    const responsibilitiesObj = this.nameMapper(responsibilities);
+    const projectsObj = this.responsibilityMapper(cv[0].projects);
+
+    const emplCvSkills = skills.filter((skill) => emplCvSkillsWithLevelMap[skill.id]);
+    const emplCvLanguages = languages.filter((language) => emplCvLanguagesWithLevelMap[language.id]);
+    const emplCvProjects = projects.filter((project) => projectsObj[project.id]);
+
+    const mappedProjectWithResponsibilities = cv[0].projects.reduce((respNamesMap, curr) => {
+      const responsibilities = curr.responsibilities.map((responsibility) => responsibilitiesObj[responsibility]).filter((responsibilityName) => !!responsibilityName)
+      respNamesMap[curr.id] = responsibilities;
+      return respNamesMap;
+    }, {} as { [id: number]: string[] })
+
+    console.log(cv)
+
+    const mappedCv: EmployeeCvDtoInterface = {
+      ...cv[0],
+      languages: emplCvLanguages.map((language) => {
+        const mappedLanguage = {
+          ...language,
+          level: emplCvLanguagesWithLevelMap[language.id]
+        }
+        return mappedLanguage;
+      }),
+      skills: emplCvSkills.map((skill) => {
+        const mappedSkill = {
+          ...skill,
+          level: emplCvSkillsWithLevelMap[skill.id]
+        }
+        return mappedSkill;
+      }),
+      projects: emplCvProjects.map((project) => {
+        const mappedProject = {
+          ...project,
+          responsibilities: mappedProjectWithResponsibilities[project.id]
+        }
+        return mappedProject;
+      }),
+    }
+
+    return mappedCv;
   }
 
   private nameMapper<T extends { id: number, name: string }>(data: T[]): { [id: number]: string } {
@@ -134,6 +193,14 @@ export class EmployeesMapperService {
       [current.id]: current.level
     }), {});
 
+    return dataMap;
+  }
+
+  private responsibilityMapper<T extends JsonProject>(data: T[]): { [p: number]: string } {
+    const dataMap = data.reduce((acc, current) => ({
+      ...acc,
+      [current.id]: current.responsibilities
+    }), {});
     return dataMap;
   }
 

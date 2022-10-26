@@ -14,7 +14,5 @@
 <ng-container [ngSwitch]="selectedComponent">
     <app-employee-info *ngSwitchCase="infoComponentName"></app-employee-info>
     <app-employee-cv *ngSwitchCase="cvComponentName"></app-employee-cv>
-    <app-employee-cv *ngSwitchDefault></app-employee-cv>
-    <!--    <app-employee-info *ngSwitchDefault></app-employee-info>-->
-
+    <app-employee-info *ngSwitchDefault></app-employee-info>
 </ng-container>

@@ -1,31 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EmployeesService } from '@services/http/employees.service';
-import { catchError, combineLatestWith, filter, map, of, pipe, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, combineLatestWith, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   employeeByIdAction,
   employeeByIdFailureAction,
   employeeByIdSuccessAction,
+  employeeCvsList,
+  employeeCvsListSuccess,
   employeesListAction,
   employeesListFailureAction,
   employeesListSuccessAction,
   employeeUpdateAction,
   employeeUpdateFailureAction,
   employeeUpdateSuccessAction,
+  openCv,
+  openCvFailure,
+  openCvSuccess,
   positionsListAction,
   positionsListFailureAction,
   positionsListSuccessAction,
 } from './employees.actions';
 import { SkillsService } from '@services/http/skills.service';
 import { select, Store } from '@ngrx/store';
-import { listPositionsSelector } from './employees.selectors';
+import { employeeDtoSelector, listPositionsSelector } from './employees.selectors';
 import { EmployeesMapperService } from '@services/employees-mapper.service';
 import { EmplLanguageService } from '@services/http/empl-language.service';
 import { EmployeesInterface } from '@models/employees.interface';
 import { PositionService } from '@services/http/position.service';
-import { selectLanguages, selectSkills } from '@ourStore/main/main-selectors';
+import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
 import { ActivatedRoute } from '@angular/router';
+import { projectsListSelector } from '@ourStore/projects/projects.selectors';
 
 @Injectable()
 export class EmployeesEffects {
@@ -88,6 +94,38 @@ export class EmployeesEffects {
     map(() => employeeUpdateSuccessAction()),
     catchError((errorResponse: HttpErrorResponse) =>
       of(employeeUpdateFailureAction({errors: errorResponse.error}))
+    )
+  ));
+
+  public employeeCvsList$ = createEffect(() => this.actions$.pipe(
+    ofType(employeeCvsList),
+    switchMap(() =>
+      this.store.pipe(select(employeeDtoSelector))
+    ),
+    map((employee) =>
+      this.employeeMappers.getCvsListFormEmployee(employee)),
+    map((cvsList) =>
+      employeeCvsListSuccess({cvsList})
+    ),
+  ));
+
+  public openCv$ = createEffect(() => this.actions$.pipe(
+    ofType(openCv),
+    withLatestFrom(
+      this.store.pipe(select(selectLanguages)),
+      this.store.pipe(select(selectSkills)),
+      this.store.pipe(select(projectsListSelector)),
+      this.store.pipe(select(selectResponsibilities)),
+    ),
+    map(([{
+      idCv,
+      employee
+    }, langs, skills, projects, responsibilities]) => this.employeeMappers.getEmployeeCvDto(idCv, employee,langs, skills, projects, responsibilities)),
+    map((employeeCv) =>
+      openCvSuccess({employeeCv})
+    ),
+    catchError((errorResponse: HttpErrorResponse) =>
+      of(openCvFailure({errors: errorResponse.error}))
     )
   ));
 

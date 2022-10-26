@@ -9,4 +9,5 @@ export interface ProjectsInterface {
   to: Date,
   internalName: string,
   skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
+  responsibilities?: string[]
 }

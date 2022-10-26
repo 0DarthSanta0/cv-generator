@@ -10,7 +10,7 @@
     "loginNavigate": "Уже есть аккаунт?"
   },
   "emplInfo": {
-    "info" : "Информация",
+    "info": "Информация",
     "infoContent": {
       "firstName": "Имя",
       "lastName": "Фамилия",
@@ -18,17 +18,28 @@
       "education": "Образование",
       "description": "Описание",
       "position": "Позиция",
-      "email": "Email"
+      "email": "Email",
+      "nameCv": "Название CV"
     },
-    "skills" : "Навыки",
+    "skills": "Навыки",
     "skillsContent": {
       "skillName": "Навык",
       "skillLevel": "Уровень навыка"
     },
-    "languages" : "Языки",
+    "languages": "Языки",
     "languagesContent": {
       "languageName": "Язык",
       "languageLevel": "Уровень языка"
+    },
+    "projects": "Проекты",
+    "projectsContent": {
+      "name": "Название",
+      "start": "Дата начала",
+      "finish": "Дата конца",
+      "domain": "Domain",
+      "internalName": "Внутреннее название",
+      "techStack": "Технические навыки",
+      "responsibilities": "Ответственности"
     },
     "buttons": {
       "addSkill": "Добавить навык",
@@ -41,7 +52,7 @@
     "responsibilitiesLabel": "Ответственности"
   },
   "projectInfo": {
-    "info" : "Информация",
+    "info": "Информация",
     "infoContent": {
       "name": "Имя",
       "internalName": "Внутреннее имя",
@@ -50,7 +61,7 @@
       "to": "До",
       "description": "Описание"
     },
-    "skills" : "Умения",
+    "skills": "Умения",
     "skillsContent": {
       "skillName": "Умение",
       "skillLevel": "Уровень"

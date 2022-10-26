@@ -27,3 +27,13 @@ export const employeeDtoSelector = createSelector(
     employeesFeatureSelector,
     (employeesState: EmployeesStateInterface) => employeesState.employeeDto
 )
+
+export const employeeCvsListSelector = createSelector(
+  employeesFeatureSelector,
+  (employeesState: EmployeesStateInterface) => employeesState.cvsList
+)
+
+export const selectEmployeeCv = createSelector(
+  employeesFeatureSelector,
+  (employeesState: EmployeesStateInterface) => employeesState.employeeCvDto
+)

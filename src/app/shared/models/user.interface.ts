@@ -1,4 +1,4 @@
-import { JsonData, JsonResponse } from './interfaces/json-data-response.interface';
+import { JsonData, JsonEmployeeCv, JsonResponse } from './interfaces/json-data-response.interface';
 
 export interface UserInterface {
     id: number,
@@ -12,4 +12,5 @@ export interface UserInterface {
     position: string | number,
     languages: JsonResponse<JsonData[]>,
     skills: JsonResponse<JsonData[]>,
+    cvs: JsonResponse<JsonEmployeeCv[]>
 }
