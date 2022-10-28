@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { BackendErrorsInterface } from '@models/backend-errors.interface';
 import { ActionTypes } from '@ourStore/projects/enums/action-types';
-import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
+import { ProjectsInterface, RequestProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 
 export const getProjectsList = createAction(
   ActionTypes.GET_PROJECTS_LIST
@@ -34,7 +34,7 @@ export const getProjectByIdFail = createAction(
 
 export const updateProject = createAction(
   ActionTypes.UPDATE_PROJECT,
-  props<{ newProject: ProjectsInterface }>()
+  props<{ newProject: RequestProjectsInterface }>()
 )
 
 export const updateProjectSuccess = createAction(
@@ -49,7 +49,7 @@ export const updateProjectFail = createAction(
 
 export const postProject = createAction(
   ActionTypes.POST_PROJECT,
-  props<{ newProject: ProjectsInterface }>()
+  props<{ newProject: RequestProjectsInterface }>()
 )
 
 export const postProjectSuccess = createAction(
