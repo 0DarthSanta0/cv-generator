@@ -58,5 +58,15 @@
     "buttons": {
       "addSkill": "Добавить умение"
     }
+  },
+  "cvsInfo": {
+    "info" : "Информация",
+    "infoContent": {
+      "name": "Имя",
+      "description": "Описание",
+      "projects" : "Проекты",
+      "skills": "Умения",
+      "languages": "Языки"
+    }
   }
 }

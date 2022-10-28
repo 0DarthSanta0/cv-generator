@@ -1,10 +1,24 @@
-import { JsonAttribute, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import {
+  JsonAttributeId,
+  JsonProject,
+  JsonResponse
+} from '@models/interfaces/json-data-response.interface';
 
 export interface CVsInterface {
   id: number,
   name: string,
   description: string,
-  projects: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
-  languages: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
-  skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
+  projects: JsonResponse<JsonProject[]>,
+  languages: JsonResponse<JsonAttributeId>,
+  skills: JsonResponse<JsonAttributeId>,
 }
+
+export interface CVsSimpleInterface {
+  id: number,
+  name: string,
+  description: string,
+  projects: string[],
+  languages: string[],
+  skills: string[],
+}
+

@@ -1,0 +1,65 @@
+<app-spinner *ngIf="(isLoading$ | async); else info"
+             strokeWidth="4"
+></app-spinner>
+
+<ng-template #info>
+  <div class="wrapper" *ngIf="!(isLoading$ | async)">
+    <form [formGroup]="infoForm">
+      <div class="info">
+        <p-panel [header]="'cvsInfo.info' | translate">
+          <div class="info__body">
+            <div class="info__body_combine">
+              <div *ngFor="let cv of inputArray">
+                <app-input
+                  [label]="'cvsInfo.infoContent.' + cv | translate"
+                  [formControlName]="cv"
+                  [errorsMap]="requiredField"
+                ></app-input>
+              </div>
+            </div>
+
+            <div *ngFor="let data of textAreaArray">
+              <app-textarea
+                [label]="'cvsInfo.infoContent.' + data | translate"
+                [formControlName]="data"
+                [errorsMap]="requiredField"
+                [rows]="3"
+              ></app-textarea>
+            </div>
+
+            <app-autocomplete
+              [label]="'cvsInfo.infoContent.projects' | translate"
+              [formControlName]="'projects'"
+              [errorsMap]="requiredField"
+              [isMultiple]="true"
+              [dataList]="projectsList"
+            ></app-autocomplete>
+            <app-autocomplete
+              [label]="'cvsInfo.infoContent.skills' | translate"
+              [formControlName]="'skills'"
+              [errorsMap]="requiredField"
+              [isMultiple]="true"
+              [dataList]="skillsList"
+            ></app-autocomplete>
+            <app-autocomplete
+              [label]="'cvsInfo.infoContent.languages' | translate"
+              [formControlName]="'languages'"
+              [errorsMap]="requiredField"
+              [isMultiple]="true"
+              [dataList]="languagesList"
+            ></app-autocomplete>
+
+          </div>
+        </p-panel>
+      </div>
+      <div class="save-btn">
+        <app-custom-button
+          label="Save change"
+          (click)="onSubmit()"
+          [disabled]="(infoForm.invalid || infoForm.pending)"
+        ></app-custom-button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
