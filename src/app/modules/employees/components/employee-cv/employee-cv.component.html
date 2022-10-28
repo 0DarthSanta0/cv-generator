@@ -1,10 +1,18 @@
 <div class="wrapper">
-    <p-dialog header="Choose cv template" [(visible)]="displayModal" [style]="{width: '50vw'}">
+    <p-dialog header="Choose cv template" [(visible)]="displayCvsModal" [style]="{width: '50vw'}">
         <app-custom-table
                 [tableData]="allCvsTemplate$ | async"
                 [globalFilteredFields]="cvTable"
                 [columnNames]="cvTable"
                 (rowClicked)="setCvToEmployee($event)"
+        ></app-custom-table>
+    </p-dialog>
+    <p-dialog header="Choose project" [(visible)]="displayProjectsModal" [style]="{width: '50vw'}">
+        <app-custom-table
+                [tableData]="allProjects$ | async"
+                [globalFilteredFields]="projectsTable"
+                [columnNames]="projectsTable"
+                (rowClicked)="addProjectFormGroup($event)"
         ></app-custom-table>
     </p-dialog>
 
@@ -45,7 +53,7 @@
             <app-custom-button
                     class="set-cv"
                     label="Add CV"
-                    (click)="showModal()"
+                    (click)="displayCvsModal = true"
             ></app-custom-button>
         </div>
     </aside>
@@ -53,7 +61,6 @@
     <div class="wrapper__cv-content">
         <div class="content" *ngIf="isLoading">
             <div class="save-btn">
-
                 <app-custom-button
                         class="download-btn"
                         *ngIf="isPreview"
@@ -178,7 +185,7 @@
                 <div class="save-btn">
                     <app-custom-button
                             label="Add project"
-                            (click)="addProject()"
+                            (click)="displayProjectsModal = true"
                     ></app-custom-button>
                 </div>
                 <div class="projects" formArrayName="projects">
@@ -219,7 +226,7 @@
                             <div class="autocomplete">
 
                                 <app-autocomplete
-                                        [label]="'emplInfo.projectsContent.techStack' | translate"
+                                        [label]="'emplInfo.projectsContent.skills' | translate"
                                         [formControlName]="'techStack'"
                                         [errorsMap]="requiredField"
                                         [dataList]="techStack"

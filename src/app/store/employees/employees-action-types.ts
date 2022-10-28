@@ -25,4 +25,12 @@ export enum EmployeesActionTypes {
   OPEN_EMPLOYEE_CV = '[Employees] Open employee cv',
   OPEN_EMPLOYEE_CV_SUCCESS = '[Employees] Open employee cv success',
   OPEN_EMPLOYEE_CV_FAILURE = '[Employees] Open employee cv failure',
+
+  UPDATE_EMPLOYEE_CV = '[Employees] Update employee cv',
+  UPDATE_EMPLOYEE_CV_SUCCESS = '[Employees] Update employee cv success',
+  UPDATE_EMPLOYEE_CV_FAILURE = '[Employees] Update employee cv failure',
+
+  DELETE_EMPLOYEE_CV = '[Employees] Delete employee cv',
+  DELETE_EMPLOYEE_CV_SUCCESS = '[Employees] Delete employee cv success',
+  DELETE_EMPLOYEE_CV_FAILURE = '[Employees] Delete employee cv failure',
 }

@@ -6,6 +6,7 @@ export interface IInfoFormCv {
   nameCv: FormControl<string>,
   firstName: FormControl<string>,
   lastName: FormControl<string>,
+  position: FormControl<string>,
   education: FormControl<string>,
   descriptionCv: FormControl<string>,
   skills: FormArray,

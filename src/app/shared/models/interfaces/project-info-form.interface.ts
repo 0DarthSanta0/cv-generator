@@ -9,5 +9,6 @@ export interface ProjectInfoForm {
   from: FormControl<Date | null>,
   to: FormControl<Date | null>,
   skills: FormArray,
-  responsibilities?: FormArray
+  responsibilities?: FormControl<string[]>
+  techStack?: FormControl<string[]>
 }

@@ -25,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainEffects } from '@ourStore/main/main-effects';
 import { EntitiesEffects } from '@ourStore/entities/entities-effects';
 import { ProjectsEffects } from '@ourStore/projects/projects.effects';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
     AppInputModule,
     AutocompleteModule,
     PasswordModule,
+    ToastModule,
     CustomButtonModule,
     DatePickerModule,
     AuthModule,
@@ -71,7 +74,8 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    MessageService
   ],
   exports: [],
   bootstrap: [AppComponent]

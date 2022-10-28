@@ -3,7 +3,7 @@ import { BackendErrorsInterface } from '@models/backend-errors.interface';
 import { EmployeesActionTypes } from './employees-action-types';
 import { IEmployeesWithSkills } from '@models/employees.interface';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
-import { IEmployeeFormDto } from '@employees';
+import { ICvFormResponse, IEmployeeFormDto } from '@employees';
 import { PositionInterface } from '@models/interfaces/position.interface';
 import { JsonEmployeeCv } from '@models/interfaces/json-data-response.interface';
 import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
@@ -80,11 +80,12 @@ export const setCvTemplateToEmployee = createAction(
 )
 
 export const setCvTemplateToEmployeeSuccess = createAction(
-  EmployeesActionTypes.EMPLOYEE_UPDATE_SUCCESS,
+  EmployeesActionTypes.SET_CV_TEMPLATE_TO_EMPLOYEE_SUCCESS,
+  props<{ updatedEmployee: EmployeeInfoDtoInterface }>()
 )
 
 export const setCvTemplateToEmployeeFailure = createAction(
-  EmployeesActionTypes.EMPLOYEE_UPDATE_FAILURE,
+  EmployeesActionTypes.SET_CV_TEMPLATE_TO_EMPLOYEE_FAILURE,
   props<{ errors: BackendErrorsInterface }>()
 )
 
@@ -100,5 +101,35 @@ export const openCvSuccess = createAction(
 
 export const openCvFailure = createAction(
   EmployeesActionTypes.OPEN_EMPLOYEE_CV_FAILURE,
+  props<{ errors: BackendErrorsInterface }>()
+)
+
+export const updateCv = createAction(
+  EmployeesActionTypes.UPDATE_EMPLOYEE_CV,
+  props<{ newCv: ICvFormResponse }>()
+)
+
+export const updateCvSuccess = createAction(
+  EmployeesActionTypes.UPDATE_EMPLOYEE_CV_SUCCESS,
+  props<{ updatedEmployee: EmployeeInfoDtoInterface }>()
+)
+
+export const updateCvFailure = createAction(
+  EmployeesActionTypes.UPDATE_EMPLOYEE_CV_FAILURE,
+  props<{ errors: BackendErrorsInterface }>()
+)
+
+export const deleteEmployeeCv = createAction(
+  EmployeesActionTypes.DELETE_EMPLOYEE_CV,
+  props<{ idCv: number }>()
+)
+
+export const deleteEmployeeCvSuccess = createAction(
+  EmployeesActionTypes.DELETE_EMPLOYEE_CV_SUCCESS,
+  props<{ updatedEmployee: EmployeeInfoDtoInterface }>()
+)
+
+export const deleteEmployeeCvFailure = createAction(
+  EmployeesActionTypes.DELETE_EMPLOYEE_CV_FAILURE,
   props<{ errors: BackendErrorsInterface }>()
 )

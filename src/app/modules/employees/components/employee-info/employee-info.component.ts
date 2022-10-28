@@ -116,7 +116,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     )
       .subscribe((employeeDto) => {
-        if (employeeDto) {
+        if (employeeDto.employee) {
           this.employeeEmail = employeeDto.employee.email;
           this.setBreadcrumbs();
           this.initializeForm(employeeDto);

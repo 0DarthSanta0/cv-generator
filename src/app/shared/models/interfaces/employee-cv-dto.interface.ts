@@ -9,7 +9,7 @@ export interface EmployeeCvDtoInterface {
     lastName: string,
     education: string,
     position:string,
-    description: string,
+    descriptionCv: string,
     skills: SkillInterface[],
     languages: LanguageInterface[]
     projects: ProjectsInterface[],

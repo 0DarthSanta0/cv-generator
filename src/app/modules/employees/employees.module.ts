@@ -50,7 +50,7 @@ import { DatePickerModule } from '@components/controls/date-picker/date-picker.m
     DialogModule,
     DatePickerModule,
   ],
-  exports: [
-  ]
+  exports: []
 })
-export class EmployeesModule { }
+export class EmployeesModule {
+}

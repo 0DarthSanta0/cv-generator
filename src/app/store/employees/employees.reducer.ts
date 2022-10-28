@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EmployeesStateInterface } from './models/employees-state.interface';
 import {
+  deleteEmployeeCv, deleteEmployeeCvFailure, deleteEmployeeCvSuccess,
   employeeByIdAction,
   employeeByIdFailureAction,
   employeeByIdSuccessAction,
@@ -18,6 +19,8 @@ import {
   setCvTemplateToEmployee,
   setCvTemplateToEmployeeFailure,
   setCvTemplateToEmployeeSuccess,
+  updateCv,
+  updateCvFailure, updateCvSuccess,
 } from './employees.actions';
 import { EmployeeInfoDtoInterface } from '@models/interfaces/employee-info-dto.interface';
 import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
@@ -35,13 +38,27 @@ const initialState: EmployeesStateInterface = {
 export const employeesReducer = createReducer(
   initialState,
   on(
-    employeesListAction, employeeCvsList, setCvTemplateToEmployee, employeeByIdAction, positionsListAction, openCv, (state): EmployeesStateInterface => ({
+    employeesListAction,
+    employeeCvsList,
+    setCvTemplateToEmployee,
+    employeeByIdAction,
+    positionsListAction,
+    openCv,
+    updateCv,
+    deleteEmployeeCv,
+    (state): EmployeesStateInterface => ({
       ...state,
       isLoading: true,
     })
   ),
   on(
-    employeesListFailureAction, positionsListFailureAction, employeeByIdFailureAction, setCvTemplateToEmployeeFailure, openCvFailure, (state, action): EmployeesStateInterface => ({
+    employeesListFailureAction,
+    positionsListFailureAction,
+    employeeByIdFailureAction,
+    setCvTemplateToEmployeeFailure,
+    updateCvFailure,
+    deleteEmployeeCvFailure,
+    openCvFailure, (state, action): EmployeesStateInterface => ({
       ...state,
       isLoading: false,
       errors: action.errors,
@@ -67,6 +84,23 @@ export const employeesReducer = createReducer(
     setCvTemplateToEmployeeSuccess, (state, action): EmployeesStateInterface => ({
       ...state,
       isLoading: false,
+      employeeDto: action.updatedEmployee,
+      errors: null,
+    })
+  ),
+  on(
+    deleteEmployeeCvSuccess, (state, action): EmployeesStateInterface => ({
+      ...state,
+      isLoading: false,
+      employeeDto: action.updatedEmployee,
+      errors: null,
+    })
+  ),
+  on(
+    updateCvSuccess, (state, action): EmployeesStateInterface => ({
+      ...state,
+      isLoading: false,
+      employeeDto: action.updatedEmployee,
       errors: null,
     })
   ),

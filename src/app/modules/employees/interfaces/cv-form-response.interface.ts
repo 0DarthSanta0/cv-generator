@@ -1,14 +1,15 @@
 import { ILanguageFormResponse, ISkillFormResponse } from '@employees';
-import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
+import { IProjectFormResponse } from './project-form-response.interface';
 
 export interface ICvFormResponse {
   id: number,
+  nameCv: string,
   firstName: string,
   lastName: string,
   descriptionCv: string,
   education: string,
-  nameCv: string,
+  position: string,
   languages: ILanguageFormResponse[],
   skills: ISkillFormResponse[],
-  projects: ProjectInfoForm[]
+  projects: IProjectFormResponse[]
 }

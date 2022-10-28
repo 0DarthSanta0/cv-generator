@@ -16,10 +16,6 @@ export interface JsonAttribute {
   name: string;
 }
 
-export interface JsonAttributeId {
-  id: number[];
-}
-
 export interface JsonProject {
   id: number,
   responsibilities: number[]
@@ -32,7 +28,7 @@ export interface JsonEmployeeCv {
   lastName: string,
   education: string,
   position: string,
-  description: string,
+  descriptionCv: string,
   skills: JsonData[],
   languages: JsonData[],
   projects: JsonProject[],
