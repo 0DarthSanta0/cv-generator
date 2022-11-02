@@ -35,4 +35,13 @@ export class EmplLanguageService extends ApiService {
     };
     return this.httpService.post<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_LANGUAGES, newEntity)
   }
+
+  public updateLanguage(id: number, name: string): Observable<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>> {
+    const newEntity: IEntityRequest = {
+      data: {
+        name: name
+      }
+    };
+    return this.httpService.put<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_LANGUAGES +'/'+id, newEntity)
+  }
 }

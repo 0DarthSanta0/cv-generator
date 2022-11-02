@@ -2,36 +2,51 @@
     <div class="wrapper__content">
 
         <div class="content__side-list">
-            <div class="content__search-input">
-                <form [formGroup]="searchInput">
+
+            <app-spinner *ngIf="(isLoadingEntitiesData$ | async); else entities"
+                         strokeWidth="4"
+            ></app-spinner>
+
+            <ng-template #entities>
+                <div class="content__search-input">
                     <input pInputText
                            type="text"
                            class="search"
                            placeholder="Search"
-                           [formControlName]="'text'"
+                           [formControl]="searchInput"
                     />
                     <i class="pi pi-search"></i>
-                </form>
-            </div>
-            <div class="entities" *ngFor="let entity of (entities$ | async);trackBy: trackByFn | searchFilter:searchingText">
-                <div class="entity">
-                    <div class="entity__name">
-                        <div class="name">
-                            {{entity.name}}
-                        </div>
-
-                    </div>
-                    <div class="entity__delete" (click)="deleteEntity(entity.id)">
-                        <i class="pi pi-ban"></i>
-                    </div>
-
                 </div>
-            </div>
+                <form [formGroup]="changeEntityForm">
+                    <div formGroupName="entities">
+                        <div class="entities"
+                             *ngFor="let entity of (entities$|async) | searchFilter: searchingText trackBy: trackByFn">
+                            <div class="entity">
+                                <div class="entity__name">
+                                    <input pInputText
+                                           type="text"
+                                           [formControlName]="entity.name"
+                                    />
+
+                                </div>
+                                <div class="entity__update"
+                                     (click)="updateEntity(entity.id, changeEntityForm.controls.entities.controls[entity.name].value)">
+                                    <i class="pi pi-check"></i>
+                                </div>
+                                <div class="entity__delete" (click)="deleteEntity(entity.id)">
+                                    <i class="pi pi-ban"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
 
         </div>
 
         <div class="content__main">
-            <form [formGroup]="addEntityForm">
+            <form [formGroup]="addEntityForm" (ngSubmit)="createNewEntity()">
                 <div class="main__input">
                     <app-input
                             class="form_item"
@@ -44,8 +59,8 @@
                 <div class="main__add-entity">
                     <app-custom-button
                             [label]="'Add ' + entityName + ' item'"
-                            (click)="onSubmit()"
-                            [disabled]="(addEntityForm.invalid || addEntityForm.pending) ? true : false"
+                            [type]="'submit'"
+                            [disabled]="!addEntityForm.dirty || addEntityForm.invalid"
                     ></app-custom-button>
                 </div>
             </form>

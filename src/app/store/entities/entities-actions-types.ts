@@ -23,4 +23,16 @@ export enum EntitiesActionsTypes {
   ADD_RESPONSIBILITY = '[Entities] add responsibility',
   ADD_RESPONSIBILITY_SUCCESS = '[Entities] add responsibility success',
   ADD_RESPONSIBILITY_FAILURE = '[Entities] add responsibility failure',
+
+  UPDATE_SKILL = '[Entities] update skill',
+  UPDATE_SKILL_SUCCESS = '[Entities] update skill success',
+  UPDATE_SKILL_FAILURE = '[Entities] add skill failure',
+
+  UPDATE_LANGUAGE = '[Entities] update language',
+  UPDATE_LANGUAGE_SUCCESS = '[Entities] update language success',
+  UPDATE_LANGUAGE_FAILURE = '[Entities] update language failure',
+
+  UPDATE_RESPONSIBILITY = '[Entities] update responsibility',
+  UPDATE_RESPONSIBILITY_SUCCESS = '[Entities] update responsibility success',
+  UPDATE_RESPONSIBILITY_FAILURE = '[Entities] update responsibility failure',
 }

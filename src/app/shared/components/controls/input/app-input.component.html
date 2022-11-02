@@ -8,9 +8,11 @@
             pInputText
     >
     <ng-container *ngIf="control.errors && control.touched">
-        <small class="p-error">
-            {{error | translate}}
-        </small>
+        <div>
+            <small class="p-error">
+                {{error | translate}}
+            </small>
+        </div>
     </ng-container>
 </div>
 

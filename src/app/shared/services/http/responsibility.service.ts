@@ -36,4 +36,13 @@ export class ResponsibilityService extends ApiService {
     };
     return this.httpService.post<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_RESPONSIBILITIES, newEntity)
   }
+
+  public updateResponsibility(id: number, name: string): Observable<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>> {
+    const newEntity: IEntityRequest = {
+      data: {
+        name: name
+      }
+    };
+    return this.httpService.put<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_RESPONSIBILITIES + '/' + id, newEntity)
+  }
 }
