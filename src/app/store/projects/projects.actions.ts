@@ -60,3 +60,17 @@ export const postProjectFail = createAction(
   ActionTypes.POST_PROJECT_FAIL,
   props<{ errors: BackendErrorsInterface }>()
 )
+
+export const deleteProject = createAction(
+  ActionTypes.DELETE_PROJECT,
+  props<{ id: number }>()
+)
+
+export const deleteProjectSuccess = createAction(
+  ActionTypes.DELETE_PROJECT_SUCCESS,
+)
+
+export const deleteProjectFail = createAction(
+  ActionTypes.DELETE_PROJECT_FAIL,
+  props<{ errors: BackendErrorsInterface }>()
+)

@@ -54,6 +54,13 @@
           [disabled]="(infoForm.invalid || infoForm.pending)"
         ></app-custom-button>
       </div>
+      <div class="delete-btn">
+        <app-custom-button
+          label="Delete"
+          (click)="onDelete()"
+          [disabled]="(infoForm.pending)"
+        ></app-custom-button>
+      </div>
     </form>
   </div>
 </ng-template>

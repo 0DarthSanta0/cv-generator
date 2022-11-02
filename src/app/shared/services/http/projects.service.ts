@@ -49,4 +49,8 @@ export class ProjectsService extends ApiService {
     });
   }
 
+  public deleteProject(id: number): Observable<RequestProjectsInterface> {
+    return this.httpService.delete<RequestProjectsInterface>(this.api + EndpointsUrl.PROJECTS + id);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DATES, INPUTS, TEXT_AREAS } from '@constants/projects-titles';
 import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
-import { getProjectById, updateProject } from '@ourStore/projects/projects.actions';
+import { deleteProject, getProjectById, updateProject } from '@ourStore/projects/projects.actions';
 import {
   ProjectsInterface,
   RequestProjectsInterface,
@@ -47,6 +47,7 @@ export class ProjectInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: NonNullableFormBuilder,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   public ngOnInit(): void {
@@ -71,6 +72,13 @@ export class ProjectInfoComponent implements OnInit {
       )
     };
     this.store.dispatch(updateProject({newProject: projectForPost}));
+    this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE]);
+  }
+
+  public onDelete(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id)
+      this.store.dispatch(deleteProject({id: +id}));
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE]);
   }
 

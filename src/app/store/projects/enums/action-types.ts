@@ -11,4 +11,7 @@ export enum ActionTypes {
   POST_PROJECT = '[Projects] Post project action',
   POST_PROJECT_SUCCESS = '[Projects] Post project success action',
   POST_PROJECT_FAIL = '[Projects] Post project fail action',
+  DELETE_PROJECT = '[Projects] Delete project action',
+  DELETE_PROJECT_SUCCESS = '[Projects] Delete project success action',
+  DELETE_PROJECT_FAIL = '[Projects] Delete project fail action',
 }
