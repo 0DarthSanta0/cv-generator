@@ -3,7 +3,7 @@
 ></app-spinner>
 
 <ng-template #info>
-  <div class="wrapper" *ngIf="!(isLoading$ | async)">
+  <div class="wrapper">
     <form [formGroup]="infoForm">
       <div class="info">
         <p-panel [header]="'cvsInfo.info' | translate">

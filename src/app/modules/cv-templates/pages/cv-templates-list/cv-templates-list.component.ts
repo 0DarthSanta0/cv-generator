@@ -28,8 +28,7 @@ export class CvTemplatesListComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
-  ) {
-  }
+  ) { }
 
   public ngOnInit(): void {
     this.setBreadcrumbs();
