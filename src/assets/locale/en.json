@@ -1,4 +1,7 @@
 {
+  "backendErrors": {
+    "invalidIdentifierOrData": "Invalid identifier or password"
+  },
   "validations": {
     "requiredError": "The field should not be empty",
     "emailError": "Enter the correct email",

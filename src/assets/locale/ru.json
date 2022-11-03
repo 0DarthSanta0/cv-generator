@@ -1,4 +1,7 @@
 {
+  "backendErrors": {
+    "invalidIdentifierOrData": "Неверный идентификатор или пароль"
+  },
   "validations": {
     "requiredError": "Поле не может быть пустым",
     "emailError": "Введите корректный email",
@@ -10,7 +13,7 @@
     "loginNavigate": "Уже есть аккаунт?"
   },
   "emplInfo": {
-    "info" : "Информация",
+    "info": "Информация",
     "infoContent": {
       "firstName": "Имя",
       "lastName": "Фамилия",
@@ -20,12 +23,12 @@
       "position": "Позиция",
       "email": "Email"
     },
-    "skills" : "Навыки",
+    "skills": "Навыки",
     "skillsContent": {
       "skillName": "Навык",
       "skillLevel": "Уровень навыка"
     },
-    "languages" : "Языки",
+    "languages": "Языки",
     "languagesContent": {
       "languageName": "Язык",
       "languageLevel": "Уровень языка"
@@ -41,7 +44,7 @@
     "responsibilitiesLabel": "Ответственности"
   },
   "projectInfo": {
-    "info" : "Информация",
+    "info": "Информация",
     "infoContent": {
       "name": "Имя",
       "internalName": "Внутреннее имя",
@@ -50,7 +53,7 @@
       "to": "До",
       "description": "Описание"
     },
-    "skills" : "Умения",
+    "skills": "Умения",
     "skillsContent": {
       "skillName": "Умение",
       "skillLevel": "Уровень"
