@@ -49,14 +49,14 @@
       </div>
       <div class="save-btn">
         <app-custom-button
-          label="Save"
+          [label]="'projectInfo.buttons.save' | translate"
           (click)="onSubmit()"
           [disabled]="(infoForm.invalid || infoForm.pending)"
         ></app-custom-button>
       </div>
       <div class="delete-btn">
         <app-custom-button
-          label="Delete"
+          [label]="'projectInfo.buttons.delete' | translate"
           (click)="onDelete()"
           [disabled]="(infoForm.pending)"
         ></app-custom-button>
