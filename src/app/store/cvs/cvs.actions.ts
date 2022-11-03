@@ -60,3 +60,17 @@ export const postCVFail = createAction(
   ActionTypes.POST_CV_FAIL,
   props<{ errors: BackendErrorsInterface }>()
 )
+
+export const deleteCV = createAction(
+  ActionTypes.DELETE_CV,
+  props<{ id: number }>()
+)
+
+export const deleteCVSuccess = createAction(
+  ActionTypes.DELETE_CV_SUCCESS,
+)
+
+export const deleteCVFail = createAction(
+  ActionTypes.DELETE_CV_FAIL,
+  props<{ errors: BackendErrorsInterface }>()
+)

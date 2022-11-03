@@ -11,4 +11,7 @@ export enum ActionTypes {
   POST_CV = '[CVs] Post CV action',
   POST_CV_SUCCESS = '[CVs] Post CV success action',
   POST_CV_FAIL = '[CVs] Post CV fail action',
+  DELETE_CV = '[CVs] Delete CV action',
+  DELETE_CV_SUCCESS = '[CVs] Delete CV success action',
+  DELETE_CV_FAIL = '[CVs] Delete CV fail action',
 }

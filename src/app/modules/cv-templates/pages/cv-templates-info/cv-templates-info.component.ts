@@ -8,7 +8,7 @@ import { AppRoutes } from '@constants/app-routes';
 import { MenuItem } from 'primeng/api';
 import { CV_TEMPLATES, MAIN } from '@constants/breadcrumbs';
 import { CVTemplateInfoForm } from '@models/interfaces/cv-template-info-form.interface';
-import { getCVById, updateCV } from '@ourStore/cvs/cvs.actions';
+import { deleteCV, getCVById, updateCV } from '@ourStore/cvs/cvs.actions';
 import { CVsInterface, CVsSimpleInterface } from '@models/interfaces/cvs.interface';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { cvSelector, isLoadingCVSelector } from '@ourStore/cvs/cvs.selectors';
@@ -102,6 +102,13 @@ export class CvTemplatesInfoComponent implements OnInit {
       }
     };
     this.store.dispatch(updateCV({newCV: CVForPost}));
+    this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.CV_TEMPLATES_ROUTE]);
+  }
+
+  public onDelete(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id)
+      this.store.dispatch(deleteCV({id: +id}));
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.CV_TEMPLATES_ROUTE]);
   }
 

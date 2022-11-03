@@ -48,4 +48,9 @@ export class CvsService extends ApiService{
       data: cv,
     });
   }
+
+  public deleteCV(id: number): Observable<CVsInterface> {
+    return this.httpService.delete<CVsInterface>(this.api + EndpointsUrl.LIST_CVS + '/' + id);
+  }
+
 }

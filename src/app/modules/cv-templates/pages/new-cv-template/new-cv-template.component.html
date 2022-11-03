@@ -48,7 +48,7 @@
   </div>
   <div class="save-btn">
     <app-custom-button
-      label="Save"
+      [label]="'cvsInfo.buttons.save' | translate"
       (click)="onSubmit()"
       [disabled]="(infoForm.invalid || infoForm.pending)"
     ></app-custom-button>

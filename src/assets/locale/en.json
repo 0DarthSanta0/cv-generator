@@ -67,6 +67,10 @@
       "projects": "Projects",
       "skills": "Skills",
       "languages": "Languages"
+    },
+    "buttons": {
+      "save": "Save",
+      "delete": "Delete"
     }
   }
 }

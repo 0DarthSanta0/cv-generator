@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CvsService } from '@services/http/cvs.service';
 import {
+  deleteCV, deleteCVFail, deleteCVSuccess,
   getCVById,
   getCVByIdFail,
   getCVByIdSuccess,
@@ -71,6 +72,19 @@ export class CVsEffects {
     ),
     catchError((errorResponse: HttpErrorResponse) =>
       of(updateCVFail({ errors: errorResponse.error }))
+    )
+  ));
+
+  public deleteCV$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteCV),
+    switchMap(({ id }) => {
+      return this.cvsService.deleteCV(id);
+    }),
+    map(() =>
+      deleteCVSuccess()
+    ),
+    catchError((errorResponse: HttpErrorResponse) =>
+      of(deleteCVFail({ errors: errorResponse.error }))
     )
   ));
 

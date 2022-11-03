@@ -67,6 +67,10 @@
       "projects" : "Проекты",
       "skills": "Умения",
       "languages": "Языки"
+    },
+    "buttons": {
+      "save": "Сохранить",
+      "delete": "Удалить"
     }
   }
 }
