@@ -33,19 +33,13 @@ import {
 } from './employees.actions';
 import { SkillsService } from '@services/http/skills.service';
 import { select, Store } from '@ngrx/store';
-import {
-  employeeCvsListSelector,
-  employeeDtoSelector,
-  listPositionsSelector,
-  selectEmployeeCv
-} from './employees.selectors';
+import { employeeCvsListSelector, employeeDtoSelector, listPositionsSelector } from './employees.selectors';
 import { EmployeesMapperService } from '@services/employees-mapper.service';
 import { EmplLanguageService } from '@services/http/empl-language.service';
 import { EmployeesInterface } from '@models/employees.interface';
 import { PositionService } from '@services/http/position.service';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
 import { ActivatedRoute } from '@angular/router';
-import { projectsListSelector } from '@ourStore/projects/projects.selectors';
 import { MessageService } from 'primeng/api';
 import {
   CV_UPDATE_FAILURE,
@@ -58,6 +52,7 @@ import {
   SET_CV_TEMPLATE_TO_EMPLOYEE_SUCCESS
 } from '@constants/toast-messages';
 import { FakeCvsService } from '@services/fake-cvs.service';
+import { projectsListSelector } from '@ourStore/projects/projects.selectors';
 
 @Injectable()
 export class EmployeesEffects {
@@ -142,13 +137,11 @@ export class EmployeesEffects {
     withLatestFrom(
       this.store.pipe(select(selectLanguages)),
       this.store.pipe(select(selectSkills)),
-      this.store.pipe(select(projectsListSelector)),
-      this.store.pipe(select(selectResponsibilities)),
     ),
     map(([{
       idCv,
       employee
-    }, langs, skills, projects, responsibilities]) => this.employeeMappers.getEmployeeCvDto(idCv, employee, langs, skills, projects, responsibilities)),
+    }, langs, skills]) => this.employeeMappers.getEmployeeCvDto(idCv, employee, langs, skills)),
     map((employeeCv) =>
       openCvSuccess({employeeCv})
     ),
@@ -192,8 +185,9 @@ export class EmployeesEffects {
     withLatestFrom(
       this.store.pipe(select(employeeCvsListSelector)),
       this.store.pipe(select(employeeDtoSelector)),
+      this.store.pipe(select(projectsListSelector)),
     ),
-    map(([cvTemplate, employeeCvs, currentEmployee]) => this.employeeMappers.setCvTemplateToEmployeeCvs(cvTemplate, employeeCvs, currentEmployee.employee)),
+    map(([cvTemplate, employeeCvs, currentEmployee, projects]) => this.employeeMappers.setCvTemplateToEmployeeCvs(cvTemplate, employeeCvs, currentEmployee.employee, projects)),
     switchMap(({cvsList, employeeId}) => this.employeesService.updateEmployeeCvs(cvsList, employeeId)),
     withLatestFrom(
       this.store.pipe(select(selectSkills)),

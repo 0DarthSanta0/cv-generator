@@ -8,7 +8,7 @@ import { ICvFormResponse } from '@employees';
   selector: 'app-pdf-preview',
   templateUrl: './pdf-preview.component.html',
   styleUrls: ['./pdf-preview.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PdfPreviewComponent implements OnInit {
 
@@ -28,17 +28,31 @@ export class PdfPreviewComponent implements OnInit {
 
   private downloadPdf(): void {
 
-    html2canvas(this.content.nativeElement).then((canvas) => {
-      const img = canvas.toDataURL();
-      const doc = new jsPDF('p', 'mm', 'a4');
-      const bufferX = 5;
-      const bufferY = 5;
-      const imgProps = (<any>doc).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+    html2canvas(this.content.nativeElement, {allowTaint: true}).then((canvas) => {
 
-      return doc;
+      const HTML_Width = canvas.width;
+      const HTML_Height = canvas.height
+      const top_left_margin = 15;
+      const PDF_Width = (HTML_Width + (top_left_margin * 2));
+      const PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+      const canvas_image_width = HTML_Width;
+      const canvas_image_height = HTML_Height;
+
+      const totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+      canvas.getContext('2d');
+      const img = canvas.toDataURL('image/jpeg', 1.0);
+
+      const pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+
+      pdf.addImage(img, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+
+      for (let i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage();
+        pdf.addImage(img, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+      }
+
+      return pdf;
 
     }).then((doc) => {
       doc.save('cv.pdf');

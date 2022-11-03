@@ -12,6 +12,10 @@ export type JsonResponse<T> = {
   data: T,
 }
 
+export interface JsonAttributeId {
+  ids: number[];
+}
+
 export interface JsonAttribute {
   name: string;
 }
@@ -19,6 +23,19 @@ export interface JsonAttribute {
 export interface JsonProject {
   id: number,
   responsibilities: number[]
+}
+
+export interface JsonProjectCv {
+  id: number,
+  description: string,
+  domain: string,
+  name:string,
+  from: Date,
+  to: Date,
+  internalName: string,
+  responsibilities: string[],
+  techStack: string[],
+  skills: any
 }
 
 export interface JsonEmployeeCv {
@@ -31,5 +48,5 @@ export interface JsonEmployeeCv {
   descriptionCv: string,
   skills: JsonData[],
   languages: JsonData[],
-  projects: JsonProject[],
+  projects: JsonProjectCv[],
 }

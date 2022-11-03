@@ -26,7 +26,7 @@ import {
   setCvTemplateToEmployee,
   updateCv
 } from '@ourStore/employees/employees.actions';
-import { JsonEmployeeCv } from '@models/interfaces/json-data-response.interface';
+import { JsonEmployeeCv, JsonProjectCv } from '@models/interfaces/json-data-response.interface';
 import {
   employeeCvsListSelector,
   employeeDtoSelector,
@@ -119,7 +119,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     })
   }
 
-  public onSubmit(): void {
+  public updateCv(): void {
     const newCv: ICvFormResponse = <ICvFormResponse>this.cvInfoForm.value;
     this.store.dispatch(updateCv({newCv: newCv}));
 
@@ -261,7 +261,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
       });
   }
 
-  private patchProjects(projects: ProjectsInterface[]): void {
+  private patchProjects(projects: JsonProjectCv[]): void {
     projects.forEach((project) => {
 
       const projectGroup = this.formBuilder.group(<ProjectInfoForm>{

@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@services/http/api.service';
 import { map, Observable } from 'rxjs';
-import { JsonData, JsonProject, JsonResponse } from '@models/interfaces/json-data-response.interface';
+import {
+  JsonAttributeId,
+  JsonData,
+  JsonProject,
+  JsonProjectCv,
+  JsonResponse
+} from '@models/interfaces/json-data-response.interface';
 import { EndpointsUrl } from '@constants/endpoints';
 
 export interface CVsInterface {
   id: number,
   name: string,
   description: string,
-  projects: JsonResponse<JsonProject[]>,
-  languages: JsonResponse<JsonData[]>,
-  skills: JsonResponse<JsonData[]>,
+  projects: JsonResponse<JsonProjectCv[]>,
+  languages: JsonResponse<JsonAttributeId>,
+  skills: JsonResponse<JsonAttributeId>,
 }
 
 export interface ResponseCVsInterface {
@@ -18,9 +24,9 @@ export interface ResponseCVsInterface {
   attributes: {
     name: string,
     description: string,
-    projects: JsonResponse<JsonProject[]>,
-    languages: JsonResponse<JsonData[]>,
-    skills: JsonResponse<JsonData[]>,
+    projects: JsonResponse<JsonProjectCv[]>,
+    languages: JsonResponse<JsonAttributeId>,
+    skills: JsonResponse<JsonAttributeId>,
   }
 }
 
