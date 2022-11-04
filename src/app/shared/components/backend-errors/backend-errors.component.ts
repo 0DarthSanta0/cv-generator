@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {BackendErrorsInterface} from "../../models/backend-errors.interface";
+import { Component, Input } from '@angular/core';
+import { BackendErrorsInterface } from '@models/backend-errors.interface';
+import { INVALID_IDENTIFIER_OR_PASSWORD } from '@constants/backend-errors';
 
 @Component({
   selector: 'app-backend-errors',
@@ -8,4 +9,6 @@ import {BackendErrorsInterface} from "../../models/backend-errors.interface";
 })
 export class BackendErrorsComponent {
   @Input() public backendError: BackendErrorsInterface | null;
+
+  public readonly BACKEND_ERRORS = INVALID_IDENTIFIER_OR_PASSWORD;
 }
