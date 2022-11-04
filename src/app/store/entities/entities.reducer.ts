@@ -1,4 +1,3 @@
-import { IMainState } from '@ourStore/main/models/main-state.interface';
 import { createReducer, on } from '@ngrx/store';
 import {
   addLanguage,
@@ -18,7 +17,16 @@ import {
   deleteResponsibilitySuccess,
   deleteSkill,
   deleteSkillFailure,
-  deleteSkillSuccess
+  deleteSkillSuccess,
+  updateLanguage,
+  updateLanguageFailure,
+  updateLanguageSuccess,
+  updateResponsibility,
+  updateResponsibilityFailure,
+  updateResponsibilitySuccess,
+  updateSkill,
+  updateSkillFailure,
+  updateSkillSuccess
 } from '@ourStore/entities/entities-actions';
 import { IEntitiesState } from '@ourStore/entities/models/entities-state.interface';
 
@@ -36,6 +44,9 @@ export const entitiesReducer = createReducer(
     addSkill,
     addLanguage,
     addResponsibility,
+    updateSkill,
+    updateResponsibility,
+    updateLanguage,
     (state): IEntitiesState => ({
       ...state,
       isLoading: true,
@@ -45,9 +56,12 @@ export const entitiesReducer = createReducer(
     deleteResponsibilitySuccess,
     deleteSkillSuccess,
     deleteLanguageSuccess,
-    addSkillSuccess,
     addLanguageSuccess,
     addResponsibilitySuccess,
+    addSkillSuccess,
+    updateSkillSuccess,
+    updateLanguageSuccess,
+    updateResponsibilitySuccess,
     (state, action): IEntitiesState => ({
       ...state,
       isLoading: false,
@@ -61,6 +75,9 @@ export const entitiesReducer = createReducer(
     addSkillFailure,
     addLanguageFailure,
     addResponsibilityFailure,
+    updateSkillFailure,
+    updateLanguageFailure,
+    updateResponsibilityFailure,
     (state, action): IEntitiesState => ({
       ...state,
       isLoading: false,

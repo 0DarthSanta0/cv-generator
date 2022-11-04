@@ -5,7 +5,6 @@ import { map, Observable } from 'rxjs';
 import { EndpointsUrl } from '@constants/endpoints';
 import { JsonAttribute, JsonDataWithAttributes, JsonResponse } from '@models/interfaces/json-data-response.interface';
 import { EmployeesMapperService } from '@services/employees-mapper.service';
-import { IEntityRequest } from '@ourStore/entities/models/entity-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +27,10 @@ export class EmplLanguageService extends ApiService {
   }
 
   public addLanguage(name: string): Observable<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>> {
-    const newEntity: IEntityRequest = {
-      data: {
-        name: name
-      }
-    };
-    return this.httpService.post<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_LANGUAGES, newEntity)
+    return this.httpService.post<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_LANGUAGES, {data: name})
+  }
+
+  public updateLanguage(id: number, name: string): Observable<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>> {
+    return this.httpService.put<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_LANGUAGES + '/' + id, {data: name})
   }
 }

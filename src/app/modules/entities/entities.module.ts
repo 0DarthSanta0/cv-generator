@@ -9,6 +9,7 @@ import { SearchFilterPipe } from '../../shared/pipes/search-filter.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppInputModule } from '@components/controls/input/app-input.module';
 import { CustomButtonModule } from '@components/custom-button/custom-button.module';
+import { SpinnerModule } from '@components/spinner/spinner.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CustomButtonModule } from '@components/custom-button/custom-button.modu
     TranslateModule,
     AppInputModule,
     CustomButtonModule,
+    SpinnerModule,
   ],
   declarations: [
     EntitiesPageComponent,

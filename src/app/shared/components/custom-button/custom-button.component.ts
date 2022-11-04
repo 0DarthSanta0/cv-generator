@@ -10,4 +10,5 @@ export class CustomButtonComponent {
 
   @Input() public label: string = 'Default';
   @Input() public disabled: boolean = false;
+  @Input() public type: string = 'button';
 }

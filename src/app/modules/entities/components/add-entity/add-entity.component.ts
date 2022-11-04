@@ -10,8 +10,7 @@ import { IResponsibility } from '@models/interfaces/responsibility.interface';
 import { SkillInterface } from '@models/skill.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
-import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED_FIELD } from '@constants/validation-errors';
 import {
   addLanguage,
@@ -19,28 +18,37 @@ import {
   addSkill,
   deleteLanguage,
   deleteResponsibility,
-  deleteSkill
+  deleteSkill,
+  updateLanguage,
+  updateResponsibility,
+  updateSkill
 } from '@ourStore/entities/entities-actions';
-import { AddEntityForm } from '../../models/add-entity-form.interface';
-import { languagesList, responsibilitiesList, skillsList } from '@ourStore/main/main-actions';
+import { IAddEntityForm } from '../../models/add-entity-form.interface';
+import { IChangeEntityForm } from '../../models/i-change-entity.form';
+import { selectLoadingEntities } from '@ourStore/entities/entities-selectors';
 
 @Component({
   selector: 'app-add-entity',
   templateUrl: './add-entity.component.html',
   styleUrls: ['./add-entity.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddEntityComponent implements OnInit, OnDestroy {
 
-  public searchInput: FormGroup<ISearchInputForm>;
-  public addEntityForm: FormGroup<AddEntityForm>;
+  public searchInput: FormControl<string>;
+  public addEntityForm: FormGroup<IAddEntityForm>;
+  public changeEntityForm: FormGroup<IChangeEntityForm>;
 
-  public entities = ENTITIES_ITEMS;
+  public readonly entities = ENTITIES_ITEMS;
+  public readonly requiredField = REQUIRED_FIELD;
+
+  public readonly entitiesName: string[] = Object.keys(this.entities);
+
   public searchingText: string = '';
   public entityName: string = '';
-  public requiredField = REQUIRED_FIELD;
 
-  public entities$: Observable<IResponsibility[] | SkillInterface[] | LanguageInterface[]>;
+  public entities$: Observable<SkillInterface[] | LanguageInterface[] | IResponsibility[]>
+  public isLoadingEntitiesData$: Observable<boolean> = this.store.pipe(select(selectLoadingEntities));
 
   private destroy$ = new Subject<void>();
 
@@ -57,9 +65,10 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     if (nameEntity) {
       this.entityName = nameEntity;
       this.setBreadcrumbs();
-      this.chooseDataStore();
+      this.defineForm();
+      this.chooseEntity();
     }
-    this.defineForm();
+
   }
 
   ngOnDestroy(): void {
@@ -67,19 +76,89 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public deleteEntity(id: number): void {
-    this.chooseDataStore(id);
-  }
-
-  public onSubmit() {
-    const newEntityName = this.addEntityForm.controls.name.value;
-    this.chooseDataStore(0, newEntityName);
-    this.addEntityForm.reset();
-
-  }
-
-  public trackByFn(index: number, item: any) {
+  public trackByFn(index: number, item: any): number {
     return item.id;
+  }
+
+  public deleteEntity(id: number): void {
+
+    switch (this.entityName) {
+      case this.entitiesName[0]: {
+        this.store.dispatch(deleteSkill({id}));
+        break;
+      }
+      case this.entitiesName[1]: {
+        this.store.dispatch(deleteLanguage({id}));
+        break;
+      }
+      case this.entitiesName[2]: {
+        this.store.dispatch(deleteResponsibility({id}))
+        break;
+      }
+    }
+  }
+
+  public createNewEntity() {
+    const newEntityName = this.addEntityForm.controls.name.value;
+
+    if (newEntityName) {
+      switch (this.entityName) {
+        case this.entitiesName[0]: {
+          this.store.dispatch(addSkill({name: newEntityName}));
+          break;
+        }
+        case this.entitiesName[1]: {
+          this.store.dispatch(addLanguage({name: newEntityName}));
+          break;
+        }
+        case this.entitiesName[2]: {
+          this.store.dispatch(addResponsibility({name: newEntityName}))
+          break;
+        }
+      }
+      this.addEntityForm.controls.name.reset();
+      this.addEntityForm.controls.name.markAsPristine();
+      this.addEntityForm.controls.name.markAsUntouched();
+      this.addEntityForm.controls.name.setErrors(null);
+      this.addEntityForm.controls.name.setValidators(null);
+
+    }
+  }
+
+  public updateEntity(id: number, newName: string): void {
+
+    switch (this.entityName) {
+      case this.entitiesName[0]: {
+        this.store.dispatch(updateSkill({id: id, name: newName}));
+        break;
+      }
+      case this.entitiesName[1]: {
+        this.store.dispatch(updateLanguage({id: id, name: newName}));
+        break;
+      }
+      case this.entitiesName[2]: {
+        this.store.dispatch(updateResponsibility({id: id, name: newName}))
+        break;
+      }
+    }
+  }
+
+  public chooseEntity(): void {
+    const entitiesName: string[] = Object.keys(this.entities);
+    switch (this.entityName) {
+      case entitiesName[0]: {
+        this.getSkillsFromStore();
+        break;
+      }
+      case entitiesName[1]: {
+        this.getLanguagesFromStore();
+        break;
+      }
+      case entitiesName[2]: {
+        this.getResponsibilitiesFromStore();
+        break;
+      }
+    }
   }
 
   private setBreadcrumbs() {
@@ -91,68 +170,46 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     this.store.dispatch(setBreadcrumbs({breadcrumbs: pathBreadcrumb}));
   }
 
-  private chooseDataStore(deleteId?: number, newEntityName?: string) {
-    const entitiesName: string[] = Object.keys(this.entities);
-
-    switch (this.entityName) {
-      case entitiesName[0]: {
-
-        if (deleteId) {
-          this.store.dispatch(deleteSkill({id: deleteId}));
-          this.store.dispatch(skillsList());
-        }
-        if (newEntityName) {
-          this.store.dispatch(addSkill({name: newEntityName}));
-          this.store.dispatch(skillsList());
-        }
-
-        this.entities$ = this.store.pipe(select(selectSkills));
-
-        break
-      }
-      case entitiesName[1]: {
-
-        if (deleteId) {
-          this.store.dispatch(deleteLanguage({id: deleteId}));
-          this.store.dispatch(languagesList());
-        }
-        if (newEntityName) {
-          this.store.dispatch(addLanguage({name: newEntityName}));
-          this.store.dispatch(languagesList());
-        }
-
-        this.entities$ = this.store.pipe(select(selectLanguages));
-        break
-      }
-      case entitiesName[2]: {
-
-        if (deleteId) {
-          this.store.dispatch(deleteResponsibility({id: deleteId}));
-          this.store.dispatch(responsibilitiesList());
-        }
-        if (newEntityName) {
-          this.store.dispatch(addResponsibility({name: newEntityName}));
-          this.store.dispatch(responsibilitiesList());
-        }
-
-        this.entities$ = this.store.pipe(select(selectResponsibilities));
-
-        break
-      }
-    }
-  }
-
   private defineForm(): void {
-    this.searchInput = this.formBuilder.group<ISearchInputForm>({
-      text: this.formBuilder.control('', []),
-    });
+    this.searchInput = this.formBuilder.control<string>('')
 
-    this.addEntityForm = this.formBuilder.group<AddEntityForm>({
-      name: this.formBuilder.control('', [Validators.required])
+    this.addEntityForm = this.formBuilder.group<IAddEntityForm>({
+      name: this.formBuilder.control('', [Validators.required, Validators.minLength(3)])
     })
 
-    this.searchInput.controls.text.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
+    this.changeEntityForm = this.formBuilder.group<IChangeEntityForm>({
+      entities: this.formBuilder.group({})
+    })
+
+    this.searchInput.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
       this.searchingText = text;
     });
+  }
+
+  private getSkillsFromStore(): void {
+    this.entities$ = this.store.pipe(select(selectSkills));
+    this.entities$.subscribe((skills) => this.initializeEntityName(skills));
+  }
+
+  private getLanguagesFromStore(): void {
+    this.entities$ = this.store.pipe(select(selectLanguages))
+    this.entities$.subscribe((languages) => this.initializeEntityName(languages));
+  }
+
+  private getResponsibilitiesFromStore(): void {
+    this.entities$ = this.store.pipe(select(selectResponsibilities))
+    this.entities$.subscribe((responsibilities) => this.initializeEntityName(responsibilities));
+  }
+
+  private initializeEntityName(entities: SkillInterface[] | LanguageInterface[] | IResponsibility[]): void {
+
+    entities.forEach((entity: SkillInterface | LanguageInterface | IResponsibility) => {
+      const entityControl = this.formBuilder.control(
+        entity.name, [Validators.required]
+      )
+
+      this.changeEntityForm.controls.entities.addControl(entity.name, entityControl);
+    })
+
   }
 }
