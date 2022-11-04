@@ -16,7 +16,7 @@ export class ProjectsService extends ApiService {
   }
 
   public getProjectsList(): Observable<ProjectsInterface[]> {
-    return this.httpService.get<JsonResponse<ResponseProjectInterface[]>>(this.api + EndpointsUrl.PROJECTS).pipe(
+    return this.httpService.get<JsonResponse<ResponseProjectInterface[]>>(this.api + EndpointsUrl.PROJECTS + '?populate=skills').pipe(
       map((projectsList): ProjectsInterface[] =>
         projectsList.data.map((project): ProjectsInterface => {
           return {

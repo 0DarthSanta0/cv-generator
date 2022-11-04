@@ -33,9 +33,9 @@ export interface JsonProjectCv {
   from: Date,
   to: Date,
   internalName: string,
-  responsibilities: string[],
-  techStack: string[],
-  skills: any
+  skills: string[]
+  responsibilities?: string[],
+  // techStack: string[],
 }
 
 export interface JsonEmployeeCv {

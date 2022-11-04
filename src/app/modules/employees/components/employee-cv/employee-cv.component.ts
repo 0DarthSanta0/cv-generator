@@ -16,7 +16,7 @@ import { select, Store } from '@ngrx/store';
 import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
 import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
-import { CVsInterface, FakeCvsService } from '@services/fake-cvs.service';
+import { CVsInterface, FakeCvsService, ResponseCVsInterface } from '@services/fake-cvs.service';
 import { CV_TABLE_COLUMN } from '@constants/cv';
 import {
   deleteEmployeeCv,

@@ -10,13 +10,14 @@ import {
   JsonData,
   JsonDataWithAttributes,
   JsonEmployeeCv,
-  JsonProject,
+  JsonProject, JsonProjectCv,
   JsonResponse
 } from '@models/interfaces/json-data-response.interface';
 import { PositionInterface } from '@models/interfaces/position.interface';
 import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
 import { IResponsibility } from '@models/interfaces/responsibility.interface';
 import { CVsInterface } from '@services/fake-cvs.service';
+import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -242,9 +243,24 @@ export class EmployeesMapperService {
   }
 
   public setCvTemplateToEmployeeCvs(cvTemplate: CVsInterface, employeeCvs: JsonEmployeeCv[],
-                                    currEmployee: EmployeesInterface): { cvsList: JsonEmployeeCv[], employeeId: number } {
+                                    currEmployee: EmployeesInterface, projects: ProjectsInterface[]): { cvsList: JsonEmployeeCv[], employeeId: number } {
 
-    console.log(cvTemplate.projects)
+    console.log(cvTemplate)
+
+    const projectsObj = this.responsibilityMapper(cvTemplate.projects.data);
+    const emplCvProjects: ProjectsInterface[] = projects.filter((project) => projectsObj[project.id]);
+
+    console.log(emplCvProjects)
+
+    const cvsProjects: JsonProjectCv[] = emplCvProjects.reduce((acc:JsonProjectCv[], curr) => {
+
+      const project: JsonProjectCv = {
+        ...curr,
+        skills: curr.skills.data.map((skill) => skill.attributes.name)
+      }
+
+      return [...acc, project];
+    }, [])
 
     const cvTemplateMapped: JsonEmployeeCv = {
       id: Math.floor(Math.random() * Math.floor(Math.random() * Date.now())),
@@ -268,14 +284,15 @@ export class EmployeesMapperService {
         }
         return [...acc, obj];
       }, []),
-      projects: [...cvTemplate.projects.data]
+      projects: cvsProjects
     }
+
+    console.log(cvTemplateMapped)
+
     const res: { cvsList: JsonEmployeeCv[], employeeId: number } = {
       cvsList: [...employeeCvs, cvTemplateMapped],
       employeeId: currEmployee.id
     }
-
-    console.log(res)
 
     return res;
   }
@@ -313,6 +330,14 @@ export class EmployeesMapperService {
     const dataMap = data.reduce((acc, current) => ({
       ...acc,
       [current.id]: current.responsibilities
+    }), {});
+    return dataMap;
+  }
+
+  private projectMapper(data: ProjectsInterface[]): { [id: number]: ProjectsInterface } {
+    const dataMap = data.reduce((acc, current) => ({
+      ...acc,
+      [current.id]: current
     }), {});
     return dataMap;
   }

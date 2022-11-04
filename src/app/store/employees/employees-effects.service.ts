@@ -187,7 +187,7 @@ export class EmployeesEffects {
       this.store.pipe(select(employeeDtoSelector)),
       this.store.pipe(select(projectsListSelector)),
     ),
-    map(([cvTemplate, employeeCvs, currentEmployee, projects]) => this.employeeMappers.setCvTemplateToEmployeeCvs(cvTemplate, employeeCvs, currentEmployee.employee, projects)),
+    map(([cvTemplate, employeeCvs, currentEmployee, projects]) => this.employeeMappers.setCvTemplateToEmployeeCvs(cvTemplate, employeeCvs, currentEmployee.employee,projects)),
     switchMap(({cvsList, employeeId}) => this.employeesService.updateEmployeeCvs(cvsList, employeeId)),
     withLatestFrom(
       this.store.pipe(select(selectSkills)),

@@ -2,9 +2,9 @@ import { JsonAttribute, JsonDataWithAttributes, JsonResponse } from '@models/int
 
 export interface ProjectsInterface {
   id: number,
-  name: string,
   description: string,
   domain: string,
+  name: string,
   from: Date,
   to: Date,
   internalName: string,
