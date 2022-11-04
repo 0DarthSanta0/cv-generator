@@ -19,7 +19,6 @@ export class NewCvTemplateComponent extends BaseCvTemplate implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(this.getNewCVTemplate())
     this.store.dispatch(postCV({newCV: this.getNewCVTemplate()}));
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.CV_TEMPLATES_ROUTE]);
   }
