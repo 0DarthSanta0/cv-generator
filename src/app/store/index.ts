@@ -11,6 +11,8 @@ import { IEntitiesState } from '@ourStore/entities/models/entities-state.interfa
 import { entitiesReducer } from '@ourStore/entities/entities.reducer';
 import { ProjectsStateInterface } from '@models/interfaces/projects.state.interface';
 import { projectsReducers } from '@ourStore/projects/projects.reducers';
+import { CVsStateInterface } from '@models/interfaces/cvs.state.interface';
+import { cvsReducers } from '@ourStore/cvs/cvs.reducers';
 
 export interface AppState {
   auth: AuthStateInterface,
@@ -19,6 +21,7 @@ export interface AppState {
   main: IMainState,
   entities: IEntitiesState
   projects: ProjectsStateInterface,
+  cvs: CVsStateInterface,
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -27,5 +30,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   breadcrumbs: breadcrumbsReducer,
   projects: projectsReducers,
   main: mainReducer,
-  entities: entitiesReducer
+  entities: entitiesReducer,
+  cvs: cvsReducers,
 }

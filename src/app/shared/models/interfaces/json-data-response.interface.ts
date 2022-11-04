@@ -3,6 +3,10 @@ export interface JsonData {
   level: number
 }
 
+export interface  JsonAttributeId {
+  ids: number[];
+}
+
 export interface JsonDataWithAttributes<T> {
   id: number,
   attributes: T
@@ -10,14 +14,6 @@ export interface JsonDataWithAttributes<T> {
 
 export type JsonResponse<T> = {
   data: T,
-}
-
-export interface JsonAttributeId {
-  ids: number[];
-}
-
-export interface JsonAttribute {
-  name: string;
 }
 
 export interface JsonProject {
@@ -49,4 +45,7 @@ export interface JsonEmployeeCv {
   skills: JsonData[],
   languages: JsonData[],
   projects: JsonProjectCv[],
+}
+export interface JsonAttribute  {
+    name: string;
 }

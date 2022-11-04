@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainEffects } from '@ourStore/main/main-effects';
 import { EntitiesEffects } from '@ourStore/entities/entities-effects';
 import { ProjectsEffects } from '@ourStore/projects/projects.effects';
+import { CVsEffects } from '@ourStore/cvs/cvs.effects';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
@@ -53,7 +54,7 @@ import { MessageService } from 'primeng/api';
         strictStateSerializability: true,
       },
     }),
-    EffectsModule.forRoot([AuthEffects, EmployeesEffects, MainEffects, EntitiesEffects, ProjectsEffects]),
+    EffectsModule.forRoot([AuthEffects, EmployeesEffects, MainEffects, EntitiesEffects, ProjectsEffects, CVsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
