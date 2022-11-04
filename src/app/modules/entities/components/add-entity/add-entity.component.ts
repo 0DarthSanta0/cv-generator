@@ -84,15 +84,15 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
     switch (this.entityName) {
       case this.entitiesName[0]: {
-        this.store.dispatch(deleteSkill({id: id}));
+        this.store.dispatch(deleteSkill({id}));
         break;
       }
       case this.entitiesName[1]: {
-        this.store.dispatch(deleteLanguage({id: id}));
+        this.store.dispatch(deleteLanguage({id}));
         break;
       }
       case this.entitiesName[2]: {
-        this.store.dispatch(deleteResponsibility({id: id}))
+        this.store.dispatch(deleteResponsibility({id}))
         break;
       }
     }
