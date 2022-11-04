@@ -51,12 +51,9 @@
       "description": "Описание"
     },
     "skills" : "Умения",
-    "skillsContent": {
-      "skillName": "Умение",
-      "skillLevel": "Уровень"
-    },
     "buttons": {
-      "addSkill": "Добавить умение"
+      "save": "Сохранить",
+      "delete": "Удалить"
     }
   }
 }

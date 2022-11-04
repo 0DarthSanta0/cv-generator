@@ -3,10 +3,19 @@ import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
-  getProjectById, getProjectByIdFail, getProjectByIdSuccess,
+  deleteProject, deleteProjectFail, deleteProjectSuccess,
+  getProjectById,
+  getProjectByIdFail,
+  getProjectByIdSuccess,
   getProjectsList,
   getProjectsListFail,
-  getProjectsListSuccess, postProject, updateProject, updateProjectFail, updateProjectSuccess
+  getProjectsListSuccess,
+  postProject,
+  postProjectFail,
+  postProjectSuccess,
+  updateProject,
+  updateProjectFail,
+  updateProjectSuccess
 } from '@ourStore/projects/projects.actions';
 import { ProjectsService } from '@services/http/projects.service';
 import { Injectable } from '@angular/core';
@@ -65,11 +74,25 @@ export class ProjectsEffects {
       return this.projectsService.postProject(newProject);
     }),
     map(() =>
-      updateProjectSuccess()
+      postProjectSuccess()
     ),
     catchError((errorResponse: HttpErrorResponse) =>
-      of(updateProjectFail({ errors: errorResponse.error }))
+      of(postProjectFail({ errors: errorResponse.error }))
     )
   ));
+
+  public deleteProject$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteProject),
+    switchMap(({ id }) => {
+      return this.projectsService.deleteProject(id);
+    }),
+    map(() =>
+      deleteProjectSuccess()
+    ),
+    catchError((errorResponse: HttpErrorResponse) =>
+      of(deleteProjectFail({ errors: errorResponse.error }))
+    )
+  ));
+
 
 }
