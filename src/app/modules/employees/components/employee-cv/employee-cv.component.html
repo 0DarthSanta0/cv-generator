@@ -19,12 +19,12 @@
     <aside class="wrapper__left-side">
         <div class="content">
             <div class="content__search-input">
-                    <input pInputText
-                           type="text"
-                           class="search"
-                           placeholder="Search"
-                           formControlName="name"
-                    />
+                <input pInputText
+                       type="text"
+                       class="search"
+                       placeholder="Search"
+                       [formControl]="searchInput"
+                />
                     <i class="pi pi-search"></i>
 
             </div>

@@ -51,8 +51,8 @@ import {
   SET_CV_TEMPLATE_TO_EMPLOYEE_FAILURE,
   SET_CV_TEMPLATE_TO_EMPLOYEE_SUCCESS
 } from '@constants/toast-messages';
-import { FakeCvsService } from '@services/fake-cvs.service';
 import { projectsListSelector } from '@ourStore/projects/projects.selectors';
+import { CvsService } from '@services/http/cvs.service';
 
 @Injectable()
 export class EmployeesEffects {
@@ -181,7 +181,7 @@ export class EmployeesEffects {
 
   public setCvTemplateToEmployee$ = createEffect(() => this.actions$.pipe(
     ofType(setCvTemplateToEmployee),
-    switchMap(({idCv}) => this.fakeCvsService.getCVById(idCv)),
+    switchMap(({idCv}) => this.cvsService.getCVById(idCv)),
     withLatestFrom(
       this.store.pipe(select(employeeCvsListSelector)),
       this.store.pipe(select(employeeDtoSelector)),
@@ -237,7 +237,7 @@ export class EmployeesEffects {
               private languageService: EmplLanguageService,
               private positionService: PositionService,
               private employeeMappers: EmployeesMapperService,
-              private fakeCvsService: FakeCvsService,
+              private cvsService: CvsService,
               private _routes: ActivatedRoute,
               private messageService: MessageService
   ) {

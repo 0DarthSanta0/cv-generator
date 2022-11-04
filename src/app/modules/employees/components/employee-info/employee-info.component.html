@@ -5,7 +5,7 @@
 <ng-template #info>
     <div class="wrapper" *ngIf="!(isLoading$ | async)">
 
-        <form [formGroup]="infoForm">
+        <form [formGroup]="infoForm" (ngSubmit)="updateEmployeeInfo()">
             <div class="info">
                 <p-panel [header]="'emplInfo.info' | translate" [toggleable]="true">
                     <div class="info__body">
@@ -119,7 +119,7 @@
             <div class="save-btn">
                 <app-custom-button
                         label="Save change"
-                        (click)="onSubmit()"
+                        type="submit"
                         [disabled]="(infoForm.invalid || infoForm.pending)"
                 ></app-custom-button>
             </div>

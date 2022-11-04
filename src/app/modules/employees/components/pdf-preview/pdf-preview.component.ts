@@ -49,7 +49,7 @@ export class PdfPreviewComponent implements OnInit {
 
       for (let i = 1; i <= totalPDFPages; i++) {
         pdf.addPage();
-        pdf.addImage(img, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+        pdf.addImage(img, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height-50);
       }
 
       return pdf;

@@ -89,7 +89,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
     this.infoForm.controls.skills.removeAt(skillIndex);
   }
 
-  public onSubmit() {
+  public updateEmployeeInfo() {
     const newEmployee: IEmployeeFormDto = <IEmployeeFormDto>this.infoForm.value;
     this.store.dispatch(employeeUpdateAction({newEmployee: newEmployee}));
   }

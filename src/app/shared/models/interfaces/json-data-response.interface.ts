@@ -31,7 +31,6 @@ export interface JsonProjectCv {
   internalName: string,
   skills: string[]
   responsibilities?: string[],
-  // techStack: string[],
 }
 
 export interface JsonEmployeeCv {
@@ -46,6 +45,7 @@ export interface JsonEmployeeCv {
   languages: JsonData[],
   projects: JsonProjectCv[],
 }
+
 export interface JsonAttribute  {
     name: string;
 }

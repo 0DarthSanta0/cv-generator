@@ -16,8 +16,8 @@ import {
 import { PositionInterface } from '@models/interfaces/position.interface';
 import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.interface';
 import { IResponsibility } from '@models/interfaces/responsibility.interface';
-import { CVsInterface } from '@services/fake-cvs.service';
 import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
+import { CVsInterface } from '@models/interfaces/cvs.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -220,11 +220,18 @@ export class EmployeesMapperService {
       return acc;
     }, []);
 
+    const projects = newCv.projects.map((project) => {
+      return {
+        ...project,
+        skills: project.techStack
+      }
+    })
+
     const updatedCv: JsonEmployeeCv = {
       ...newCv,
       skills: skills,
       languages: languages,
-
+      projects: projects
     };
 
     const cvsResult: JsonEmployeeCv[] = cvs.map((cv) => {
@@ -330,14 +337,6 @@ export class EmployeesMapperService {
     const dataMap = data.reduce((acc, current) => ({
       ...acc,
       [current.id]: current.responsibilities
-    }), {});
-    return dataMap;
-  }
-
-  private projectMapper(data: ProjectsInterface[]): { [id: number]: ProjectsInterface } {
-    const dataMap = data.reduce((acc, current) => ({
-      ...acc,
-      [current.id]: current
     }), {});
     return dataMap;
   }
