@@ -2,5 +2,5 @@
     <li *ngFor="let error of backendError?.details!.errors">
         {{error.message}}
     </li>
-    <li *ngIf="!backendError?.details!.errors">{{backendErrors[backendError!.message] | translate}}</li>
+    <li *ngIf="!backendError?.details?.errors && backendError">{{BACKEND_ERRORS[backendError.message] | translate}}</li>
 </ul>

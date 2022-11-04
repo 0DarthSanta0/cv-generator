@@ -10,5 +10,5 @@ import { INVALID_IDENTIFIER_OR_PASSWORD } from '@constants/backend-errors';
 export class BackendErrorsComponent {
   @Input() public backendError: BackendErrorsInterface | null;
 
-  public readonly backendErrors: { [key: string]: string } = INVALID_IDENTIFIER_OR_PASSWORD;
+  public readonly BACKEND_ERRORS = INVALID_IDENTIFIER_OR_PASSWORD;
 }

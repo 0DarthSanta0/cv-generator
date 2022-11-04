@@ -3,7 +3,7 @@ import { ApiService } from '@services/http/api.service';
 import { map, Observable } from 'rxjs';
 import { EndpointsUrl } from '@constants/endpoints';
 import { ResponseProjectInterface } from '@models/interfaces/project.interface';
-import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
+import { ProjectsInterface, SimpleProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 import { JsonResponse } from '@models/interfaces/json-data-response.interface';
 
 @Injectable({
@@ -37,16 +37,20 @@ export class ProjectsService extends ApiService {
     );
   }
 
-  public updateProject(project: ProjectsInterface): Observable<ProjectsInterface> {
-    return this.httpService.put<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS + project.id, {
+  public updateProject(project: SimpleProjectsInterface): Observable<SimpleProjectsInterface> {
+    return this.httpService.put<SimpleProjectsInterface>(this.api + EndpointsUrl.PROJECTS + project.id, {
       data: project,
     });
   }
 
-  public postProject(project: ProjectsInterface): Observable<ProjectsInterface> {
-    return this.httpService.post<ProjectsInterface>(this.api + EndpointsUrl.PROJECTS, {
+  public postProject(project: SimpleProjectsInterface): Observable<SimpleProjectsInterface> {
+    return this.httpService.post<SimpleProjectsInterface>(this.api + EndpointsUrl.PROJECTS, {
       data: project,
     });
+  }
+
+  public deleteProject(id: number): Observable<SimpleProjectsInterface> {
+    return this.httpService.delete<SimpleProjectsInterface>(this.api + EndpointsUrl.PROJECTS + id);
   }
 
 }

@@ -54,12 +54,9 @@
       "description": "Description"
     },
     "skills": "Skills",
-    "skillsContent": {
-      "skillName": "Skill",
-      "skillLevel": "Skill level"
-    },
     "buttons": {
-      "addSkill": "Add skill"
+      "save": "Save",
+      "delete": "Delete"
     }
   }
 }
