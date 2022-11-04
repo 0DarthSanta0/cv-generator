@@ -20,7 +20,7 @@ import { Directive } from '@angular/core';
 import { JsonProject } from '@models/interfaces/json-data-response.interface';
 
 @Directive()
-export class CvTemplateBaseClass {
+export class BaseCvTemplate {
   public readonly inputArray = INPUTS;
   public readonly textAreaArray = TEXT_AREAS;
   public readonly autocompleteArray = AUTO_COMPLETE_AREAS;

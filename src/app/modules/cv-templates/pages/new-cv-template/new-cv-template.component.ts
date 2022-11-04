@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AppRoutes } from '@constants/app-routes';
 import { NEW_CVS } from '@constants/breadcrumbs';
 import { postCV } from '@ourStore/cvs/cvs.actions';
-import { CvTemplateBaseClass } from '@models/classes/cv-template-base.class';
+import { BaseCvTemplate } from '@models/classes/cv-template-base.class';
 
 @Component({
   selector: 'app-new-cv-template',
@@ -10,7 +10,7 @@ import { CvTemplateBaseClass } from '@models/classes/cv-template-base.class';
   styleUrls: ['./new-cv-template.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewCvTemplateComponent extends CvTemplateBaseClass implements OnInit {
+export class NewCvTemplateComponent extends BaseCvTemplate implements OnInit {
 
   public ngOnInit(): void {
     this.getDataForAutocomplete();

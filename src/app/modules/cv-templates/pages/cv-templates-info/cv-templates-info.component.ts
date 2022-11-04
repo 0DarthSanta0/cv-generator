@@ -20,7 +20,7 @@ import { selectLanguages, selectSkills } from '@ourStore/main/main-selectors';
 import { getProjectsList } from '@ourStore/projects/projects.actions';
 import { projectsListSelector } from '@ourStore/projects/projects.selectors';
 import { languagesList, skillsList } from '@ourStore/main/main-actions';
-import { CvTemplateBaseClass } from '@models/classes/cv-template-base.class';
+import { BaseCvTemplate } from '@models/classes/cv-template-base.class';
 
 @Component({
   selector: 'app-cv-templates-info',
@@ -28,7 +28,7 @@ import { CvTemplateBaseClass } from '@models/classes/cv-template-base.class';
   styleUrls: ['./cv-templates-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CvTemplatesInfoComponent extends CvTemplateBaseClass implements OnInit {
+export class CvTemplatesInfoComponent extends BaseCvTemplate implements OnInit {
 
   public name = '';
 
