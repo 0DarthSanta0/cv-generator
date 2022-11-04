@@ -3,6 +3,15 @@ export interface JsonData {
     level: number
 }
 
+export interface JsonProject {
+  id: number;
+  responsibilities: [];
+}
+
+export interface  JsonAttributeId {
+  ids: number[];
+}
+
 export interface JsonDataWithAttributes<T> {
     id: number,
     attributes: T

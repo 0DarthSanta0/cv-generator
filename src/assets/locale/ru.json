@@ -62,5 +62,19 @@
       "save": "Сохранить",
       "delete": "Удалить"
     }
+  },
+  "cvsInfo": {
+    "info" : "Информация",
+    "infoContent": {
+      "name": "Имя",
+      "description": "Описание",
+      "projects" : "Проекты",
+      "skills": "Умения",
+      "languages": "Языки"
+    },
+    "buttons": {
+      "save": "Сохранить",
+      "delete": "Удалить"
+    }
   }
 }

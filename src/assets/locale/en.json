@@ -58,5 +58,19 @@
       "save": "Save",
       "delete": "Delete"
     }
+  },
+  "cvsInfo": {
+    "info": "Information",
+    "infoContent": {
+      "name": "Name",
+      "description": "Description",
+      "projects": "Projects",
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "buttons": {
+      "save": "Save",
+      "delete": "Delete"
+    }
   }
 }
