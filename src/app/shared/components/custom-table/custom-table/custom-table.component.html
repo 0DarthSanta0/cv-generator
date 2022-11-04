@@ -1,8 +1,12 @@
 <div class="card">
     <p-table #table
              [value]="tableData"
-             [globalFilterFields]="globalFilteredFields">
-        >
+             [globalFilterFields]="globalFilteredFields"
+             [scrollable]="true"
+             [virtualScroll]="true"
+             [virtualScrollItemSize]="40"
+             scrollHeight="45vh"
+    >
         <ng-template pTemplate="caption">
             <div class="search">
                 <div class="p-input-icon-left ml-auto">
