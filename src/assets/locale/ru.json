@@ -1,4 +1,7 @@
 {
+  "backendErrors": {
+    "invalidIdentifierOrData": "Неверный идентификатор или пароль"
+  },
   "validations": {
     "requiredError": "Поле не может быть пустым",
     "emailError": "Введите корректный email",
@@ -67,7 +70,8 @@
       "skillLevel": "Уровень"
     },
     "buttons": {
-      "addSkill": "Добавить умение"
+      "save": "Сохранить",
+      "delete": "Удалить"
     }
   }
 }

@@ -36,4 +36,14 @@ export class SkillsService extends ApiService {
     };
     return this.httpService.post<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_SKILLS, newEntity)
   }
+
+  public updateSkill(id: number, name: string): Observable<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>> {
+    const newEntity: IEntityRequest = {
+      data: {
+        name: name
+      }
+    };
+    return this.httpService.put<JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>>(this.api + EndpointsUrl.LIST_SKILLS + '/' + id, newEntity)
+  }
+
 }

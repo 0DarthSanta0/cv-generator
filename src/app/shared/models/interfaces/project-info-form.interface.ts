@@ -1,4 +1,4 @@
-import { FormArray, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 export interface ProjectInfoForm {
   name: FormControl<string>,
@@ -8,7 +8,7 @@ export interface ProjectInfoForm {
   description: FormControl<string>,
   from: FormControl<Date | null>,
   to: FormControl<Date | null>,
-  skills: FormArray,
   responsibilities?: FormControl<string[]>
   techStack?: FormControl<string[]>
+  skills: FormControl<string[]>,
 }

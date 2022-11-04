@@ -6,16 +6,19 @@
 
   <main class="main">
 
-    <div class="side-panel">
-      <p-listbox [options]="listElements" [(ngModel)]="selected" (onClick)="onSelect($event)" optionLabel="label"></p-listbox>
+    <div class="flex-wrapper">
+      <div class="side-panel">
+        <p-listbox [options]="listElements" [(ngModel)]="selected" (onClick)="onSelect($event)" optionLabel="label"></p-listbox>
+      </div>
+
+      <div class="page-content">
+        <header class="page-content-header">
+          <app-breadcrumbs class="breadcrumbs"></app-breadcrumbs>
+        </header>
+        <router-outlet></router-outlet>
+      </div>
     </div>
 
-    <div class="page-content">
-      <header class="page-content-header">
-        <app-breadcrumbs class="breadcrumbs"></app-breadcrumbs>
-      </header>
-      <router-outlet></router-outlet>
-    </div>
 
   </main>
 

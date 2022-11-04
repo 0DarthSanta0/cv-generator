@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-export interface AddEntityForm {
+export interface IAddEntityForm {
   name: FormControl<string>
 }

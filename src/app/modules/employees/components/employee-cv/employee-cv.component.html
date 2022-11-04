@@ -19,17 +19,13 @@
     <aside class="wrapper__left-side">
         <div class="content">
             <div class="content__search-input">
-
-                <form [formGroup]="searchInput">
                     <input pInputText
                            type="text"
                            class="search"
                            placeholder="Search"
-                           [formControlName]="'text'"
+                           formControlName="name"
                     />
                     <i class="pi pi-search"></i>
-                </form>
-
 
             </div>
             <div class="content__list-cv">

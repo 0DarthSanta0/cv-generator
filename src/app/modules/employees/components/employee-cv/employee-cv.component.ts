@@ -6,17 +6,16 @@ import {
   EMPL_CV_PROJECTS_INPUT,
   EMPL_INFO_TEXTAREA
 } from '@constants/employee';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
 import { ICvFormResponse, IInfoFormCv, ILanguageForm, ISkillForm } from '@employees';
 import { SkillInterface } from '@models/skill.interface';
 import { LanguageInterface } from '@models/interfaces/language.interface';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ISearchInputForm } from '@models/interfaces/search-input-form.interface';
 import { selectLanguages, selectResponsibilities, selectSkills } from '@ourStore/main/main-selectors';
 import { ProjectInfoForm } from '@models/interfaces/project-info-form.interface';
-import { CVsInterface, FakeCvsService, ResponseCVsInterface } from '@services/fake-cvs.service';
+import { CVsInterface, FakeCvsService } from '@services/fake-cvs.service';
 import { CV_TABLE_COLUMN } from '@constants/cv';
 import {
   deleteEmployeeCv,
@@ -59,7 +58,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   public searchingText: string = '';
 
   public cvInfoForm: FormGroup<IInfoFormCv>;
-  public searchInput: FormGroup<ISearchInputForm>;
+  public searchInput: FormControl<string>;
 
   public techStack: string[] = [];
   public allLanguagesName: string[] = [];
@@ -148,19 +147,19 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
     ).subscribe((projects) => {
       projects.filter((project) => {
         if (project.id === +id) {
-          const projectGroup = this.formBuilder.group(<ProjectInfoForm>{
-            id: this.formBuilder.control(project.id, []),
-            name: this.formBuilder.control(project.name, [Validators.required]),
-            description: this.formBuilder.control(project.description, [Validators.required]),
-            domain: this.formBuilder.control(project.domain, [Validators.required]),
-            from: this.formBuilder.control(project.from, [Validators.required]),
-            to: this.formBuilder.control(project.to, [Validators.required]),
-            internalName: this.formBuilder.control(project.internalName, [Validators.required]),
-            responsibilities: this.formBuilder.control([], [Validators.required]),
-            techStack: this.formBuilder.control([], [Validators.required]),
-            skills: this.formBuilder.array([])
-          });
-          this.cvInfoForm.controls.projects.push(projectGroup);
+          // const projectGroup = this.formBuilder.group(<ProjectInfoForm>{
+          //   id: this.formBuilder.control(project.id, []),
+          //   name: this.formBuilder.control(project.name, [Validators.required]),
+          //   description: this.formBuilder.control(project.description, [Validators.required]),
+          //   domain: this.formBuilder.control(project.domain, [Validators.required]),
+          //   from: this.formBuilder.control(project.from, [Validators.required]),
+          //   to: this.formBuilder.control(project.to, [Validators.required]),
+          //   internalName: this.formBuilder.control(project.internalName, [Validators.required]),
+          //   responsibilities: this.formBuilder.control([], [Validators.required]),
+          //   techStack: this.formBuilder.control([], [Validators.required]),
+          //   skills: this.formBuilder.array([])
+          // });
+          // this.cvInfoForm.controls.projects.push(projectGroup);
           this.displayProjectsModal = false;
         }
       })
@@ -282,13 +281,11 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   }
 
   private defineForm(): void {
-    this.searchInput = this.formBuilder.group<ISearchInputForm>({
-      text: this.formBuilder.control('', []),
-    })
+    this.searchInput = this.formBuilder.control<string>('')
 
-    this.searchInput.controls.text.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
+    this.searchInput.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((text) => {
       this.searchingText = text;
-    })
+    });
 
     this.cvInfoForm = this.formBuilder.group<IInfoFormCv>({
       id: this.formBuilder.control(0, []),
@@ -310,7 +307,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         internalName: this.formBuilder.control('', []),
         responsibilities: this.formBuilder.control([], []),
         techStack: this.formBuilder.control([], []),
-        skills: this.formBuilder.array([])
+        skills: this.formBuilder.control([])
       })]),
     });
   }

@@ -1,15 +1,13 @@
 <div class="wrapper">
     <div class="wrapper__content">
         <div class="content__search-input">
-            <form [formGroup]="searchInput">
-                <input pInputText
-                       type="text"
-                       class="search"
-                       placeholder="Search"
-                       [formControlName]="'text'"
-                />
-                <i class="pi pi-search"></i>
-            </form>
+            <input pInputText
+                   type="text"
+                   class="search"
+                   placeholder="Search"
+                   [formControl]="searchInput"
+            />
+            <i class="pi pi-search"></i>
         </div>
 
         <div class="content__entities">

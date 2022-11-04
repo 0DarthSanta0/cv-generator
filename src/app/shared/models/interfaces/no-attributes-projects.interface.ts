@@ -11,3 +11,16 @@ export interface ProjectsInterface {
   skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
   responsibilities?: string[]
 }
+
+export interface SimpleProjectsInterface {
+  id: number,
+  name: string,
+  description: string,
+  domain: string,
+  from: Date,
+  to: Date,
+  internalName: string,
+  skills: (string | number)[],
+}
+
+

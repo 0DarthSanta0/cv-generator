@@ -34,14 +34,31 @@
                 [rows]="3"
               ></app-textarea>
             </div>
+
+            <app-autocomplete
+              [label]="'projectInfo.skills' | translate"
+              [formControlName]="'skills'"
+              [errorsMap]="requiredField"
+              [isMultiple]="true"
+              [dataList]="skillsList"
+            ></app-autocomplete>
+
+
           </div>
         </p-panel>
       </div>
       <div class="save-btn">
         <app-custom-button
-          label="Save change"
+          [label]="'projectInfo.buttons.save' | translate"
           (click)="onSubmit()"
           [disabled]="(infoForm.invalid || infoForm.pending)"
+        ></app-custom-button>
+      </div>
+      <div class="delete-btn">
+        <app-custom-button
+          [label]="'projectInfo.buttons.delete' | translate"
+          (click)="onDelete()"
+          [disabled]="(infoForm.pending)"
         ></app-custom-button>
       </div>
     </form>

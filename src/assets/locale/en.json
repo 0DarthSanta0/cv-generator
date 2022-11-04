@@ -1,4 +1,7 @@
 {
+  "backendErrors": {
+    "invalidIdentifierOrData": "Invalid identifier or password"
+  },
   "validations": {
     "requiredError": "The field should not be empty",
     "emailError": "Enter the correct email",
@@ -62,12 +65,9 @@
       "description": "Description"
     },
     "skills": "Skills",
-    "skillsContent": {
-      "skillName": "Skill",
-      "skillLevel": "Skill level"
-    },
     "buttons": {
-      "addSkill": "Add skill"
+      "save": "Save",
+      "delete": "Delete"
     }
   }
 }
