@@ -21,7 +21,8 @@
       "education": "Education",
       "description": "Description",
       "position": "Position",
-      "email": "Email"
+      "email": "Email",
+      "nameCv": "Name cv"
     },
     "skills": "Skills",
     "skillsContent": {
@@ -32,6 +33,16 @@
     "languagesContent": {
       "languageName": "Language",
       "languageLevel": "Language level"
+    },
+    "projects": "Projects",
+    "projectsContent" : {
+      "name": "Name",
+      "start": "Date start",
+      "finish": "Date finish",
+      "domain": "Domain",
+      "internalName": "Internal name",
+      "skills": "Tech Stack",
+      "responsibilities": "Responsibilities"
     },
     "buttons": {
       "addSkill": "Add skill",

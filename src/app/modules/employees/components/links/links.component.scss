@@ -1,0 +1,45 @@
+.wrapper {
+  padding-bottom: 0.5rem;
+
+  .active {
+    color: orange;
+  }
+
+  &__navig {
+
+    .navig {
+      margin-left: 2px;
+      display: flex;
+      font-size: 1.4rem;
+      list-style: none;
+      font-family: Roboto, serif;
+      font-weight: bold;
+
+      .navig__item {
+        margin-right: 1.5rem;
+
+        .link {
+          position: relative;
+          cursor: pointer;
+          line-height: 1;
+          text-decoration: none;
+        }
+
+        .link:after {
+          display: block;
+          position: absolute;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: #00a650;
+          content: "";
+          transition: width 0.3s ease-out;
+        }
+
+        .link:hover:after, .link:focus:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

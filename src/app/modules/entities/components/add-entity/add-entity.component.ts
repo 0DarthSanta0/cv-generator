@@ -23,6 +23,7 @@ import {
   updateResponsibility,
   updateSkill
 } from '@ourStore/entities/entities-actions';
+import { ENTITIES, MAIN } from '@constants/breadcrumbs';
 import { IAddEntityForm } from '../../models/add-entity-form.interface';
 import { IChangeEntityForm } from '../../models/i-change-entity.form';
 import { selectLoadingEntities } from '@ourStore/entities/entities-selectors';
@@ -162,12 +163,12 @@ export class AddEntityComponent implements OnInit, OnDestroy {
   }
 
   private setBreadcrumbs() {
-    const pathBreadcrumb: MenuItem[] = [
-      {label: 'entities', routerLink: AppRoutes.ENTITIES_ROUTE},
-      {label: this.entityName}
+    const breadcrumbs: MenuItem[] = [
+      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
+      {label: this.entityName},
     ];
-
-    this.store.dispatch(setBreadcrumbs({breadcrumbs: pathBreadcrumb}));
+    this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }
 
   private defineForm(): void {

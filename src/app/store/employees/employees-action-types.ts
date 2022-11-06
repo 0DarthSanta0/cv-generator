@@ -14,4 +14,23 @@ export enum EmployeesActionTypes {
   EMPLOYEE_UPDATE = '[Employee] Update employee',
   EMPLOYEE_UPDATE_SUCCESS = '[Employee] Update employee success',
   EMPLOYEE_UPDATE_FAILURE = '[Employee] Update employee failure',
+
+  EMPLOYEE_CV_LIST = '[Employees] Get employee cv list',
+  EMPLOYEE_CV_LIST_SUCCESS = '[Employees] Get employee cv list success',
+
+  SET_CV_TEMPLATE_TO_EMPLOYEE = '[Employees] Set cv template to employee',
+  SET_CV_TEMPLATE_TO_EMPLOYEE_SUCCESS = '[Employees] Set cv template to employee success',
+  SET_CV_TEMPLATE_TO_EMPLOYEE_FAILURE = '[Employees] Set cv template to employee failure',
+
+  OPEN_EMPLOYEE_CV = '[Employees] Open employee cv',
+  OPEN_EMPLOYEE_CV_SUCCESS = '[Employees] Open employee cv success',
+  OPEN_EMPLOYEE_CV_FAILURE = '[Employees] Open employee cv failure',
+
+  UPDATE_EMPLOYEE_CV = '[Employees] Update employee cv',
+  UPDATE_EMPLOYEE_CV_SUCCESS = '[Employees] Update employee cv success',
+  UPDATE_EMPLOYEE_CV_FAILURE = '[Employees] Update employee cv failure',
+
+  DELETE_EMPLOYEE_CV = '[Employees] Delete employee cv',
+  DELETE_EMPLOYEE_CV_SUCCESS = '[Employees] Delete employee cv success',
+  DELETE_EMPLOYEE_CV_FAILURE = '[Employees] Delete employee cv failure',
 }

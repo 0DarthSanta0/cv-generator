@@ -26,6 +26,9 @@ import { MainEffects } from '@ourStore/main/main-effects';
 import { EntitiesEffects } from '@ourStore/entities/entities-effects';
 import { ProjectsEffects } from '@ourStore/projects/projects.effects';
 import { CVsEffects } from '@ourStore/cvs/cvs.effects';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { CVsEffects } from '@ourStore/cvs/cvs.effects';
   ],
   imports: [
     BrowserModule,
+    ScrollingModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -40,6 +44,7 @@ import { CVsEffects } from '@ourStore/cvs/cvs.effects';
     AppInputModule,
     AutocompleteModule,
     PasswordModule,
+    ToastModule,
     CustomButtonModule,
     DatePickerModule,
     AuthModule,
@@ -72,7 +77,8 @@ import { CVsEffects } from '@ourStore/cvs/cvs.effects';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    MessageService
   ],
   exports: [],
   bootstrap: [AppComponent]

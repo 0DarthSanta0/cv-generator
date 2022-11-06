@@ -1,0 +1,14 @@
+.wrapper {
+  width: 70vw;
+  margin: 0 auto;
+
+  .flex-date-picker {
+    display: flex;
+    width: 40vw;
+    justify-content: start;
+  }
+
+  .save-btn {
+    margin-top: 1rem;
+  }
+}

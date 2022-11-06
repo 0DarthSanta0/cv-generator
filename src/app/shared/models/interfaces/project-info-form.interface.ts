@@ -8,5 +8,7 @@ export interface ProjectInfoForm {
   description: FormControl<string>,
   from: FormControl<Date | null>,
   to: FormControl<Date | null>,
+  responsibilities?: FormControl<string[]>
+  techStack?: FormControl<string[]>
   skills: FormControl<string[]>,
 }

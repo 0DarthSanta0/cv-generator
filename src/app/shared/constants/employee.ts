@@ -1,3 +1,9 @@
 export const COLUMN_TABLE_NAMES: string[] = ['firstName', 'lastName', 'email', 'position', 'skills'];
 export const EMPL_INFO_INPUT: string[] = ['firstName', 'lastName', 'username', 'email'];
 export const EMPL_INFO_TEXTAREA: string[] = ['education', 'description'];
+export const SELECTED_INFO_COMPONENT: string = 'info';
+export const SELECTED_CV_COMPONENT: string = 'cv';
+export const BUTTON_LABEL: string = 'preview';
+export const EMPL_CV_INPUT: string[] = ['nameCv', 'firstName', 'lastName', 'position'];
+export const EMPL_CV_PROJECTS_INPUT: string[] = ['name', 'domain', 'internalName'];
+export const EMPL_CV_PROJECTS_AUTOCOMPLETE: string[] = ['skills', 'responsibilities'];

@@ -1,0 +1,1 @@
+export const CV_TABLE_COLUMN: string[] = ['name', 'description']

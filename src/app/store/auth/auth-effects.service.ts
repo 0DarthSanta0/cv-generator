@@ -68,7 +68,7 @@ export class AuthEffects {
             this.actions$.pipe(
                 ofType(loginSuccessAction),
                 tap(() => {
-                    this.router.navigateByUrl(AppRoutes.EMPLOYEES_ROUTE)
+                    this.router.navigateByUrl(AppRoutes.EMPLOYEES_ID_ROUTE)
                 })
             ),
         {dispatch: false}

@@ -1,54 +1,60 @@
-<form [formGroup]="infoForm">
-  <div class="info">
-    <p-panel [header]="'projectInfo.info' | translate">
-      <div class="info__body">
-        <div class="info__body_combine">
+<div class="wrapper">
+  <form [formGroup]="infoForm" (ngSubmit)="createNewProject()">
+    <div class="info">
+      <p-panel [header]="'projectInfo.info' | translate">
+        <div class="info__body">
+          <div class="info__body_combine">
 
-          <div *ngFor="let project of inputArray">
-            <app-input
-              [label]="'projectInfo.infoContent.' + project | translate"
-              [formControlName]="project"
-              [errorsMap]="requiredField"
-            ></app-input>
+            <div *ngFor="let project of inputArray">
+              <app-input
+                      [label]="'projectInfo.infoContent.' + project | translate"
+                      [formControlName]="project"
+                      [errorsMap]="requiredField"
+              ></app-input>
+            </div>
           </div>
+
+          <div class="flex-date-picker">
+            <div *ngFor="let dates of dateArray">
+              <app-date-picker
+                      [label]="'projectInfo.infoContent.' + dates| translate"
+                      [formControlName]="dates"
+                      [errorsMap]="requiredField"
+              ></app-date-picker>
+            </div>
+          </div>
+
+
+          <div *ngFor="let data of textAreaArray">
+            <app-textarea
+                    [label]="'projectInfo.infoContent.' + data | translate"
+                    [formControlName]="data"
+                    [errorsMap]="requiredField"
+                    [rows]="3"
+            ></app-textarea>
+          </div>
+
+          <app-autocomplete
+                  [label]="'projectInfo.skills' | translate"
+                  [formControlName]="'skills'"
+                  [errorsMap]="requiredField"
+                  [isMultiple]="true"
+                  [dataList]="skillsList"
+          ></app-autocomplete>
+
         </div>
+      </p-panel>
+    </div>
 
-        <div *ngFor="let dates of dateArray">
-          <app-date-picker
-            [label]="'projectInfo.infoContent.' + dates| translate"
-            [formControlName]="dates"
-            [errorsMap]="requiredField"
-          ></app-date-picker>
-        </div>
+    <div class="save-btn">
+      <app-custom-button
+              [label]="'projectInfo.buttons.save' | translate"
+              type="submit"
+              [disabled]="(infoForm.invalid || infoForm.pending)"
+      ></app-custom-button>
+    </div>
+  </form>
+</div>
 
-        <div *ngFor="let data of textAreaArray">
-          <app-textarea
-            [label]="'projectInfo.infoContent.' + data | translate"
-            [formControlName]="data"
-            [errorsMap]="requiredField"
-            [rows]="3"
-          ></app-textarea>
-        </div>
-
-        <app-autocomplete
-          [label]="'projectInfo.skills' | translate"
-          [formControlName]="'skills'"
-          [errorsMap]="requiredField"
-          [isMultiple]="true"
-          [dataList]="skillsList"
-        ></app-autocomplete>
-
-      </div>
-    </p-panel>
-  </div>
-
-  <div class="save-btn">
-    <app-custom-button
-      [label]="'projectInfo.buttons.save' | translate"
-      (click)="onSubmit()"
-      [disabled]="(infoForm.invalid || infoForm.pending)"
-    ></app-custom-button>
-  </div>
-</form>
 
 

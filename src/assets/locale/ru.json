@@ -21,7 +21,8 @@
       "education": "Образование",
       "description": "Описание",
       "position": "Позиция",
-      "email": "Email"
+      "email": "Email",
+      "nameCv": "Название CV"
     },
     "skills": "Навыки",
     "skillsContent": {
@@ -32,6 +33,16 @@
     "languagesContent": {
       "languageName": "Язык",
       "languageLevel": "Уровень языка"
+    },
+    "projects": "Проекты",
+    "projectsContent": {
+      "name": "Название",
+      "start": "Дата начала",
+      "finish": "Дата конца",
+      "domain": "Domain",
+      "internalName": "Внутреннее название",
+      "skills": "Технические навыки",
+      "responsibilities": "Ответственности"
     },
     "buttons": {
       "addSkill": "Добавить навык",
