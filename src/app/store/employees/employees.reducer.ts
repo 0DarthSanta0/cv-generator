@@ -9,7 +9,7 @@ import {
   employeeCvsListSuccess,
   employeesListAction,
   employeesListFailureAction,
-  employeesListSuccessAction,
+  employeesListSuccessAction, employeeUpdateAction, employeeUpdateFailureAction, employeeUpdateSuccessAction,
   openCv,
   openCvFailure,
   openCvSuccess,
@@ -44,6 +44,7 @@ export const employeesReducer = createReducer(
     employeeByIdAction,
     positionsListAction,
     openCv,
+    employeeUpdateAction,
     updateCv,
     deleteEmployeeCv,
     (state): EmployeesStateInterface => ({
@@ -57,6 +58,7 @@ export const employeesReducer = createReducer(
     employeeByIdFailureAction,
     setCvTemplateToEmployeeFailure,
     updateCvFailure,
+    employeeUpdateFailureAction,
     deleteEmployeeCvFailure,
     openCvFailure, (state, action): EmployeesStateInterface => ({
       ...state,
@@ -77,6 +79,13 @@ export const employeesReducer = createReducer(
       ...state,
       isLoading: false,
       positionsList: action.listPositions,
+      errors: null,
+    })
+  ),
+  on(
+    employeeUpdateSuccessAction, (state, action): EmployeesStateInterface => ({
+      ...state,
+      isLoading: false,
       errors: null,
     })
   ),

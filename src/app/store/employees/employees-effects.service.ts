@@ -106,8 +106,9 @@ export class EmployeesEffects {
       this.store.pipe(select(selectLanguages)),
       this.store.pipe(select(selectSkills)),
       this.store.pipe(select(listPositionsSelector)),
+      this.store.pipe(select(employeeDtoSelector)),
     ),
-    map(([{newEmployee}, languages, skills, positions]) => this.employeeMappers.employeeDtoToEmployee(newEmployee, skills, languages, positions)),
+    map(([{newEmployee}, languages, skills, positions,employee]) => this.employeeMappers.employeeDtoToEmployee(newEmployee, skills, languages, positions,employee)),
     switchMap((mappedEmployee: EmployeesInterface) => this.employeesService.updateEmployee(mappedEmployee)),
     map(() => {
       this.messageService.add({severity: 'success', summary: EMPLOYEE_UPDATE_SUCCESS});

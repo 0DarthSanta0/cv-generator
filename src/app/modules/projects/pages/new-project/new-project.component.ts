@@ -19,7 +19,7 @@ export class NewProjectComponent extends ProjectBaseClass implements OnInit {
     this.setBreadcrumbs(NEW_PROJECT);
   }
 
-  public onSubmit(): void {
+  public createNewProject(): void {
     this.store.dispatch(postProject({newProject: this.getNewProject()}));
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE]);
   }

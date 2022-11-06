@@ -28,6 +28,7 @@ import { ProjectsEffects } from '@ourStore/projects/projects.effects';
 import { CVsEffects } from '@ourStore/cvs/cvs.effects';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MessageService } from 'primeng/api';
   ],
   imports: [
     BrowserModule,
+    ScrollingModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,

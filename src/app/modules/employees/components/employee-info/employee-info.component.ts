@@ -159,6 +159,9 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
   }
 
   private initializeForm(employeeDto: EmployeeInfoDtoInterface): void {
+    this.infoForm.controls.skills.clear();
+    this.infoForm.controls.languages.clear();
+
     this.infoForm.patchValue({
       id: employeeDto.employee.id,
       firstName: employeeDto.employee.firstName,

@@ -72,7 +72,7 @@
 
             <app-pdf-preview *ngIf="isPreview" [formData]="cv" [isDownload$]="isDownload$"></app-pdf-preview>
 
-            <form [formGroup]="cvInfoForm" *ngIf="!isPreview">
+            <form [formGroup]="cvInfoForm" *ngIf="!isPreview" (ngSubmit)="updateCv()">
                 <div class="info">
                     <p-panel [header]="'emplInfo.info' | translate" [toggleable]="true">
                         <div class="info__body">
@@ -253,7 +253,7 @@
                 <div class="save-btn">
                     <app-custom-button
                             label="Save change"
-                            (click)="updateCv()"
+                            type="submit"
                             [disabled]="(cvInfoForm.invalid || cvInfoForm.pending)"
                     ></app-custom-button>
                 </div>

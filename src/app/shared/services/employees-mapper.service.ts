@@ -10,7 +10,8 @@ import {
   JsonData,
   JsonDataWithAttributes,
   JsonEmployeeCv,
-  JsonProject, JsonProjectCv,
+  JsonProject,
+  JsonProjectCv,
   JsonResponse
 } from '@models/interfaces/json-data-response.interface';
 import { PositionInterface } from '@models/interfaces/position.interface';
@@ -121,7 +122,9 @@ export class EmployeesMapperService {
     return employeeDto;
   }
 
-  public employeeDtoToEmployee(dto: IEmployeeFormDto, allSkills: SkillInterface[], allLanguages: LanguageInterface[], allPositions: PositionInterface[]): EmployeesInterface {
+  public employeeDtoToEmployee(dto: IEmployeeFormDto, allSkills: SkillInterface[],
+                               allLanguages: LanguageInterface[], allPositions: PositionInterface[],
+                               employee: EmployeeInfoDtoInterface): EmployeesInterface {
 
     const skillsObj = this.nameMapper(allSkills);
     const languagesObj = this.nameMapper(allLanguages);
@@ -149,7 +152,7 @@ export class EmployeesMapperService {
       ...dto,
       skills: skills,
       languages: languages,
-      cvs: {data: []},
+      cvs: employee.employee.cvs,
       position: this.getKeyByValue(positionsObj, dto.position),
     }
 
@@ -193,7 +196,6 @@ export class EmployeesMapperService {
 
     }
 
-    console.log(mappedCv.projects)
     return mappedCv;
   }
 
@@ -259,7 +261,7 @@ export class EmployeesMapperService {
 
     console.log(emplCvProjects)
 
-    const cvsProjects: JsonProjectCv[] = emplCvProjects.reduce((acc:JsonProjectCv[], curr) => {
+    const cvsProjects: JsonProjectCv[] = emplCvProjects.reduce((acc: JsonProjectCv[], curr) => {
 
       const project: JsonProjectCv = {
         ...curr,
