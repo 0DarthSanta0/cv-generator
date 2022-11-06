@@ -216,8 +216,14 @@
                                         [errorsMap]="requiredField"
                                 >
                                 </app-date-picker>
-
                             </div>
+                            <ng-container  *ngIf="project.controls.from.value! > project.controls.to.value!">
+                                <div>
+                                    <small class="p-error">
+                                        {{'emplInfo.projectsContent.dateError' | translate}}
+                                    </small>
+                                </div>
+                            </ng-container>
 
                             <div class="autocomplete">
 

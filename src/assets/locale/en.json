@@ -42,7 +42,8 @@
       "domain": "Domain",
       "internalName": "Internal name",
       "skills": "Tech Stack",
-      "responsibilities": "Responsibilities"
+      "responsibilities": "Responsibilities",
+      "dateError": "From must be less than to"
     },
     "buttons": {
       "addSkill": "Add skill",
