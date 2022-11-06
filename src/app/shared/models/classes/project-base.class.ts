@@ -13,6 +13,7 @@ import { MAIN, PROJECTS } from '@constants/breadcrumbs';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { skillsList } from '@ourStore/main/main-actions';
 import { Directive } from '@angular/core';
+import { CustomDateValidators } from '../../validators/date-picker-validator';
 
 @Directive()
 export class ProjectBaseClass {
@@ -69,6 +70,10 @@ export class ProjectBaseClass {
       skills: this.formBuilder.control([], [Validators.required]),
       from: this.formBuilder.control(null, [Validators.required]),
       to: this.formBuilder.control(null, [Validators.required]),
+    },{
+      validators: [
+        CustomDateValidators.fromToDate('from', 'to')
+      ]
     });
   }
 }

@@ -42,7 +42,8 @@
       "domain": "Domain",
       "internalName": "Внутреннее название",
       "skills": "Технические навыки",
-      "responsibilities": "Ответственности"
+      "responsibilities": "Ответственности",
+      "dateError": "Дата От должна быть больше чем дата До"
     },
     "buttons": {
       "addSkill": "Добавить навык",

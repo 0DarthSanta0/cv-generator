@@ -4,7 +4,7 @@
 
 <ng-template #info>
   <div class="wrapper" *ngIf="!(isLoading$ | async)">
-    <form [formGroup]="infoForm">
+    <form [formGroup]="infoForm" (ngSubmit)="updateProjectInfo()">
       <div class="info">
         <p-panel [header]="'projectInfo.info' | translate">
           <div class="info__body">
@@ -18,13 +18,23 @@
               </div>
             </div>
 
-            <div *ngFor="let dates of dateArray">
-              <app-date-picker
-                [label]="'projectInfo.infoContent.' + dates| translate"
-                [formControlName]="dates"
-                [errorsMap]="requiredField"
-              ></app-date-picker>
+            <div class="flex-date-picker">
+              <div *ngFor="let dates of dateArray">
+                <app-date-picker
+                        [label]="'projectInfo.infoContent.' + dates| translate"
+                        [formControlName]="dates"
+                        [errorsMap]="requiredField"
+                ></app-date-picker>
+                <ng-container  *ngIf="infoForm.controls.from.value! > infoForm.controls.to.value!">
+                  <div>
+                    <small class="p-error">
+                      {{'emplInfo.projectsContent.dateError' | translate}}
+                    </small>
+                  </div>
+                </ng-container>
+              </div>
             </div>
+
 
             <div *ngFor="let data of textAreaArray">
               <app-textarea
@@ -50,7 +60,7 @@
       <div class="save-btn">
         <app-custom-button
           [label]="'projectInfo.buttons.save' | translate"
-          (click)="onSubmit()"
+          type="submit"
           [disabled]="(infoForm.invalid || infoForm.pending)"
         ></app-custom-button>
       </div>

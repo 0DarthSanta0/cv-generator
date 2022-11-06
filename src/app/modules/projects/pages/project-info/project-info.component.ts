@@ -30,7 +30,7 @@ export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
     this.setBreadcrumbs(this.name);
   }
 
-  public onSubmit(): void {
+  public updateProjectInfo(): void {
     this.store.dispatch(updateProject({newProject: this.getNewProject()}));
     this.router.navigate([AppRoutes.MAIN_ROUTE + '/' + AppRoutes.PROJECTS_ROUTE]);
   }

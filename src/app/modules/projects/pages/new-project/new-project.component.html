@@ -15,12 +15,21 @@
           </div>
 
           <div class="flex-date-picker">
+
             <div *ngFor="let dates of dateArray">
               <app-date-picker
                       [label]="'projectInfo.infoContent.' + dates| translate"
                       [formControlName]="dates"
                       [errorsMap]="requiredField"
               ></app-date-picker>
+
+              <ng-container  *ngIf="infoForm.controls.from.value! > infoForm.controls.to.value!">
+                <div>
+                  <small class="p-error">
+                    {{'emplInfo.projectsContent.dateError' | translate}}
+                  </small>
+                </div>
+              </ng-container>
             </div>
           </div>
 

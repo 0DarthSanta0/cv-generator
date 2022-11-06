@@ -38,6 +38,7 @@ import { ActivatedRoute } from '@angular/router';
 import { cvsListSelector } from '@ourStore/cvs/cvs.selectors';
 import { CVsInterface } from '@models/interfaces/cvs.interface';
 import { getCVsList } from '@ourStore/cvs/cvs.actions';
+import { CustomDateValidators } from '../../../../shared/validators/date-picker-validator';
 
 @Component({
   selector: 'app-employee-cv',
@@ -160,6 +161,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
             responsibilities: this.formBuilder.control([], [Validators.required]),
             techStack: this.formBuilder.control([], [Validators.required]),
             skills: this.formBuilder.control([])
+          },{
+            validators: [
+              CustomDateValidators.fromToDate('from', 'to')
+            ]
           });
           this.cvInfoForm.controls.projects.push(projectGroup);
           this.displayProjectsModal = false;
@@ -279,6 +284,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         internalName: this.formBuilder.control(project.internalName, []),
         techStack: this.formBuilder.control(project.skills, []),
         responsibilities: this.formBuilder.control(project.responsibilities, []),
+      },{
+        validators: [
+          CustomDateValidators.fromToDate('from', 'to')
+        ]
       });
       if (projectGroup) {
         this.cvInfoForm.controls.projects.push(projectGroup);
@@ -314,6 +323,10 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         responsibilities: this.formBuilder.control([], []),
         techStack: this.formBuilder.control([], []),
         skills: this.formBuilder.control([])
+      },{
+        validators: [
+          CustomDateValidators.fromToDate('from', 'to')
+        ]
       })]),
     });
   }

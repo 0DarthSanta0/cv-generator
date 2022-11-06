@@ -68,7 +68,11 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
   public addSkill(): void {
     const skillForm = this.formBuilder.group<ISkillForm>({
       skillName: this.formBuilder.control('', [Validators.required]),
-      skillLevel: this.formBuilder.control(0, [Validators.required])
+      skillLevel: this.formBuilder.control(0, [
+        Validators.required,
+        Validators.max(5),
+        Validators.min(1)
+      ])
     });
     this.infoForm.controls.skills.push(skillForm);
   }
@@ -76,7 +80,11 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
   public addLanguage(): void {
     const languageForm = this.formBuilder.group<ILanguageForm>({
       languageName: this.formBuilder.control('', [Validators.required]),
-      languageLevel: this.formBuilder.control(0, [Validators.required])
+      languageLevel: this.formBuilder.control(0, [
+        Validators.required,
+        Validators.max(5),
+        Validators.min(1)
+      ])
     });
     this.infoForm.controls.languages.push(languageForm);
   }
@@ -144,8 +152,16 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
       education: this.formBuilder.control('', [Validators.required]),
       position: this.formBuilder.control('', [Validators.required]),
       description: this.formBuilder.control('', [Validators.required]),
-      skills: this.formBuilder.array([]),
-      languages: this.formBuilder.array([]),
+      skills: this.formBuilder.array([],[
+        Validators.required,
+        Validators.max(5),
+        Validators.min(1)
+      ]),
+      languages: this.formBuilder.array([],[
+        Validators.required,
+        Validators.max(5),
+        Validators.min(1)
+      ]),
     });
   }
 
