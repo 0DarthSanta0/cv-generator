@@ -72,7 +72,7 @@ export class ProjectBaseClass {
       to: this.formBuilder.control(null, [Validators.required]),
     },{
       validators: [
-        CustomDateValidators.fromToDate('from', 'to', 'to must be more that from')
+        CustomDateValidators.fromToDate('from', 'to')
       ]
     });
   }

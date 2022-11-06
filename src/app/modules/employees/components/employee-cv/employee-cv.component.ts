@@ -163,7 +163,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
             skills: this.formBuilder.control([])
           },{
             validators: [
-              CustomDateValidators.fromToDate('from', 'to', 'to must be more that from')
+              CustomDateValidators.fromToDate('from', 'to')
             ]
           });
           this.cvInfoForm.controls.projects.push(projectGroup);
@@ -286,7 +286,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         responsibilities: this.formBuilder.control(project.responsibilities, []),
       },{
         validators: [
-          CustomDateValidators.fromToDate('from', 'to', 'to must be more that from')
+          CustomDateValidators.fromToDate('from', 'to')
         ]
       });
       if (projectGroup) {
@@ -325,7 +325,7 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         skills: this.formBuilder.control([])
       },{
         validators: [
-          CustomDateValidators.fromToDate('from', 'to', 'to must be more that from')
+          CustomDateValidators.fromToDate('from', 'to')
         ]
       })]),
     });
