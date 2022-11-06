@@ -1,25 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validation-errors';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
-import { MenuItem } from 'primeng/api';
-import { CV_TEMPLATES, MAIN } from '@constants/breadcrumbs';
-import { CVTemplateInfoForm } from '@models/interfaces/cv-template-info-form.interface';
 import { deleteCV, getCVById, updateCV } from '@ourStore/cvs/cvs.actions';
-import { CVsInterface, CVsSimpleInterface } from '@models/interfaces/cvs.interface';
-import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
+import { CVsInterface, } from '@models/interfaces/cvs.interface';
 import { cvSelector, isLoadingCVSelector } from '@ourStore/cvs/cvs.selectors';
-import { INPUTS, TEXT_AREAS } from '@constants/cvs-titles';
-import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
-import { SkillInterface } from '@models/skill.interface';
-import { LanguageInterface } from '@models/interfaces/language.interface';
-import { selectLanguages, selectSkills } from '@ourStore/main/main-selectors';
-import { getProjectsList } from '@ourStore/projects/projects.actions';
-import { projectsListSelector } from '@ourStore/projects/projects.selectors';
-import { languagesList, skillsList } from '@ourStore/main/main-actions';
 import { BaseCvTemplate } from '@models/classes/cv-template-base.class';
 
 @Component({
@@ -30,8 +14,6 @@ import { BaseCvTemplate } from '@models/classes/cv-template-base.class';
 })
 export class CvTemplatesInfoComponent extends BaseCvTemplate implements OnInit {
 
-  public name = '';
-
   public isLoading$: Observable<boolean>;
 
   public ngOnInit(): void {
@@ -41,7 +23,6 @@ export class CvTemplatesInfoComponent extends BaseCvTemplate implements OnInit {
     this.getDataForAutocomplete();
     this.defineForm(0);
     this.getData();
-    this.setBreadcrumbs(this.name);
   }
 
   public onSubmit(): void {
@@ -60,7 +41,7 @@ export class CvTemplatesInfoComponent extends BaseCvTemplate implements OnInit {
   private getData(): void {
     this.store.select(cvSelector).subscribe((cv) => {
       if (cv) {
-        this.name = cv.name;
+        this.setBreadcrumbs(cv.name);
         this.initializeForm(cv);
       }
     });

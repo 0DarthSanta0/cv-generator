@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { deleteProject, getProjectById, updateProject } from '@ourStore/projects/projects.actions';
 import {
@@ -16,8 +16,6 @@ import { ProjectBaseClass } from '@models/classes/project-base.class';
 })
 export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
 
-  public name = '';
-
   public isLoading$: Observable<boolean>;
 
   public ngOnInit(): void {
@@ -27,7 +25,6 @@ export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
     this.getDataForAutocomplete();
     this.defineForm(0);
     this.getData();
-    this.setBreadcrumbs(this.name);
   }
 
   public onSubmit(): void {
@@ -45,7 +42,7 @@ export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
   private getData(): void {
     this.store.select(projectSelector).subscribe((project) => {
         if (project) {
-          this.name = project.name;
+          this.setBreadcrumbs(project.name);
           this.initializeForm(project);
         }
     });
