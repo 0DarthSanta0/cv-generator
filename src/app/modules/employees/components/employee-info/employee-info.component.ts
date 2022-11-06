@@ -167,7 +167,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: MAIN },
       {label: EMPLOYEES, routerLink: AppRoutes.EMPLOYEES_ROUTE},
       {label: this.employeeEmail},
     ];

@@ -49,7 +49,7 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: MAIN },
       {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

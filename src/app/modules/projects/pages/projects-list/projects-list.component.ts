@@ -46,7 +46,7 @@ export class ProjectsListComponent implements OnInit {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: MAIN },
       {label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

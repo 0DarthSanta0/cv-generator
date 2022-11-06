@@ -19,17 +19,17 @@ export class MainPageComponent implements OnInit {
 
   public listElements: ListElement[] = MAIN_PAGE_ELEMENTS_LIST;
 
-  public selected: ListElement = FIRST_SELECTED_ELEMENT;
+  public selected: ListElement | undefined = FIRST_SELECTED_ELEMENT;
 
   constructor(
     private store: Store,
     private cdr: ChangeDetectorRef,
-    private route: Router,
+    private router: Router,
   ) {
   }
 
   public ngOnInit(): void {
-    this.setBreadcrumbs();
+    this.setSelectedAndBreadcrumbs();
     this.store.dispatch(skillsList());
     this.store.dispatch(languagesList());
     this.store.dispatch(responsibilitiesList());
@@ -37,13 +37,14 @@ export class MainPageComponent implements OnInit {
   }
 
   public onSelect(event: SelectEvent): void {
-    this.route.navigate([`/${MainModulesTitles.MAIN_VALUE}/${event.value.value}`]);
+    this.router.navigate([`/${MainModulesTitles.MAIN_VALUE}/${event.value.value}`]);
   }
 
-  private setBreadcrumbs(): void {
+  private setSelectedAndBreadcrumbs(): void {
+    this.selected = MAIN_PAGE_ELEMENTS_LIST.find(element => element.value === this.router.url.split('/')[2]);
     this.store.dispatch(setBreadcrumbs({
       breadcrumbs: [
-        {label: MainModulesTitles.MAIN_LABEL, url: undefined},
+        { label: MainModulesTitles.MAIN_LABEL },
       ]
     }));
   }
