@@ -2,6 +2,10 @@
     <p-table #table
              [value]="tableData"
              [globalFilterFields]="globalFilteredFields"
+             [scrollable]="isScrollable"
+             [virtualScroll] = "isVirtualScroll"
+             [scrollHeight]="scrollHeight + 'px'"
+             [virtualRowHeight]="virtualRowHeight"
     >
         <ng-template pTemplate="caption">
             <div class="search">
