@@ -254,12 +254,12 @@ export class EmployeesMapperService {
   public setCvTemplateToEmployeeCvs(cvTemplate: CVsInterface, employeeCvs: JsonEmployeeCv[],
                                     currEmployee: EmployeesInterface, projects: ProjectsInterface[]): { cvsList: JsonEmployeeCv[], employeeId: number } {
 
-    console.log(cvTemplate)
+
 
     const projectsObj = this.responsibilityMapper(cvTemplate.projects.data);
     const emplCvProjects: ProjectsInterface[] = projects.filter((project) => projectsObj[project.id]);
 
-    console.log(emplCvProjects)
+
 
     const cvsProjects: JsonProjectCv[] = emplCvProjects.reduce((acc: JsonProjectCv[], curr) => {
 
@@ -296,7 +296,6 @@ export class EmployeesMapperService {
       projects: cvsProjects
     }
 
-    console.log(cvTemplateMapped)
 
     const res: { cvsList: JsonEmployeeCv[], employeeId: number } = {
       cvsList: [...employeeCvs, cvTemplateMapped],
@@ -314,7 +313,6 @@ export class EmployeesMapperService {
       jsonCvs: filteredCvsList,
       employeeId: employee.employee.id
     }
-    console.log(res)
     return res;
   }
 

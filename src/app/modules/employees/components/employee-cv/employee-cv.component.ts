@@ -121,7 +121,6 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
 
   public updateCv(): void {
     const newCv: ICvFormResponse = <ICvFormResponse>this.cvInfoForm.value;
-    console.log(newCv)
     this.store.dispatch(updateCv({newCv: newCv}));
 
     this.updateEmployeeDto();

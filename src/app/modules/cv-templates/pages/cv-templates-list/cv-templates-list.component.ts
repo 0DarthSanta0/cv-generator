@@ -45,7 +45,7 @@ export class CvTemplatesListComponent implements OnInit {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: MAIN},
       {label: CV_TEMPLATES, routerLink: AppRoutes.CV_TEMPLATES_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

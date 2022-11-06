@@ -52,7 +52,7 @@ export class ProjectBaseClass {
 
   protected setBreadcrumbs(name: string): void {
     const breadcrumbs: MenuItem[] = [
-      { label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE },
+      { label: MAIN  },
       { label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
       { label: name, },
     ];

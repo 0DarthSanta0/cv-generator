@@ -164,7 +164,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs() {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: MAIN },
       {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
       {label: this.entityName},
     ];
