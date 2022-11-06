@@ -20,6 +20,10 @@ export class CustomTableComponent<T> {
 
     @Input() globalFilteredFields: string[] = [];
     @Input() columnNames: string[] = [];
+    @Input() scrollHeight: number = 250;
+    @Input() virtualRowHeight: number = 30;
+    @Input() isScrollable: boolean = true;
+    @Input() isVirtualScroll: boolean = true;
     @Output() rowClicked = new EventEmitter<string>();
 
     public emitIdRow(value: string): void {
