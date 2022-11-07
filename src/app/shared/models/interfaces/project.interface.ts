@@ -11,8 +11,8 @@ export interface ResponseProjectInterface {
     name: string,
     description: string,
     domain: string,
-    from: string,
-    to: string,
+    from: Date,
+    to: Date,
     internalName: string,
     skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
   }

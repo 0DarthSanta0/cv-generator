@@ -25,14 +25,6 @@ export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
     this.getDataForAutocomplete();
     this.defineForm(0);
     this.getData();
-    this.infoForm.valueChanges.subscribe(console.log)
-    // this.infoForm.valueChanges.pipe(
-    //   map(form => ({
-    //     ...form,
-    //     to: form.to.to
-    //   })),
-    // );
-
   }
 
   public updateProjectInfo(): void {

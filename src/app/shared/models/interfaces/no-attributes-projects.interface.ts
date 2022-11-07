@@ -5,8 +5,8 @@ export interface ProjectsInterface {
   description: string,
   domain: string,
   name: string,
-  from: string,
-  to: string,
+  from: Date,
+  to: Date,
   internalName: string,
   skills: JsonResponse<JsonDataWithAttributes<JsonAttribute>[]>,
   responsibilities?: string[]
