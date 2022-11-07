@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, MonoTypeOperatorFunction, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
@@ -11,6 +11,7 @@ import { NEW_CV } from '@constants/cvs-routes';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { getCVsList } from '@ourStore/cvs/cvs.actions';
 import { cvsListSelector, isLoadingCVSelector } from '@ourStore/cvs/cvs.selectors';
+import { untilDestroyed } from '../../../../shared/functions/unsubscribe.operator';
 
 @Component({
   selector: 'app-cv-templates-list',
@@ -24,6 +25,8 @@ export class CvTemplatesListComponent implements OnInit {
   public cvs$: Observable<CVsInterface[]>;
 
   public columnNames: string[] = COLUMNS_NAMES;
+
+  private destroy$: MonoTypeOperatorFunction<CVsInterface[]> = untilDestroyed();
 
   constructor(
     private store: Store,
@@ -55,7 +58,8 @@ export class CvTemplatesListComponent implements OnInit {
     this.store.dispatch(getCVsList());
     this.cvs$ = this.store.pipe(
       select(cvsListSelector),
-      map(cvs => [...cvs])
+      map(cvs => [...cvs]),
+      this.destroy$,
     );
     this.isLoading$ = this.store.select(isLoadingCVSelector);
   }

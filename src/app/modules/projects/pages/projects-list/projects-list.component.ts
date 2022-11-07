@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, MonoTypeOperatorFunction, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
@@ -11,6 +11,7 @@ import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { MenuItem } from 'primeng/api';
 import { MAIN, PROJECTS } from '@constants/breadcrumbs';
 import { NEW_PROJECT } from '@constants/projects-routes';
+import { untilDestroyed } from '../../../../shared/functions/unsubscribe.operator';
 
 @Component({
   selector: 'app-projects-list',
@@ -24,6 +25,8 @@ export class ProjectsListComponent implements OnInit {
   public projects$: Observable<ProjectsInterface[]>;
 
   public columnNames: string[] = COLUMNS_NAMES;
+
+  private destroy$: MonoTypeOperatorFunction<ProjectsInterface[]> = untilDestroyed();
 
   constructor(
     private store: Store,
@@ -56,7 +59,8 @@ export class ProjectsListComponent implements OnInit {
     this.store.dispatch(getProjectsList());
     this.projects$ = this.store.pipe(
       select(projectsListSelector),
-      map(projects => [...projects])
+      map(projects => [...projects]),
+      this.destroy$
     );
     this.isLoading$ = this.store.select(isLoadingProjectSelector);
   }
