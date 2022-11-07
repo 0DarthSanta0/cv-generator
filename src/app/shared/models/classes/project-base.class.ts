@@ -5,7 +5,7 @@ import { REQUIRED__FIELD_WITH_LENGTH, REQUIRED_FIELD } from '@constants/validati
 import { SkillInterface } from '@models/skill.interface';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
+import { DateProjectsInterface, SimpleProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 import { AppRoutes } from '@constants/app-routes';
 import { selectSkills } from '@ourStore/main/main-selectors';
 import { MenuItem } from 'primeng/api';
@@ -35,10 +35,12 @@ export class ProjectBaseClass {
   ) { }
 
   protected getNewProject(): SimpleProjectsInterface {
-    const newProject: SimpleProjectsInterface = <SimpleProjectsInterface>this.infoForm.value;
+    const newProject: DateProjectsInterface = <DateProjectsInterface>this.infoForm.value;
     const filteredList = this.storeSkillsList.filter((skill) => newProject.skills.includes(skill.name));
     return  {
       ...newProject,
+      from: newProject.from.toISOString().split('T')[0],
+      to: newProject.to.toISOString().split('T')[0],
       skills: filteredList.map((skill) => skill.id  ),
     };
   }

@@ -12,3 +12,4 @@ export interface ProjectInfoForm {
   techStack?: FormControl<string[]>
   skills: FormControl<string[]>,
 }
+
