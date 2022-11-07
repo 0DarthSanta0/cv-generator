@@ -17,6 +17,17 @@ export interface SimpleProjectsInterface {
   name: string,
   description: string,
   domain: string,
+  from: string,
+  to: string,
+  internalName: string,
+  skills: (string | number)[],
+}
+
+export interface DateProjectsInterface {
+  id: number,
+  name: string,
+  description: string,
+  domain: string,
   from: Date,
   to: Date,
   internalName: string,

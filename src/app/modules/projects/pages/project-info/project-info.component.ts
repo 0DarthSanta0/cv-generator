@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { deleteProject, getProjectById, updateProject } from '@ourStore/projects/projects.actions';
 import {
@@ -56,8 +56,8 @@ export class ProjectInfoComponent extends ProjectBaseClass implements OnInit {
       domain: project.domain,
       internalName: project.internalName,
       description: project.description,
-      from: project.from,
-      to: project.to,
+      from: new Date(project.from),
+      to: new Date(project.to),
       skills: project.skills.data.map(skill =>
         skill?.attributes.name
       ),
