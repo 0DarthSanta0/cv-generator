@@ -39,6 +39,7 @@ import { cvsListSelector } from '@ourStore/cvs/cvs.selectors';
 import { CVsInterface } from '@models/interfaces/cvs.interface';
 import { getCVsList } from '@ourStore/cvs/cvs.actions';
 import { CustomDateValidators } from '../../../../shared/validators/date-picker-validator';
+import { IProjectFormResponse, IProjectFormResponseString } from '../../interfaces/project-form-response.interface';
 
 @Component({
   selector: 'app-employee-cv',
@@ -199,6 +200,18 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
 
   public createPreview(): void {
     this.cv = <ICvFormResponse>this.cvInfoForm.value;
+    this.cv = {
+      ...this.cv,
+      projects: this.cv.projects.reduce((acc:IProjectFormResponseString[], curr) => {
+        const obj:IProjectFormResponseString =  {
+          ...curr,
+          from: (curr as IProjectFormResponse).from.toISOString().split('T')[0],
+          to: (curr as IProjectFormResponse).to.toISOString().split('T')[0]
+        }
+        return [...acc, obj];
+      },[] as IProjectFormResponseString[])
+    };
+    console.log(this.cv)
     this.isPreview = !this.isPreview;
     this.isPreview ? this.buttonLabel = 'Back' : this.buttonLabel = 'Preview';
     this.isDownload$.next(false);

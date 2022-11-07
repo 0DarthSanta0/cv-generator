@@ -19,6 +19,7 @@ import { EmployeeCvDtoInterface } from '@models/interfaces/employee-cv-dto.inter
 import { IResponsibility } from '@models/interfaces/responsibility.interface';
 import { ProjectsInterface } from '@models/interfaces/no-attributes-projects.interface';
 import { CVsInterface } from '@models/interfaces/cvs.interface';
+import { IProjectFormResponse } from '../../modules/employees/interfaces/project-form-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -225,6 +226,8 @@ export class EmployeesMapperService {
     const projects = newCv.projects.map((project) => {
       return {
         ...project,
+        from: (project as IProjectFormResponse).from.toISOString().split('T')[0],
+        to: (project as IProjectFormResponse).to.toISOString().split('T')[0],
         skills: project.techStack
       }
     })

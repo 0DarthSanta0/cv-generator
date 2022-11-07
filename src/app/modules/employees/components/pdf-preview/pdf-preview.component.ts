@@ -45,11 +45,11 @@ export class PdfPreviewComponent implements OnInit {
 
       const pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
 
-      pdf.addImage(img, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+      pdf.addImage(img, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height+20);
 
       for (let i = 1; i <= totalPDFPages; i++) {
         pdf.addPage();
-        pdf.addImage(img, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height-50);
+        pdf.addImage(img, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height-40);
       }
 
       return pdf;

@@ -1,5 +1,5 @@
 import { ILanguageFormResponse, ISkillFormResponse } from '@employees';
-import { IProjectFormResponse } from './project-form-response.interface';
+import { IProjectFormResponse, IProjectFormResponseString } from './project-form-response.interface';
 
 export interface ICvFormResponse {
   id: number,
@@ -11,5 +11,5 @@ export interface ICvFormResponse {
   position: string,
   languages: ILanguageFormResponse[],
   skills: ISkillFormResponse[],
-  projects: IProjectFormResponse[]
+  projects: (IProjectFormResponse | IProjectFormResponseString)[]
 }

@@ -26,8 +26,8 @@ export interface JsonProjectCv {
   description: string,
   domain: string,
   name:string,
-  from: Date,
-  to: Date,
+  from: Date | string,
+  to: Date | string,
   internalName: string,
   skills: string[]
   responsibilities?: string[],
