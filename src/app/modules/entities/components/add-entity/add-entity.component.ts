@@ -27,6 +27,7 @@ import { ENTITIES, MAIN } from '@constants/breadcrumbs';
 import { IAddEntityForm } from '../../models/add-entity-form.interface';
 import { IChangeEntityForm } from '../../models/i-change-entity.form';
 import { selectLoadingEntities } from '@ourStore/entities/entities-selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-entity',
@@ -57,6 +58,7 @@ export class AddEntityComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store,
     private formBuilder: NonNullableFormBuilder,
+    private translate: TranslateService,
   ) {
   }
 
@@ -164,9 +166,9 @@ export class AddEntityComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs() {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN },
-      {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
-      {label: this.entityName},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(ENTITIES), routerLink: AppRoutes.ENTITIES_ROUTE},
+      {label: this.translate.instant('entities.' + this.entityName + 'Label')},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }

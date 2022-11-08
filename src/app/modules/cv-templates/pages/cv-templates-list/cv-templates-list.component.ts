@@ -12,6 +12,7 @@ import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { getCVsList } from '@ourStore/cvs/cvs.actions';
 import { cvsListSelector, isLoadingCVSelector } from '@ourStore/cvs/cvs.selectors';
 import { untilDestroyed } from '../../../../shared/functions/unsubscribe.operator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cv-templates-list',
@@ -32,6 +33,7 @@ export class CvTemplatesListComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
+    private translate: TranslateService,
   ) {
   }
 
@@ -50,8 +52,8 @@ export class CvTemplatesListComponent implements OnInit {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN},
-      {label: CV_TEMPLATES, routerLink: AppRoutes.CV_TEMPLATES_ROUTE},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(CV_TEMPLATES), routerLink: AppRoutes.CV_TEMPLATES_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }

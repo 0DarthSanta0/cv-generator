@@ -18,6 +18,7 @@ import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { languagesList, skillsList } from '@ourStore/main/main-actions';
 import { Directive } from '@angular/core';
 import { JsonProject } from '@models/interfaces/json-data-response.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Directive()
 export class BaseCvTemplate {
@@ -40,6 +41,7 @@ export class BaseCvTemplate {
     protected route: ActivatedRoute,
     protected formBuilder: NonNullableFormBuilder,
     protected router: Router,
+    protected translate: TranslateService,
   ) { }
 
   protected getNewCVTemplate(): CVsInterface {
@@ -85,8 +87,8 @@ export class BaseCvTemplate {
 
   protected setBreadcrumbs(name: string): void {
     const breadcrumbs: MenuItem[] = [
-      { label: MAIN },
-      { label: CV_TEMPLATES, routerLink: AppRoutes.CV_TEMPLATES_ROUTE},
+      { label: this.translate.instant(MAIN) },
+      { label: this.translate.instant(CV_TEMPLATES), routerLink: AppRoutes.CV_TEMPLATES_ROUTE},
       { label: name, },
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

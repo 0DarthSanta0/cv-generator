@@ -5,7 +5,7 @@
 <ng-template #table>
   <div class="new-cv-btn">
     <app-custom-button
-      label="New CV"
+      [label]="'cvsInfo.buttons.newCVS' | translate"
       (click)="navigateToNewCVPage()"
     ></app-custom-button>
   </div>

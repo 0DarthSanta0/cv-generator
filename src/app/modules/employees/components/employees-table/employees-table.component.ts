@@ -10,6 +10,7 @@ import { MenuItem } from 'primeng/api';
 import { EMPLOYEES, MAIN } from '@constants/breadcrumbs';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { COLUMN_TABLE_NAMES } from '@constants/employee';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employees-table',
@@ -27,6 +28,7 @@ export class EmployeesTableComponent implements OnInit {
 
   constructor(private store: Store,
               private router: Router,
+              private translate: TranslateService,
   ) {
   }
 
@@ -42,8 +44,8 @@ export class EmployeesTableComponent implements OnInit {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN },
-      {label: EMPLOYEES, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(EMPLOYEES), routerLink: AppRoutes.EMPLOYEES_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }

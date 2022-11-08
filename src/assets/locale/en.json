@@ -63,11 +63,15 @@
       "addProject": "Add project"
     }
   },
+  "name": "Name",
   "search": "Search",
   "entities": {
     "skillsLabel": "Skills",
     "languagesLabel": "Languages",
-    "responsibilitiesLabel": "Responsibilities"
+    "responsibilitiesLabel": "Responsibilities",
+    "skillsAdd": "Add Skills",
+    "languagesAdd": "Add Languages",
+    "responsibilitiesAdd": "Add Responsibilities"
   },
   "projectInfo": {
     "info": "Information",
@@ -82,7 +86,8 @@
     "skills": "Skills",
     "buttons": {
       "save": "Save",
-      "delete": "Delete"
+      "delete": "Delete",
+      "newProject": "New project"
     }
   },
   "cvsInfo": {
@@ -97,7 +102,17 @@
     "buttons": {
       "save": "Save",
       "delete": "Delete",
-      "addCv": "Add CV"
+      "addCv": "Add CV",
+      "newCVS": "New CV"
     }
+  },
+  "breadcrumbs": {
+    "main": "Main",
+    "new": "New project",
+    "employees": "Employees",
+    "entities": "Entities",
+    "newCVS": "New CV",
+    "projects": "Projects",
+    "CVTemplates": "CV templates"
   }
 }

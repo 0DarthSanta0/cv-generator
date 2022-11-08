@@ -15,7 +15,7 @@ export class NewCvTemplateComponent extends BaseCvTemplate implements OnInit {
   public ngOnInit(): void {
     this.getDataForAutocomplete();
     this.defineForm(Math.round(Math.random()*1000));
-    this.setBreadcrumbs(NEW_CVS);
+    this.setBreadcrumbs(this.translate.instant(NEW_CVS));
   }
 
   public createNewCv(): void {

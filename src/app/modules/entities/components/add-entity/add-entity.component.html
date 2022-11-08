@@ -12,7 +12,7 @@
                     <input pInputText
                            type="text"
                            class="search"
-                           placeholder="Search"
+                           [placeholder]="'search' | translate "
                            [formControl]="searchInput"
                     />
                     <i class="pi pi-search"></i>
@@ -50,15 +50,15 @@
                 <div class="main__input">
                     <app-input
                             class="form_item"
-                            label="Name"
-                            placeholder="Name"
+                            [label]="'name' | translate"
+                            [placeholder]="'search' | translate "
                             [errorsMap]=requiredField
                             formControlName="name"
                     ></app-input>
                 </div>
                 <div class="main__add-entity">
                     <app-custom-button
-                            [label]="'Add ' + entityName + ' item'"
+                            [label]="'entities.' + entityName + 'Add' | translate"
                             type="submit"
                             [disabled]="!addEntityForm.dirty || addEntityForm.invalid"
                     ></app-custom-button>

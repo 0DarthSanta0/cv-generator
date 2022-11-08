@@ -8,6 +8,7 @@ import { ENTITIES_ITEMS } from '@constants/entities';
 import { Store } from '@ngrx/store';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { EMPLOYEES, ENTITIES, MAIN } from '@constants/breadcrumbs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-entities-page',
@@ -30,6 +31,7 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
     private formBuilder: NonNullableFormBuilder,
     private router: Router,
     private store: Store,
+    private translate: TranslateService,
   ) {
   }
 
@@ -49,8 +51,8 @@ export class EntitiesPageComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN },
-      {label: ENTITIES, routerLink: AppRoutes.ENTITIES_ROUTE},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(ENTITIES), routerLink: AppRoutes.ENTITIES_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }

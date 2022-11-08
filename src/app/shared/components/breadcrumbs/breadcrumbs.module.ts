@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -12,9 +13,10 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
   exports: [
     BreadcrumbsComponent
   ],
-  imports: [
-    CommonModule,
-    BreadcrumbModule
-  ]
+    imports: [
+        CommonModule,
+        BreadcrumbModule,
+        TranslateModule
+    ]
 })
 export class BreadcrumbsModule { }
