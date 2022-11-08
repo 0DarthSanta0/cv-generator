@@ -12,6 +12,13 @@
     "registerNavigate": "У вас нет аккаунта?",
     "loginNavigate": "Уже есть аккаунт?"
   },
+  "auth": {
+    "ident": "Идентификатор",
+    "password": "Пароль",
+    "placeholder-ident": "email или имя пользователя",
+    "placeholder-password": "пароль",
+    "login-btn": "Логин"
+  },
   "emplInfo": {
     "info": "Информация",
     "infoContent": {

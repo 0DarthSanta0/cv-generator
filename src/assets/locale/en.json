@@ -12,6 +12,13 @@
     "registerNavigate": "Don't have an account?",
     "loginNavigate": "Already has an account?"
   },
+  "auth": {
+    "ident": "Identifier",
+    "password": "Password",
+    "placeholder-ident": "email or username",
+    "placeholder-password": "password",
+    "login-btn": "Login"
+  },
   "emplInfo": {
     "info": "Information",
     "infoContent": {

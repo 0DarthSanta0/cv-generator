@@ -17,19 +17,19 @@
             </div>
 
             <div class="container__form">
-                <form [formGroup]="loginForm">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="container__form_inputs">
                         <app-input
                                 class="form_item"
-                                label="Identifier"
-                                placeholder="email or username"
+                                [label]="'auth.ident' | translate"
+                                [placeholder]="'auth.placeholder-ident' | translate"
                                 [errorsMap]="requiredField"
                                 formControlName="identifier"
                         ></app-input>
                         <app-password-input
                                 class="form_item"
-                                label="Password"
-                                placeholder="Password"
+                                [label]="'auth.password' | translate"
+                                [placeholder]="'auth.placeholder-password' | translate"
                                 [errorsMap]="requiredField"
                                 formControlName="password"
                         ></app-password-input>
@@ -37,18 +37,17 @@
 
                     <div class="container__form_links">
                         <div class="container__form_link">
-                            <a [routerLink]="registerRoute" class="back_to_register">
+                            <a [routerLink]="" class="back_to_register">
                                 {{'links.registerNavigate' | translate}}
-
                             </a>
                         </div>
                     </div>
 
                     <div class="container__form_button">
                         <app-custom-button
-                                label="Login"
-                                (click)="onSubmit()"
-                                [disabled]="(loginForm.invalid || loginForm.pending || (isSubmitting$ | async)) ? true : false"
+                                [label]="'auth.login-btn' | translate"
+                                type="submit"
+                                [disabled]="(loginForm.invalid || loginForm.pending)"
                         ></app-custom-button>
                     </div>
                 </form>
