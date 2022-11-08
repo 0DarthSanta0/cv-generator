@@ -4,7 +4,7 @@
             [formControl]="control"
             [required]="isRequired"
             [placeholder]="placeholder"
-            [ngClass]="{'ng-invalid ng-dirty':control.errors}"
+            [ngClass]="{'ng-invalid ng-dirty':control.errors && control.touched}"
             pInputText
     >
     <ng-container *ngIf="control.errors && control.touched">
