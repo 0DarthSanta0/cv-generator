@@ -13,14 +13,14 @@
                     <i class="pi pi-search"></i>
                     <input pInputText type="text"
                            (input)="table.filterGlobal($any($event.target).value, 'contains')"
-                           placeholder="Search"/>
+                           [placeholder]="'search' | translate"/>
                 </div>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th *ngFor="let col of columnNames" [pSortableColumn]="col">
-                    {{col | titlecase}}
+                <th *ngFor="let col of columnNamesKey" [pSortableColumn]="col">
+                    {{columnNames[col] | translate | titlecase}}
                     <p-columnFilter type="text" [field]="col" display="menu"></p-columnFilter>
                     <p-sortIcon [field]="col"></p-sortIcon>
                 </th>
@@ -31,7 +31,7 @@
                     class="data_row"
                     (click)="emitIdRow(data.id)"
             >
-                <td *ngFor="let col of columnNames">
+                <td *ngFor="let col of columnNamesKey">
                     {{data[col]}}
                 </td>
             </tr>
@@ -42,4 +42,5 @@
             </tr>
         </ng-template>
     </p-table>
+
 </div>

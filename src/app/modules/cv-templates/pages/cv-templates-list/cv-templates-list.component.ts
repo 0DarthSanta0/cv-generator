@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
 import { MenuItem } from 'primeng/api';
 import { CV_TEMPLATES, MAIN } from '@constants/breadcrumbs';
-import { COLUMNS_NAMES } from '@constants/cvs-titles';
+import { COLUMNS_NAMES_CV } from '@constants/cvs-titles';
 import { CVsInterface } from '@models/interfaces/cvs.interface';
 import { NEW_CV } from '@constants/cvs-routes';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
@@ -24,14 +24,16 @@ export class CvTemplatesListComponent implements OnInit {
   public isLoading$: Observable<boolean>;
   public cvs$: Observable<CVsInterface[]>;
 
-  public columnNames: string[] = COLUMNS_NAMES;
+  public columnNames: { [key: string]: string } = COLUMNS_NAMES_CV;
+  public globalFilteredFields: string[] = Object.keys(COLUMNS_NAMES_CV);
 
   private destroy$: MonoTypeOperatorFunction<CVsInterface[]> = untilDestroyed();
 
   constructor(
     private store: Store,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this.setBreadcrumbs();

@@ -11,10 +11,10 @@
   </div>
   <app-custom-table
     [tableData]="cvs$| async"
-    [globalFilteredFields]="columnNames"
+    [globalFilteredFields]="globalFilteredFields"
     [columnNames]="columnNames"
     (rowClicked)="navigateToInfoPage($event)"
     [virtualRowHeight]="40"
-    [scrollHeight]="300"
+    [scrollHeight]="420"
   ></app-custom-table>
 </ng-template>

@@ -1,4 +1,9 @@
-export const COLUMN_TABLE_NAMES: string[] = ['firstName', 'lastName', 'email', 'position', 'skills'];
+export const COLUMN_TABLE_NAMES: { [key: string]: string } = {
+  'firstName': 'emplInfo.infoContent.firstName',
+  'lastName': 'emplInfo.infoContent.lastName', 'email': 'emplInfo.infoContent.email',
+  'position': 'emplInfo.infoContent.position', 'skills': 'emplInfo.skills'
+};
+
 export const EMPL_INFO_INPUT: string[] = ['firstName', 'lastName', 'username', 'email'];
 export const EMPL_INFO_TEXTAREA: string[] = ['education', 'description'];
 export const SELECTED_INFO_COMPONENT: string = 'info';

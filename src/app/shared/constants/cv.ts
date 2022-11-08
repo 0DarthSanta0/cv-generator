@@ -1,1 +1,1 @@
-export const CV_TABLE_COLUMN: string[] = ['name', 'description']
+export const CV_TABLE_COLUMN: {[key:string]:string} = {'name':'', 'description':''}
