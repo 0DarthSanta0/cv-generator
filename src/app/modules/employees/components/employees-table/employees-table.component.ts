@@ -6,10 +6,10 @@ import { isLoadingSelector, listEmployeesSelector } from '@ourStore/employees/em
 import { IEmployeesWithSkills } from '@models/employees.interface';
 import { Router } from '@angular/router';
 import { AppRoutes } from '@constants/app-routes';
-import { COLUMN_TABLE_NAMES } from '@constants/employee';
 import { MenuItem } from 'primeng/api';
 import { EMPLOYEES, MAIN } from '@constants/breadcrumbs';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
+import { COLUMN_TABLE_NAMES } from '@constants/employee';
 
 @Component({
   selector: 'app-employees-table',
@@ -22,7 +22,8 @@ export class EmployeesTableComponent implements OnInit {
   public isLoading$: Observable<boolean>;
   public employeesWithSkills$: Observable<IEmployeesWithSkills[]>;
 
-  public columnNames: string[] = COLUMN_TABLE_NAMES;
+  public globalFilteredFields: string[] = Object.keys(COLUMN_TABLE_NAMES);
+  public columnNames: {[key: string] : string} = COLUMN_TABLE_NAMES;
 
   constructor(private store: Store,
               private router: Router,

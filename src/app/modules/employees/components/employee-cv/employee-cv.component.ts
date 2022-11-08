@@ -40,6 +40,7 @@ import { CVsInterface } from '@models/interfaces/cvs.interface';
 import { getCVsList } from '@ourStore/cvs/cvs.actions';
 import { CustomDateValidators } from '../../../../shared/validators/date-picker-validator';
 import { IProjectFormResponse, IProjectFormResponseString } from '../../interfaces/project-form-response.interface';
+import { COLUMNS_NAMES_CV } from '@constants/cvs-titles';
 
 @Component({
   selector: 'app-employee-cv',
@@ -55,8 +56,12 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
   public textAreaArray = EMPL_INFO_TEXTAREA;
   public requiredFieldWithLength = REQUIRED__FIELD_WITH_LENGTH;
   public requiredField = REQUIRED_FIELD;
-  public cvTable: string[] = CV_TABLE_COLUMN;
-  public projectsTable: string[] = COLUMNS_NAMES;
+
+  public cvTable: {[key:string]:string} = COLUMNS_NAMES_CV;
+  public cvTableFiltered: string[] = Object.keys(COLUMNS_NAMES_CV);
+  public projectsTable: {[key:string]:string} = COLUMNS_NAMES;
+  public projectsTableFiltered: string[] = Object.keys(COLUMNS_NAMES);
+
   public buttonLabel: string = BUTTON_LABEL;
   public searchingText: string = '';
 

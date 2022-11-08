@@ -5,7 +5,7 @@
 <ng-template #table>
     <app-custom-table
             [tableData]="employeesWithSkills$ | async"
-            [globalFilteredFields]="columnNames"
+            [globalFilteredFields]="globalFilteredFields"
             [columnNames]="columnNames"
             (rowClicked)="redirectToEmployeesInfo($event)"
             [isVirtualScroll]="false"

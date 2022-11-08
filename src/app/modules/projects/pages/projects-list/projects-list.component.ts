@@ -24,7 +24,8 @@ export class ProjectsListComponent implements OnInit {
   public isLoading$: Observable<boolean>;
   public projects$: Observable<ProjectsInterface[]>;
 
-  public columnNames: string[] = COLUMNS_NAMES;
+  public columnNames: {[key: string] : string} = COLUMNS_NAMES;
+  public globalFilteredFields: string[] = Object.keys(COLUMNS_NAMES);
 
   private destroy$: MonoTypeOperatorFunction<ProjectsInterface[]> = untilDestroyed();
 

@@ -21,6 +21,10 @@
   },
   "emplInfo": {
     "info": "Информация",
+    "links": {
+      "info": "Инфо",
+      "cv-list": "Список CV"
+    },
     "infoContent": {
       "firstName": "Имя",
       "lastName": "Фамилия",
@@ -54,9 +58,12 @@
     },
     "buttons": {
       "addSkill": "Добавить навык",
-      "addLang": "Добавить язык"
+      "addLang": "Добавить язык",
+      "save-btn": "Сохранить изменения",
+      "addProject": "Добавить проект"
     }
   },
+  "search": "Поиск",
   "entities": {
     "skillsLabel": "Навыки",
     "languagesLabel": "Языки",
@@ -93,7 +100,8 @@
     },
     "buttons": {
       "save": "Сохранить",
-      "delete": "Удалить"
+      "delete": "Удалить",
+      "addCv": "Добавить CV"
     }
   }
 }

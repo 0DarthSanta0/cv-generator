@@ -2,10 +2,10 @@
     <div class="wrapper__navig">
         <ul class="navig">
             <li class="navig__item" [ngClass]="{'active': isSelected}">
-                <a class="link" (click)="selectComponent(infoComponentName)">Info</a>
+                <a class="link" (click)="selectComponent(infoComponentName)">{{'emplInfo.links.info' | translate}}</a>
             </li>
             <li class="navig__item" [ngClass]="{'active': !isSelected}">
-                <a class="link" (click)="selectComponent(cvComponentName)">Cv list</a>
+                <a class="link" (click)="selectComponent(cvComponentName)">{{'emplInfo.links.cv-list' | translate}}</a>
             </li>
         </ul>
     </div>

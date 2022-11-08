@@ -11,9 +11,9 @@
   </div>
   <app-custom-table
     [tableData]="projects$| async"
-    [globalFilteredFields]="columnNames"
+    [globalFilteredFields]="globalFilteredFields"
     [columnNames]="columnNames"
-    [scrollHeight]="(projects$ | async)!.length*70"
+    [scrollHeight]="420"
     (rowClicked)="navigateToInfoPage($event)"
   ></app-custom-table>
 </ng-template>

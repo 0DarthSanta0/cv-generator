@@ -21,6 +21,10 @@
   },
   "emplInfo": {
     "info": "Information",
+    "links": {
+      "info": "Info",
+      "cv-list": "Cv list"
+    },
     "infoContent": {
       "firstName": "First Name",
       "lastName": "Last Name",
@@ -54,9 +58,12 @@
     },
     "buttons": {
       "addSkill": "Add skill",
-      "addLang": "Add language"
+      "addLang": "Add language",
+      "save-btn": "Save changes",
+      "addProject": "Add project"
     }
   },
+  "search": "Search",
   "entities": {
     "skillsLabel": "Skills",
     "languagesLabel": "Languages",
@@ -89,7 +96,8 @@
     },
     "buttons": {
       "save": "Save",
-      "delete": "Delete"
+      "delete": "Delete",
+      "addCv": "Add CV"
     }
   }
 }

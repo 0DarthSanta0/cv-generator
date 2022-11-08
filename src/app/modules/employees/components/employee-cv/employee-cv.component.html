@@ -2,7 +2,7 @@
     <p-dialog header="Choose cv template" [(visible)]="displayCvsModal" [style]="{width: '50vw'}">
         <app-custom-table
                 [tableData]="allCvsTemplate$ | async"
-                [globalFilteredFields]="cvTable"
+                [globalFilteredFields]="cvTableFiltered"
                 [columnNames]="cvTable"
                 (rowClicked)="setCvToEmployee($event)"
                 [isVirtualScroll]="false"
@@ -11,7 +11,7 @@
     <p-dialog header="Choose project" [(visible)]="displayProjectsModal" [style]="{width: '50vw'}">
         <app-custom-table
                 [tableData]="allProjects$ | async"
-                [globalFilteredFields]="projectsTable"
+                [globalFilteredFields]="projectsTableFiltered"
                 [columnNames]="projectsTable"
                 [isVirtualScroll]="false"
                 (rowClicked)="addProjectFormGroup($event)"
@@ -24,7 +24,7 @@
                 <input pInputText
                        type="text"
                        class="search"
-                       placeholder="Search"
+                       [placeholder]="'search' | translate"
                        [formControl]="searchInput"
                 />
                     <i class="pi pi-search"></i>
@@ -50,7 +50,7 @@
             </div>
             <app-custom-button
                     class="set-cv"
-                    label="Add CV"
+                    [label]="'cvsInfo.buttons.addCv' | translate"
                     (click)="displayCvsModal = true"
             ></app-custom-button>
         </div>
@@ -182,7 +182,7 @@
                 </div>
                 <div class="save-btn">
                     <app-custom-button
-                            label="Add project"
+                            [label]="'emplInfo.buttons.addProject' | translate"
                             (click)="displayProjectsModal = true"
                     ></app-custom-button>
                 </div>
@@ -260,7 +260,7 @@
                 </div>
                 <div class="save-btn">
                     <app-custom-button
-                            label="Save change"
+                            [label]="'emplInfo.buttons.save-btn' | translate"
                             type="submit"
                             [disabled]="(cvInfoForm.invalid || cvInfoForm.pending)"
                     ></app-custom-button>
