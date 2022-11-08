@@ -1,7 +1,7 @@
-export const MAIN = 'Main';
-export const PROJECTS = 'Projects';
-export const NEW = 'New project';
-export const EMPLOYEES = 'Employees';
-export const ENTITIES = 'Entities';
-export const NEW_CVS = 'New CV';
-export const CV_TEMPLATES = 'CV templates'
+export const MAIN = 'breadcrumbs.main';
+export const PROJECTS = 'breadcrumbs.projects';
+export const NEW = 'breadcrumbs.new';
+export const EMPLOYEES = 'breadcrumbs.employees';
+export const ENTITIES = 'breadcrumbs.entities';
+export const NEW_CVS = 'breadcrumbs.newCVS';
+export const CV_TEMPLATES = 'breadcrumbs.CVTemplates'

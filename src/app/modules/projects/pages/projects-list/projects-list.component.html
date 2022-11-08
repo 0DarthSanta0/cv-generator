@@ -5,7 +5,7 @@
 <ng-template #table>
   <div class="new-proj-btn">
     <app-custom-button
-            label="New project"
+            [label]="'projectInfo.buttons.newProject' | translate"
             (click)="navigateToNewProjectPage()"
     ></app-custom-button>
   </div>

@@ -12,6 +12,7 @@ import { MenuItem } from 'primeng/api';
 import { MAIN, PROJECTS } from '@constants/breadcrumbs';
 import { NEW_PROJECT } from '@constants/projects-routes';
 import { untilDestroyed } from '../../../../shared/functions/unsubscribe.operator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-projects-list',
@@ -30,6 +31,7 @@ export class ProjectsListComponent implements OnInit {
   private destroy$: MonoTypeOperatorFunction<ProjectsInterface[]> = untilDestroyed();
 
   constructor(
+    private translate: TranslateService,
     private store: Store,
     private router: Router,
   ) {
@@ -50,8 +52,8 @@ export class ProjectsListComponent implements OnInit {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN },
-      {label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(PROJECTS), routerLink: AppRoutes.PROJECTS_ROUTE},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));
   }

@@ -14,6 +14,7 @@ import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { skillsList } from '@ourStore/main/main-actions';
 import { Directive } from '@angular/core';
 import { CustomDateValidators } from '../../validators/date-picker-validator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Directive()
 export class ProjectBaseClass {
@@ -32,6 +33,7 @@ export class ProjectBaseClass {
     protected route: ActivatedRoute,
     protected formBuilder: NonNullableFormBuilder,
     protected router: Router,
+    protected translate: TranslateService,
   ) { }
 
   protected getNewProject(): SimpleProjectsInterface {
@@ -55,8 +57,8 @@ export class ProjectBaseClass {
 
   protected setBreadcrumbs(name: string): void {
     const breadcrumbs: MenuItem[] = [
-      { label: MAIN  },
-      { label: PROJECTS, routerLink: AppRoutes.PROJECTS_ROUTE},
+      { label: this.translate.instant(MAIN)  },
+      { label: this.translate.instant(PROJECTS), routerLink: AppRoutes.PROJECTS_ROUTE},
       { label: name, },
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

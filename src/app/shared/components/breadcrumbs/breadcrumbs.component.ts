@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { AppRoutes } from '../../constants/app-routes';
 import { Store } from '@ngrx/store';
 import { selectBreadcrumbs } from '../../../store/breadcrumbs/breadcrumbs.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -14,10 +15,11 @@ import { selectBreadcrumbs } from '../../../store/breadcrumbs/breadcrumbs.select
 export class BreadcrumbsComponent implements OnInit {
 
   public breadcrumbs$: Observable<MenuItem[]> = of([
-    { label: AppRoutes.MAIN_ROUTE, }
+    { label: AppRoutes.MAIN_ROUTE , }
   ]);
 
   constructor(
+    private translate: TranslateService,
     private store: Store,
     private cdr: ChangeDetectorRef,
   ) { }

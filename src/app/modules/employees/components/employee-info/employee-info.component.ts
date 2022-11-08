@@ -19,6 +19,7 @@ import { EMPLOYEES, MAIN } from '@constants/breadcrumbs';
 import { AppRoutes } from '@constants/app-routes';
 import { setBreadcrumbs } from '@ourStore/breadcrumbs/breadcrumbs.actions';
 import { SkillInterface } from '@models/skill.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employee-info',
@@ -48,6 +49,7 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
     private store: Store,
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
+    private translate: TranslateService,
   ) {
   }
 
@@ -167,8 +169,8 @@ export class EmployeeInfoComponent implements OnInit, OnDestroy {
 
   private setBreadcrumbs(): void {
     const breadcrumbs: MenuItem[] = [
-      {label: MAIN },
-      {label: EMPLOYEES, routerLink: AppRoutes.EMPLOYEES_ROUTE},
+      {label: this.translate.instant(MAIN) },
+      {label: this.translate.instant(EMPLOYEES), routerLink: AppRoutes.EMPLOYEES_ROUTE},
       {label: this.employeeEmail},
     ];
     this.store.dispatch(setBreadcrumbs({breadcrumbs}));

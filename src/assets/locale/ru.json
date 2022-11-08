@@ -63,11 +63,15 @@
       "addProject": "Добавить проект"
     }
   },
+  "name": "Имя",
   "search": "Поиск",
   "entities": {
     "skillsLabel": "Навыки",
     "languagesLabel": "Языки",
-    "responsibilitiesLabel": "Ответственности"
+    "responsibilitiesLabel": "Ответственности",
+    "skillsAdd": "Добавить навыки",
+    "languagesAdd": "Добавить языки",
+    "responsibilitiesAdd": "Добавить ответственности"
   },
   "projectInfo": {
     "info": "Информация",
@@ -86,7 +90,8 @@
     },
     "buttons": {
       "save": "Сохранить",
-      "delete": "Удалить"
+      "delete": "Удалить",
+      "newProject": "Новый проект"
     }
   },
   "cvsInfo": {
@@ -101,7 +106,17 @@
     "buttons": {
       "save": "Сохранить",
       "delete": "Удалить",
-      "addCv": "Добавить CV"
+      "addCv": "Добавить CV",
+      "newCVS": "Новое CV"
     }
+  },
+  "breadcrumbs": {
+    "main": "Главная",
+    "new": "Новый проект",
+    "employees": "Сотрудники",
+    "entities": "Сущности",
+    "newCVS": "Новое CV",
+    "projects": "Проекты",
+    "CVTemplates": "Шаблоны CV"
   }
 }
