@@ -1,27 +1,28 @@
 import { ListElement } from '../models/interfaces/list-element.interface';
 import { MainModulesTitles } from './main-modules-titles';
+import { CV_TEMPLATES, EMPLOYEES, ENTITIES, PROJECTS } from '@constants/breadcrumbs';
 
 export const MAIN_PAGE_ELEMENTS_LIST: ListElement[] = [
   {
     value: MainModulesTitles.EMPLOYEES_VALUE,
-    label: MainModulesTitles.EMPLOYEES_LABEL,
+    label: EMPLOYEES,
   },
   {
     value: MainModulesTitles.PROJECTS_VALUE,
-    label: MainModulesTitles.PROJECTS_LABEL,
+    label: PROJECTS,
   },
   {
     value: MainModulesTitles.CV_TEMPLATES_VALUE,
-    label: MainModulesTitles.CV_TEMPLATES_LABEL,
+    label: CV_TEMPLATES,
   },
   {
     value: MainModulesTitles.ENTITIES_VALUE,
-    label: MainModulesTitles.ENTITIES_LABEL,
+    label: ENTITIES,
   },
 ];
 
 export const FIRST_SELECTED_ELEMENT: ListElement = {
-  label: MainModulesTitles.EMPLOYEES_LABEL,
+  label: EMPLOYEES,
   value: MainModulesTitles.EMPLOYEES_VALUE,
 }
 
