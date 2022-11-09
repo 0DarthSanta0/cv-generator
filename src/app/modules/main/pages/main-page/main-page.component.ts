@@ -8,6 +8,8 @@ import { ListElement } from '@models/interfaces/list-element.interface';
 import { FIRST_SELECTED_ELEMENT, MAIN_PAGE_ELEMENTS_LIST } from '@constants/main-page-list';
 import { languagesList, responsibilitiesList, skillsList } from '@ourStore/main/main-actions';
 import { positionsListAction } from '@ourStore/employees/employees.actions';
+import { TranslateService } from '@ngx-translate/core';
+import { MAIN } from '@constants/breadcrumbs';
 
 @Component({
   selector: 'app-main-page',
@@ -17,7 +19,7 @@ import { positionsListAction } from '@ourStore/employees/employees.actions';
 })
 export class MainPageComponent implements OnInit {
 
-  public listElements: ListElement[] = MAIN_PAGE_ELEMENTS_LIST;
+  public listElements: ListElement[] = [];
 
   public selected: ListElement | undefined = FIRST_SELECTED_ELEMENT;
 
@@ -25,6 +27,7 @@ export class MainPageComponent implements OnInit {
     private store: Store,
     private cdr: ChangeDetectorRef,
     private router: Router,
+    private translate: TranslateService,
   ) {
   }
 
@@ -41,10 +44,20 @@ export class MainPageComponent implements OnInit {
   }
 
   private setSelectedAndBreadcrumbs(): void {
-    this.selected = MAIN_PAGE_ELEMENTS_LIST.find(element => element.value === this.router.url.split('/')[2]);
+    this.listElements = MAIN_PAGE_ELEMENTS_LIST.map(element => ({
+      ...element,
+      label: this.translate.instant(element.label),
+    }));
+    const tempSelected = MAIN_PAGE_ELEMENTS_LIST.find(element => element.value === this.router.url.split('/')[2]);
+    if (tempSelected)
+      this.selected = {
+        value: tempSelected.value,
+        label: this.translate.instant(tempSelected.label),
+      };
+    console.log(this.selected)
     this.store.dispatch(setBreadcrumbs({
       breadcrumbs: [
-        { label: MainModulesTitles.MAIN_LABEL },
+        {label: this.translate.instant(MAIN)},
       ]
     }));
   }

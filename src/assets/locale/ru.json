@@ -121,5 +121,11 @@
     "newCVS": "Новое CV",
     "projects": "Проекты",
     "CVTemplates": "Шаблоны CV"
+  },
+  "mainInfo": {
+    "employees": "Сотрудники",
+    "projects": "Проекты",
+    "cvTemplates": "Шаблоны CV",
+    "entities": "Сущности"
   }
 }

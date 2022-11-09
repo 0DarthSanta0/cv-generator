@@ -117,5 +117,11 @@
     "newCVS": "New CV",
     "projects": "Projects",
     "CVTemplates": "CV templates"
+  },
+  "mainInfo": {
+    "employees": "employees",
+    "projects": "projects",
+    "cvTemplates": "cv-templates",
+    "entities": "entities"
   }
 }
