@@ -107,7 +107,10 @@
       "save": "Сохранить",
       "delete": "Удалить",
       "addCv": "Добавить CV",
-      "newCVS": "Новое CV"
+      "newCVS": "Новое CV",
+      "download": "Скачать",
+      "preview": "Превью",
+      "back": "Назад"
     }
   },
   "breadcrumbs": {

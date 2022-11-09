@@ -216,9 +216,8 @@ export class EmployeeCvComponent implements OnInit, OnDestroy {
         return [...acc, obj];
       },[] as IProjectFormResponseString[])
     };
-    console.log(this.cv)
     this.isPreview = !this.isPreview;
-    this.isPreview ? this.buttonLabel = 'Back' : this.buttonLabel = 'Preview';
+    this.isPreview ? this.buttonLabel = 'cvsInfo.buttons.back' : this.buttonLabel = 'cvsInfo.buttons.preview';
     this.isDownload$.next(false);
   }
 

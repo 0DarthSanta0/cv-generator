@@ -103,7 +103,10 @@
       "save": "Save",
       "delete": "Delete",
       "addCv": "Add CV",
-      "newCVS": "New CV"
+      "newCVS": "New CV",
+      "download": "Download",
+      "preview": "Preview",
+      "back": "Back"
     }
   },
   "breadcrumbs": {

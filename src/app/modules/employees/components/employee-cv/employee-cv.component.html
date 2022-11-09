@@ -62,12 +62,12 @@
                 <app-custom-button
                         class="download-btn"
                         *ngIf="isPreview"
-                        [label]="'Download'"
+                        [label]="'cvsInfo.buttons.download' | translate"
                         (click)="downloadPdf()"
                 ></app-custom-button>
 
                 <app-custom-button
-                        [label]="buttonLabel"
+                        [label]="buttonLabel | translate"
                         (click)="createPreview()"
                 ></app-custom-button>
             </div>

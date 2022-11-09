@@ -52,11 +52,13 @@
                                             formControlName="skillName"
                                             [errorsMap]="requiredField"
                                             [dataList]="allSkillsName"
+                                            class="item"
                                     ></app-autocomplete>
                                     <app-autocomplete
                                             [label]="'emplInfo.skillsContent.skillLevel' | translate"
                                             formControlName="skillLevel"
                                             [errorsMap]="requiredFieldWithLength"
+                                            class="item"
                                     ></app-autocomplete>
                                     <div class="cross" (click)="removeSkill(i)">
                                         <i class="pi pi-times"></i>
@@ -90,12 +92,14 @@
                                             formControlName="languageName"
                                             [errorsMap]="requiredField"
                                             [dataList]="allLanguagesName"
+                                            class="item"
                                     ></app-autocomplete>
                                     <app-autocomplete
                                             [label]="'emplInfo.languagesContent.languageLevel' | translate"
                                             formControlName="languageLevel"
                                             [errorsMap]="requiredFieldWithLength"
                                             [dataList]="allLanguagesName"
+                                            class="item"
                                     ></app-autocomplete>
                                     <div class="cross" (click)="removeLanguage(i)">
                                         <i class="pi pi-times"></i>
@@ -118,7 +122,7 @@
 
             <div class="save-btn">
                 <app-custom-button
-                        label="Save change"
+                        [label]="'emplInfo.buttons.save-btn' | translate"
                         type="submit"
                         [disabled]="(infoForm.invalid || infoForm.pending)"
                 ></app-custom-button>
